@@ -1,6 +1,3 @@
-Dưới đây là mã hoàn chỉnh để bạn copy:
-
-```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -8,9 +5,12 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday</title>
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-    html, body {
+    html,
+    body {
       width: 100%;
       min-height: 100%;
       margin: 0;
@@ -18,8 +18,13 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
       overflow-x: hidden;
     }
 
-    body { background: #111; }
-    button { font: inherit; }
+    body {
+      background: #111;
+    }
+
+    button {
+      font: inherit;
+    }
 
     .page {
       position: relative;
@@ -202,6 +207,10 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
       contain: layout paint style;
     }
 
+    .cake {
+      display: none;
+    }
+
     .burst {
       position: absolute;
       left: 50%;
@@ -340,52 +349,152 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
     }
 
     .photo-section {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-width: 0;
       z-index: 1;
+      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.24));
+      isolation: isolate;
+    }
+
+    .photo-section::before {
+      content: "";
+      position: absolute;
+      top: -18px;
+      bottom: -8px;
+      left: 50%;
+      width: 8px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, transparent 0 18%, rgba(255, 255, 255, 0.82) 22% 36%, transparent 42%),
+        repeating-linear-gradient(to bottom, #36e6ff 0 12px, #b8f7ff 12px 24px, #ffe66d 24px 36px);
+      box-shadow:
+        0 0 14px rgba(54, 230, 255, 0.75),
+        0 0 28px rgba(255, 230, 109, 0.32);
+      --rope-x: -50%;
+      opacity: 0;
+      transform: translateX(-50%) scaleY(0);
+      transform-origin: top center;
+      z-index: 0;
     }
 
     .photo-wrapper {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       opacity: 0;
-      transform: translateY(-50px);
-      animation: dropIn 700ms ease-out forwards;
+      transform: translateY(-50px) rotate(var(--tilt, -2deg));
+      transform-origin: top center;
+      z-index: 1;
+    }
+
+    .photo-wrapper .photo {
+      position: relative;
+      z-index: 1;
+    }
+
+    .photo-wrapper:nth-of-type(2n) {
+      --tilt: 2deg;
+    }
+
+    .photo-wrapper::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      width: 34px;
+      height: 16px;
+      border-radius: 999px 999px 8px 8px;
+      background: linear-gradient(135deg, #36e6ff, #ffe66d);
+      border: 2px solid rgba(255, 255, 255, 0.72);
+      box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.24),
+        0 0 12px rgba(54, 230, 255, 0.46);
+      transform: translateX(-50%) rotate(var(--tilt, -2deg));
+      z-index: 3;
+    }
+
+    .photo-wrapper::after {
+      content: "✦  ✧  ✦";
+      position: absolute;
+      top: -26px;
+      left: 50%;
+      color: #ffe66d;
+      font-size: 17px;
+      line-height: 1;
+      letter-spacing: 5px;
+      text-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.24),
+        0 0 10px rgba(255, 230, 109, 0.8);
+      transform: translateX(-50%);
+      z-index: 4;
     }
 
     .photo {
-      --frame-size: clamp(10px, 2vw, 20px);
+      --frame-size: clamp(8px, 1.45vw, 14px);
       width: clamp(84px, 13vw, 150px);
       aspect-ratio: 3 / 4;
       object-fit: cover;
       padding: var(--frame-size);
-      border: 0;
-      border-radius: 10px;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.32);
+      border: 2px solid rgba(255, 240, 160, 0.82);
+      border-radius: 14px;
+      box-shadow:
+        inset 0 0 0 1px rgba(54, 230, 255, 0.48),
+        inset 0 0 0 5px rgba(255, 255, 255, 0.08),
+        0 0 18px rgba(54, 230, 255, 0.34),
+        0 0 28px rgba(255, 230, 109, 0.18),
+        0 10px 18px rgba(0, 0, 0, 0.34);
       background:
-        radial-gradient(circle at 30% 30%, #e72f55 0 18%, transparent 19%) 0 0 / 22px 22px,
-        radial-gradient(circle at 70% 30%, #e72f55 0 18%, transparent 19%) 0 0 / 22px 22px,
-        linear-gradient(45deg, transparent 42%, #e72f55 43% 57%, transparent 58%) 0 0 / 22px 22px;
-      background-color: transparent;
+        linear-gradient(90deg, rgba(54, 230, 255, 0.74), rgba(54, 230, 255, 0.74)) top left / 26px 3px no-repeat,
+        linear-gradient(90deg, rgba(255, 230, 109, 0.86), rgba(255, 230, 109, 0.86)) top right / 26px 3px no-repeat,
+        linear-gradient(90deg, rgba(255, 230, 109, 0.86), rgba(255, 230, 109, 0.86)) bottom left / 26px 3px no-repeat,
+        linear-gradient(90deg, rgba(54, 230, 255, 0.74), rgba(54, 230, 255, 0.74)) bottom right / 26px 3px no-repeat,
+        linear-gradient(180deg, rgba(54, 230, 255, 0.74), rgba(54, 230, 255, 0.74)) top left / 3px 26px no-repeat,
+        linear-gradient(180deg, rgba(255, 230, 109, 0.86), rgba(255, 230, 109, 0.86)) top right / 3px 26px no-repeat,
+        linear-gradient(180deg, rgba(255, 230, 109, 0.86), rgba(255, 230, 109, 0.86)) bottom left / 3px 26px no-repeat,
+        linear-gradient(180deg, rgba(54, 230, 255, 0.74), rgba(54, 230, 255, 0.74)) bottom right / 3px 26px no-repeat,
+        rgba(255, 255, 255, 0.055);
+      backdrop-filter: blur(2px);
     }
 
     .rope-line,
     .long-top-line {
-      width: 4px;
-      background-color: #111;
+      width: 8px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, transparent 0 18%, rgba(255, 255, 255, 0.82) 22% 36%, transparent 42%),
+        repeating-linear-gradient(to bottom, #36e6ff 0 12px, #b8f7ff 12px 24px, #ffe66d 24px 36px);
+      box-shadow:
+        0 0 14px rgba(54, 230, 255, 0.72),
+        0 0 28px rgba(255, 230, 109, 0.28);
     }
 
     .rope-line {
       height: clamp(48px, 11vh, 120px);
       margin: -6px 0;
+      transform-origin: top center;
     }
 
     .long-top-line {
       height: clamp(44px, 12vh, 140px);
-      animation: dropIn 700ms ease-out forwards;
+      transform-origin: top center;
+      opacity: 0;
+      transform: scaleY(0);
+    }
+
+    #letterPage.final-reveal .photo-section::before {
+      animation: ropeDrop 1.7s cubic-bezier(.18, .78, .22, 1) forwards;
+    }
+
+    #letterPage.final-reveal .long-top-line {
+      animation: ropeDrop 1.35s cubic-bezier(.18, .78, .22, 1) .25s forwards;
+    }
+
+    #letterPage.final-reveal .photo-wrapper {
+      animation: photoDropIn 1.25s cubic-bezier(.18, .78, .22, 1.06) forwards;
     }
 
     .best-wishes-text {
@@ -408,8 +517,13 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
     }
 
     @keyframes fly {
-      from { transform: translateX(-110%); }
-      to { transform: translateX(112vw); }
+      from {
+        transform: translateX(-110%);
+      }
+
+      to {
+        transform: translateX(112vw);
+      }
     }
 
     @keyframes fall {
@@ -417,6 +531,7 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
         transform: translateY(-10vh) rotate(0deg);
         opacity: 1;
       }
+
       to {
         transform: translateY(110vh) rotate(720deg);
         opacity: 0;
@@ -431,7 +546,9 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
     }
 
     @keyframes blink {
-      50% { opacity: 0; }
+      50% {
+        opacity: 0;
+      }
     }
 
     @keyframes dustToCake {
@@ -636,6 +753,30 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
       }
     }
 
+    @keyframes photoDropIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--tilt, -2deg));
+      }
+    }
+
+    @keyframes ropeDrop {
+      0% {
+        opacity: 0;
+        transform: translateX(var(--rope-x, 0)) scaleY(0);
+      }
+
+      70% {
+        opacity: 1;
+        transform: translateX(var(--rope-x, 0)) scaleY(1.08);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(var(--rope-x, 0)) scaleY(1);
+      }
+    }
+
     @media (max-width: 820px) {
       #letterPage {
         align-items: flex-start;
@@ -664,24 +805,48 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
         font-size: clamp(0.78rem, 3.1vw, 0.98rem);
       }
 
-      .note-wrap { width: 100%; }
+      .note-wrap {
+        width: 100%;
+      }
 
       .photo {
-        --frame-size: 6px;
+        --frame-size: 5px;
         width: clamp(48px, 16vw, 70px);
         border-radius: 7px;
-        background-size: 14px 14px;
+        border-width: 1px;
+        background-size:
+          14px 2px,
+          14px 2px,
+          14px 2px,
+          14px 2px,
+          2px 14px,
+          2px 14px,
+          2px 14px,
+          2px 14px,
+          auto;
+      }
+
+      .photo-wrapper::before {
+        width: 24px;
+        height: 11px;
+        top: -7px;
+      }
+
+      .photo-wrapper::after {
+        top: -18px;
+        font-size: 12px;
+        letter-spacing: 2px;
       }
 
       .rope-line {
         height: clamp(28px, 7vh, 64px);
-        width: 2px;
+        width: 5px;
         margin: -4px 0;
       }
 
       .long-top-line {
         height: clamp(28px, 8vh, 70px);
-        width: 2px;
+        width: 5px;
       }
 
       .cute-img {
@@ -691,16 +856,22 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
     }
 
     @media (max-width: 520px) {
-      .main-content { padding: 18px; }
+      .main-content {
+        padding: 18px;
+      }
 
-      .birthday-title { margin-bottom: 20px; }
+      .birthday-title {
+        margin-bottom: 20px;
+      }
 
       .banner {
         max-width: 62vw;
         white-space: normal;
       }
 
-      .open-letter-btn { margin-top: 26vh; }
+      .open-letter-btn {
+        margin-top: 26vh;
+      }
 
       .note {
         --note-padding: 24px;
@@ -711,15 +882,6 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
       .best-wishes-text {
         top: 2.5%;
         font-size: clamp(2.3rem, 19vw, 4.4rem);
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
       }
     }
   </style>
@@ -752,15 +914,15 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
     <div class="letter-layout">
       <div class="photo-section" aria-hidden="true">
         <div class="long-top-line"></div>
-        <div class="photo-wrapper" style="animation-delay: 1.5s;">
+        <div class="photo-wrapper" style="animation-delay: 2.2s;">
           <img src="khanh4.png" alt="" class="photo">
           <div class="rope-line"></div>
         </div>
-        <div class="photo-wrapper" style="animation-delay: 2.2s;">
+        <div class="photo-wrapper" style="animation-delay: 3.9s;">
           <img src="khanh5.png" alt="" class="photo">
           <div class="rope-line"></div>
         </div>
-        <div class="photo-wrapper" style="animation-delay: 2.9s;">
+        <div class="photo-wrapper" style="animation-delay: 5.6s;">
           <img src="khanh6.png" alt="" class="photo">
         </div>
       </div>
@@ -774,15 +936,15 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
 
       <div class="photo-section" aria-hidden="true">
         <div class="long-top-line"></div>
-        <div class="photo-wrapper" style="animation-delay: 1.5s;">
+        <div class="photo-wrapper" style="animation-delay: 2.2s;">
           <img src="khanh1.png" alt="" class="photo">
           <div class="rope-line"></div>
         </div>
-        <div class="photo-wrapper" style="animation-delay: 2.2s;">
+        <div class="photo-wrapper" style="animation-delay: 3.9s;">
           <img src="khanh2.png" alt="" class="photo">
           <div class="rope-line"></div>
         </div>
-        <div class="photo-wrapper" style="animation-delay: 2.9s;">
+        <div class="photo-wrapper" style="animation-delay: 5.6s;">
           <img src="khanh3.png" alt="" class="photo">
         </div>
       </div>
@@ -1005,6 +1167,7 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
       mainPage.style.display = "none";
       letterPage.style.display = "flex";
       letterPage.classList.add("intro-playing");
+      letterPage.classList.remove("final-reveal");
       target.textContent = "";
       target.classList.add("typing");
       createCakeIntroParticles();
@@ -1043,6 +1206,7 @@ Have an absolutely wonderful birthday filled with all the things that make you h
 
             for (let i = 0; i < letters.length; i++) {
               const charElement = document.createElement("span");
+
               charElement.className = "letter-char";
               charElement.textContent = letters[i];
               charElement.style.animationDelay = i * 16 + "ms";
@@ -1067,6 +1231,7 @@ Have an absolutely wonderful birthday filled with all the things that make you h
 
       setTimeout(() => {
         letterPage.classList.remove("intro-playing");
+        letterPage.classList.add("final-reveal");
         createConfetti();
         setTimeout(typeText, 850);
       }, 22000);
@@ -1075,8 +1240,6 @@ Have an absolutely wonderful birthday filled with all the things that make you h
 </body>
 </html>
 ```
-
-
 
 
 
