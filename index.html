@@ -8,12 +8,9 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html,
-    body {
+    html, body {
       width: 100%;
       min-height: 100%;
       margin: 0;
@@ -21,13 +18,8 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
       overflow-x: hidden;
     }
 
-    body {
-      background: #111;
-    }
-
-    button {
-      font: inherit;
-    }
+    body { background: #111; }
+    button { font: inherit; }
 
     .page {
       position: relative;
@@ -69,10 +61,10 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
 
     .birthday-title span {
       display: block;
-      color: #111;
+      color: #ffc0da;
       text-shadow:
-        0 2px 0 rgba(255, 255, 255, 0.55),
-        0 4px 14px rgba(255, 192, 218, 0.65);
+        0 4px 14px rgba(0, 0, 0, 0.75),
+        0 0 12px rgba(255, 192, 218, 0.5);
     }
 
     .plane-banner {
@@ -192,7 +184,7 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
     .dust {
       position: absolute;
       left: 50%;
-      bottom: 5%;
+      bottom: -7%;
       width: calc(var(--size) * 1px);
       height: calc(var(--size) * 1px);
       border-radius: 50%;
@@ -200,18 +192,14 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
       opacity: 0;
       transform:
         translateX(calc(var(--x) * 1px))
-        translateY(calc(var(--start-y) * 1px))
+        translateY(calc(var(--ground-y) * -1px))
         scale(0.35);
-      box-shadow: 0 0 12px currentColor;
+      box-shadow: 0 0 7px currentColor;
       color: var(--color);
-      animation: dustToCake 10400ms cubic-bezier(0.18, 0.82, 0.28, 1) forwards;
+      animation: dustToCake 22000ms linear forwards;
       animation-delay: calc(var(--delay) * 1ms);
       will-change: transform, opacity;
       contain: layout paint style;
-    }
-
-    .cake {
-      display: none;
     }
 
     .burst {
@@ -224,9 +212,9 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
       background: var(--color);
       opacity: 0;
       transform: translate(-50%, -50%) scale(0.2);
-      box-shadow: 0 0 12px currentColor;
+      box-shadow: 0 0 8px currentColor;
       color: var(--color);
-      animation: cakeSpark 1400ms ease-out 10400ms forwards;
+      animation: cakeSpark 1600ms ease-out 21600ms forwards;
       will-change: transform, opacity;
       contain: layout paint style;
     }
@@ -420,13 +408,8 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
     }
 
     @keyframes fly {
-      from {
-        transform: translateX(-110%);
-      }
-
-      to {
-        transform: translateX(112vw);
-      }
+      from { transform: translateX(-110%); }
+      to { transform: translateX(112vw); }
     }
 
     @keyframes fall {
@@ -434,7 +417,6 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
         transform: translateY(-10vh) rotate(0deg);
         opacity: 1;
       }
-
       to {
         transform: translateY(110vh) rotate(720deg);
         opacity: 0;
@@ -449,9 +431,7 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
     }
 
     @keyframes blink {
-      50% {
-        opacity: 0;
-      }
+      50% { opacity: 0; }
     }
 
     @keyframes dustToCake {
@@ -459,30 +439,143 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
         opacity: 0;
         transform:
           translateX(calc(var(--x) * 1px))
-          translateY(calc(var(--start-y) * 1px))
+          translateY(calc(var(--ground-y) * -1px))
           scale(0.25);
       }
 
-      18% {
+      10% {
         opacity: 0.95;
-      }
-
-      42% {
         transform:
-          translateX(calc(var(--swirl-x) * 1px))
-          translateY(calc(var(--swirl-y) * -1px))
-          rotate(260deg)
-          scale(0.9);
+          translateX(calc(var(--ground-ring-x) * 1px))
+          translateY(calc(var(--ground-ring-y) * -1px))
+          rotate(180deg)
+          scale(0.72);
       }
 
-      64%,
-      84% {
+      22% {
+        transform:
+          translateX(calc(var(--vortex-x-a) * 1px))
+          translateY(calc(var(--vortex-y-a) * -1px))
+          rotate(620deg)
+          scale(0.92);
+      }
+
+      30% {
+        transform:
+          translateX(calc(var(--vortex-x-spin-1) * 1px))
+          translateY(calc(var(--vortex-y-spin-1) * -1px))
+          rotate(960deg)
+          scale(0.98);
+      }
+
+      38% {
+        transform:
+          translateX(calc(var(--vortex-x-b) * 1px))
+          translateY(calc(var(--vortex-y-b) * -1px))
+          rotate(1300deg)
+          scale(1);
+      }
+
+      46% {
+        transform:
+          translateX(calc(var(--vortex-x-spin-2) * 1px))
+          translateY(calc(var(--vortex-y-spin-2) * -1px))
+          rotate(1640deg)
+          scale(1.02);
+      }
+
+      54% {
+        transform:
+          translateX(calc(var(--vortex-x-c) * 1px))
+          translateY(calc(var(--vortex-y-c) * -1px))
+          rotate(1980deg)
+          scale(1.04);
+      }
+
+      62% {
+        transform:
+          translateX(calc(var(--vortex-x-spin-3) * 1px))
+          translateY(calc(var(--vortex-y-spin-3) * -1px))
+          rotate(2320deg)
+          scale(1.04);
+      }
+
+      66% {
+        transform:
+          translateX(calc(var(--vortex-x-spin-4) * 1px))
+          translateY(calc(var(--vortex-y-spin-4) * -1px))
+          rotate(2660deg)
+          scale(1.06);
+      }
+
+      70% {
+        transform:
+          translateX(calc(var(--near-merge-x) * 1px))
+          translateY(calc(var(--near-merge-y) * -1px))
+          rotate(2840deg)
+          scale(1.1);
+      }
+
+      76% {
+        transform:
+          translateX(calc(var(--merge-x) * 1px))
+          translateY(calc(var(--merge-y) * -1px))
+          rotate(2920deg)
+          scale(1.18);
+      }
+
+      80% {
         opacity: 1;
         transform:
           translateX(calc(var(--end-x) * 1px))
           translateY(calc(var(--end-y) * -1px))
-          rotate(720deg)
+          rotate(3180deg)
           scale(1);
+      }
+
+      84% {
+        opacity: var(--twinkle-low);
+        transform:
+          translateX(calc((var(--end-x) + var(--twinkle-x)) * 1px))
+          translateY(calc((var(--end-y) + var(--twinkle-y)) * -1px))
+          rotate(3180deg)
+          scale(var(--twinkle-scale));
+      }
+
+      88% {
+        opacity: 1;
+        transform:
+          translateX(calc(var(--end-x) * 1px))
+          translateY(calc(var(--end-y) * -1px))
+          rotate(3180deg)
+          scale(1.18);
+      }
+
+      91% {
+        opacity: var(--twinkle-high);
+        transform:
+          translateX(calc((var(--end-x) - var(--twinkle-x)) * 1px))
+          translateY(calc((var(--end-y) - var(--twinkle-y)) * -1px))
+          rotate(3180deg)
+          scale(1.04);
+      }
+
+      94% {
+        opacity: 1;
+        transform:
+          translateX(calc(var(--end-x) * 1px))
+          translateY(calc(var(--end-y) * -1px))
+          rotate(3180deg)
+          scale(1.15);
+      }
+
+      97% {
+        opacity: var(--twinkle-low);
+        transform:
+          translateX(calc((var(--end-x) + var(--twinkle-x)) * 1px))
+          translateY(calc((var(--end-y) + var(--twinkle-y)) * -1px))
+          rotate(3180deg)
+          scale(var(--twinkle-scale));
       }
 
       100% {
@@ -490,44 +583,8 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
         transform:
           translateX(calc((var(--end-x) + var(--explode-x)) * 1px))
           translateY(calc((var(--end-y) + var(--explode-y)) * -1px))
-          rotate(720deg)
+          rotate(3180deg)
           scale(1.85);
-      }
-    }
-
-    @keyframes cakeAppear {
-      0% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(90px) scale(0.18) rotate(-18deg);
-      }
-
-      72% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(-10px) scale(1.08) rotate(3deg);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0) scale(1) rotate(0deg);
-      }
-    }
-
-    @keyframes cakeBurst {
-      0% {
-        opacity: 1;
-        filter: brightness(1);
-      }
-
-      55% {
-        opacity: 1;
-        transform: translateX(-50%) scale(1.18);
-        filter: brightness(1.7);
-      }
-
-      100% {
-        opacity: 0;
-        transform: translateX(-50%) scale(1.7);
-        filter: brightness(2.4) blur(6px);
       }
     }
 
@@ -545,16 +602,6 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
             calc(-50% + var(--burst-y) * 1px)
           )
           scale(1.15);
-      }
-    }
-
-    @keyframes flameFlicker {
-      from {
-        transform: translateX(-50%) scale(0.9) rotate(-5deg);
-      }
-
-      to {
-        transform: translateX(-50%) scale(1.12) rotate(6deg);
       }
     }
 
@@ -590,56 +637,85 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
     }
 
     @media (max-width: 820px) {
+      #letterPage {
+        align-items: flex-start;
+        overflow-y: auto;
+        padding: 12px 6px 18px;
+      }
+
       .letter-layout {
-        grid-template-columns: 1fr;
-        align-items: center;
-        margin-top: clamp(72px, 12vh, 112px);
+        width: 100%;
+        grid-template-columns: minmax(48px, 70px) minmax(0, 1fr) minmax(48px, 70px);
+        gap: 6px;
+        align-items: start;
+        margin-top: clamp(82px, 16vh, 132px);
       }
 
       .photo-section {
-        display: none;
+        display: flex;
+        min-width: 0;
       }
 
       .note {
-        width: min(100%, 520px);
-        min-height: min(560px, 76svh);
-        max-height: 78svh;
+        --line-height: 24px;
+        width: 100%;
+        min-height: min(520px, 68svh);
+        max-height: 70svh;
+        font-size: clamp(0.78rem, 3.1vw, 0.98rem);
       }
 
-      .note-wrap {
-        width: min(100%, 520px);
+      .note-wrap { width: 100%; }
+
+      .photo {
+        --frame-size: 6px;
+        width: clamp(48px, 16vw, 70px);
+        border-radius: 7px;
+        background-size: 14px 14px;
+      }
+
+      .rope-line {
+        height: clamp(28px, 7vh, 64px);
+        width: 2px;
+        margin: -4px 0;
+      }
+
+      .long-top-line {
+        height: clamp(28px, 8vh, 70px);
+        width: 2px;
+      }
+
+      .cute-img {
+        width: clamp(42px, 13vw, 58px);
+        transform: translate(-42%, -62%) rotate(-8deg);
       }
     }
 
     @media (max-width: 520px) {
-      .main-content {
-        padding: 18px;
-      }
+      .main-content { padding: 18px; }
 
-      .birthday-title {
-        margin-bottom: 20px;
-      }
+      .birthday-title { margin-bottom: 20px; }
 
       .banner {
         max-width: 62vw;
         white-space: normal;
       }
 
-      .open-letter-btn {
-        margin-top: 26vh;
-      }
+      .open-letter-btn { margin-top: 26vh; }
 
       .note {
         --note-padding: 24px;
-        padding-inline: 18px;
+        padding-inline: 12px;
         border-radius: 14px;
+      }
+
+      .best-wishes-text {
+        top: 2.5%;
+        font-size: clamp(2.3rem, 19vw, 4.4rem);
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
+      *, *::before, *::after {
         scroll-behavior: auto !important;
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
@@ -719,10 +795,7 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
     let confettiCreated = false;
 
     function createConfetti() {
-      if (confettiCreated) {
-        return;
-      }
-
+      if (confettiCreated) return;
       confettiCreated = true;
 
       for (let i = 0; i < confettiCount; i++) {
@@ -752,10 +825,10 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
       const intro = document.getElementById("cakeIntro");
       const layerColors = ["#ffd60a", "#ffb703", "#ff9f1c", "#ffe66d", "#fff3b0", "#f77f00"];
       const flameColors = ["#fff700", "#ffd60a", "#ff9f1c", "#ffffff"];
-      const textColors = ["#ffd60a", "#ffb703", "#ffe66d", "#fff3b0", "#f77f00"];
+      const textColors = ["#fff8c7", "#fff3a3", "#ffe66d", "#ffd60a"];
       const burstColors = ["#ffd60a", "#ffb703", "#ff9f1c", "#fff3b0", "#f77f00", "#ffffff"];
-      const fitByHeight = (window.innerHeight * 0.9 / 650) * 560;
-      const cakeWidth = Math.min(window.innerWidth * 0.96, fitByHeight, 780);
+      const fitByHeight = (window.innerHeight * 0.94 / 650) * 840;
+      const cakeWidth = Math.min(window.innerWidth * 1.08, fitByHeight, 1120);
       const scale = cakeWidth / 560;
       const targets = [];
       const particleFragment = document.createDocumentFragment();
@@ -780,30 +853,31 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
       }
 
       function addCandle(x) {
-        addCakeArea(24, { x, y: 360, w: 30, h: 92, colors: ["#fff3b0", "#ffd60a", "#ffb703"], size: 5.8 });
-        addCakeArea(24, { x, y: 442, w: 62, h: 66, colors: flameColors, size: 6.4 });
+        addCakeArea(28, { x, y: 360, w: 30, h: 92, colors: ["#fff3b0", "#ffd60a", "#ffb703"], size: 5.5 });
+        addCakeArea(28, { x, y: 442, w: 62, h: 66, colors: flameColors, size: 6 });
       }
 
       function addTextTargets(lines) {
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
-        const fontSize = 104;
-        const sampleGap = window.innerWidth < 680 ? 8 : 7;
-        const lineHeight = 106;
+        const fontSize = 126;
+        const sampleGap = window.innerWidth < 680 ? 12 : 10;
+        const lineHeight = 122;
 
-        canvas.width = 1080;
-        canvas.height = 238;
+        canvas.width = 1180;
+        canvas.height = 300;
         context.clearRect(0, 0, canvas.width, canvas.height);
-        context.fillStyle = "#ffd60a";
+        context.fillStyle = "#fff3b0";
         context.strokeStyle = "#ffd60a";
-        context.lineWidth = 7;
+        context.lineWidth = 1.4;
         context.lineJoin = "round";
+        context.lineCap = "round";
         context.textAlign = "center";
         context.textBaseline = "middle";
-        context.font = `900 ${fontSize}px "Arial Rounded MT Bold", "Cooper Black", "Trebuchet MS", Arial, sans-serif`;
 
         lines.forEach((line, index) => {
           const y = 72 + index * lineHeight;
+          context.font = `800 ${fontSize}px "Arial Rounded MT Bold", "Trebuchet MS", "Segoe UI", Arial, sans-serif`;
           context.strokeText(line, canvas.width / 2, y);
           context.fillText(line, canvas.width / 2, y);
         });
@@ -814,51 +888,94 @@ Dưới đây là mã hoàn chỉnh để bạn copy:
           for (let x = 0; x < canvas.width; x += sampleGap) {
             const alpha = pixels[(y * canvas.width + x) * 4 + 3];
 
-            if (alpha > 80) {
+            if (alpha > 84) {
               targets.push({
-                x: (x - canvas.width / 2) * 0.54,
-                y: 516 + (canvas.height - y) * 0.56,
+                x: (x - canvas.width / 2) * 0.4,
+                y: 548 + (canvas.height - y) * 0.22,
                 color: textColors[(x + y) % textColors.length],
-                size: 6.15,
+                size: 4.7,
               });
             }
           }
         }
       }
 
-      addCakeArea(150, { x: 0, y: 96, w: 550, h: 142, colors: ["#ffd60a", "#ffb703", "#ff9f1c", "#fff3b0"], size: 8.7 });
-      addCakeArea(104, { x: 0, y: 220, w: 448, h: 120, colors: ["#ffe66d", "#ffd60a", "#f77f00", "#fff3b0"], size: 8.2 });
-      addCakeArea(78, { x: 0, y: 308, w: 314, h: 96, colors: ["#ffb703", "#ff9f1c", "#ffd60a", "#fff3b0"], size: 7.8 });
-      addCakeLine(76, { x1: -276, y1: 168, x2: 276, y2: 168, jitter: 16, colors: ["#fff3b0", "#ffd60a", "#ffb703"], size: 9 });
-      addCakeLine(62, { x1: -226, y1: 268, x2: 226, y2: 268, jitter: 14, colors: ["#fff3b0", "#ffd60a", "#ffb703"], size: 8.5 });
-      addCakeLine(54, { x1: -164, y1: 350, x2: 164, y2: 350, jitter: 12, colors: ["#fff3b0", "#ffd60a", "#ffb703"], size: 8 });
+      addCakeArea(168, { x: 0, y: 96, w: 550, h: 142, colors: ["#ffd60a", "#ffb703", "#ff9f1c", "#fff3b0"], size: 8.4 });
+      addCakeArea(118, { x: 0, y: 220, w: 448, h: 120, colors: ["#ffe66d", "#ffd60a", "#f77f00", "#fff3b0"], size: 8 });
+      addCakeArea(92, { x: 0, y: 308, w: 314, h: 96, colors: ["#ffb703", "#ff9f1c", "#ffd60a", "#fff3b0"], size: 7.6 });
+      addCakeLine(86, { x1: -276, y1: 168, x2: 276, y2: 168, jitter: 14, colors: ["#fff3b0", "#ffd60a", "#ffb703"], size: 8.5 });
+      addCakeLine(72, { x1: -226, y1: 268, x2: 226, y2: 268, jitter: 12, colors: ["#fff3b0", "#ffd60a", "#ffb703"], size: 8 });
+      addCakeLine(62, { x1: -164, y1: 350, x2: 164, y2: 350, jitter: 10, colors: ["#fff3b0", "#ffd60a", "#ffb703"], size: 7.6 });
       addCandle(-118);
       addCandle(0);
       addCandle(118);
-      addCakeLine(26, { x1: -260, y1: 34, x2: 260, y2: 34, jitter: 12, colors: ["#ffd60a", "#ffb703", "#fff3b0"], size: 7.5 });
-      addCakeLine(20, { x1: -210, y1: 342, x2: -148, y2: 342, jitter: 10, colors: ["#ffd60a", "#fff3b0"], size: 7 });
-      addCakeLine(20, { x1: 148, y1: 342, x2: 210, y2: 342, jitter: 10, colors: ["#ffd60a", "#fff3b0"], size: 7 });
+      addCakeLine(34, { x1: -260, y1: 34, x2: 260, y2: 34, jitter: 10, colors: ["#ffd60a", "#ffb703", "#fff3b0"], size: 7.2 });
+      addCakeLine(22, { x1: -210, y1: 342, x2: -148, y2: 342, jitter: 8, colors: ["#ffd60a", "#fff3b0"], size: 6.7 });
+      addCakeLine(22, { x1: 148, y1: 342, x2: 210, y2: 342, jitter: 8, colors: ["#ffd60a", "#fff3b0"], size: 6.7 });
       addTextTargets(["Happy Birthday", "Minh Khanh"]);
 
       targets.forEach((target, i) => {
         const dust = document.createElement("span");
-        const angle = i * 0.37;
-        const radius = 70 + (i % 120) * 2.2;
+        const angle = i * 0.52;
+        const side = i % 2 === 0 ? -1 : 1;
+        const heightBand = i % 170;
+        const heightProgress = heightBand / 169;
+        const armPhase = (i % 4) * Math.PI * 0.5;
+        const helixA = angle + armPhase + heightProgress * Math.PI * 7.4;
+        const helixB = angle + armPhase + heightProgress * Math.PI * 9.8;
+        const helixC = angle + armPhase + heightProgress * Math.PI * 12.2;
+        const helixSpin1 = helixA + Math.PI * 1.25;
+        const helixSpin2 = helixB + Math.PI * 1.55;
+        const helixSpin3 = helixC + Math.PI * 1.85;
+        const helixSpin4 = helixC + Math.PI * 3.15;
+        const layer = 0.42 + ((i * 37) % 100) / 100 * 0.58;
+        const funnelCurve = Math.pow(heightProgress, 0.72);
+        const tornadoRadius = (18 + funnelCurve * 132) * layer * scale;
+        const tornadoHeight = (70 + heightProgress * 520) * scale;
+        const baseSpread = window.innerWidth * 0.18;
+        const groundCenter = side * baseSpread;
+        const vortexA = side * window.innerWidth * 0.3;
+        const vortexB = side * window.innerWidth * 0.25;
+        const vortexC = side * window.innerWidth * 0.12;
 
         dust.className = "dust";
         dust.style.setProperty("--color", target.color || layerColors[i % layerColors.length]);
         dust.style.setProperty("--size", (target.size * scale).toFixed(2));
-        dust.style.setProperty("--x", Math.random() * window.innerWidth - window.innerWidth / 2);
-        dust.style.setProperty("--start-y", Math.random() * 40 - 20);
-        dust.style.setProperty("--swirl-x", Math.cos(angle) * radius * scale);
-        dust.style.setProperty("--swirl-y", (165 + Math.sin(angle) * radius) * scale);
+        dust.style.setProperty("--x", groundCenter + (Math.random() - 0.5) * window.innerWidth * 0.24);
+        dust.style.setProperty("--ground-y", 14 + Math.random() * 34);
+        dust.style.setProperty("--ground-ring-x", groundCenter + Math.cos(angle) * (52 + Math.random() * 48) * scale);
+        dust.style.setProperty("--ground-ring-y", (42 + Math.sin(angle) * 20) * scale);
+        dust.style.setProperty("--vortex-x-a", vortexA + Math.cos(helixA) * tornadoRadius);
+        dust.style.setProperty("--vortex-y-a", tornadoHeight + Math.sin(helixA) * 12 * scale);
+        dust.style.setProperty("--vortex-x-spin-1", vortexA + Math.cos(helixSpin1) * tornadoRadius * 1.08);
+        dust.style.setProperty("--vortex-y-spin-1", tornadoHeight + Math.sin(helixSpin1) * 20 * scale);
+        dust.style.setProperty("--vortex-x-b", vortexB + Math.cos(helixB) * tornadoRadius * 0.96);
+        dust.style.setProperty("--vortex-y-b", tornadoHeight + Math.sin(helixB) * 18 * scale);
+        dust.style.setProperty("--vortex-x-spin-2", vortexB + Math.cos(helixSpin2) * tornadoRadius * 1.02);
+        dust.style.setProperty("--vortex-y-spin-2", tornadoHeight + Math.sin(helixSpin2) * 24 * scale);
+        dust.style.setProperty("--vortex-x-c", vortexC + Math.cos(helixC) * tornadoRadius * 0.82);
+        dust.style.setProperty("--vortex-y-c", tornadoHeight + Math.sin(helixC) * 22 * scale);
+        dust.style.setProperty("--vortex-x-spin-3", vortexC + Math.cos(helixSpin3) * tornadoRadius * 0.9);
+        dust.style.setProperty("--vortex-y-spin-3", tornadoHeight + Math.sin(helixSpin3) * 26 * scale);
+        dust.style.setProperty("--vortex-x-spin-4", vortexC + Math.cos(helixSpin4) * tornadoRadius * 0.72);
+        dust.style.setProperty("--vortex-y-spin-4", tornadoHeight + Math.sin(helixSpin4) * 24 * scale);
+        dust.style.setProperty("--near-merge-x", side * window.innerWidth * 0.055 + Math.cos(helixSpin4) * tornadoRadius * 0.45);
+        dust.style.setProperty("--near-merge-y", (target.y * 0.58 + 118 + Math.sin(helixSpin4) * 22) * scale);
+        dust.style.setProperty("--merge-x", target.x * scale * 0.12 + Math.sin(helixC) * 22 * scale);
+        dust.style.setProperty("--merge-y", (target.y * 0.74 + 74 + Math.cos(helixC) * 18) * scale);
         dust.style.setProperty("--end-x", target.x * scale);
         dust.style.setProperty("--end-y", target.y * scale);
+        dust.style.setProperty("--twinkle-x", ((Math.random() - 0.5) * 8 * scale).toFixed(2));
+        dust.style.setProperty("--twinkle-y", ((Math.random() - 0.5) * 8 * scale).toFixed(2));
+        dust.style.setProperty("--twinkle-scale", (1.06 + Math.random() * 0.1).toFixed(2));
+        dust.style.setProperty("--twinkle-low", (0.68 + Math.random() * 0.18).toFixed(2));
+        dust.style.setProperty("--twinkle-high", (0.9 + Math.random() * 0.1).toFixed(2));
+
         const explodeAngle = Math.atan2(target.y - 260, target.x || (Math.random() - 0.5));
         const explodeDistance = (120 + Math.random() * 210) * scale;
         dust.style.setProperty("--explode-x", Math.cos(explodeAngle) * explodeDistance);
         dust.style.setProperty("--explode-y", Math.sin(explodeAngle) * explodeDistance);
-        dust.style.setProperty("--delay", Math.random() * 900);
+        dust.style.setProperty("--delay", Math.random() * 420);
 
         particleFragment.appendChild(dust);
       });
@@ -926,7 +1043,6 @@ Have an absolutely wonderful birthday filled with all the things that make you h
 
             for (let i = 0; i < letters.length; i++) {
               const charElement = document.createElement("span");
-
               charElement.className = "letter-char";
               charElement.textContent = letters[i];
               charElement.style.animationDelay = i * 16 + "ms";
@@ -953,14 +1069,12 @@ Have an absolutely wonderful birthday filled with all the things that make you h
         letterPage.classList.remove("intro-playing");
         createConfetti();
         setTimeout(typeText, 850);
-      }, 12000);
+      }, 22000);
     }
   </script>
 </body>
 </html>
 ```
-
-
 
 
 
