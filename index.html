@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .background-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .title, .title1, .title2 {
+      position: absolute;
+      color: pink;
+      font-family: 'Pacifico', cursive;
+      font-style: italic;
+      font-size: 80px;
+      font-weight: bold;
+      text-shadow: 3px 3px 8px black;
+      z-index: 2;
+    }
+
+    .title {
+      top: 20%;
+      left: 50%;
+      transform: translate(-60%, -100%);
+    }
+
+    .title1 {
+      top: 20%;
+      left: 50%;
+      transform: translate(-5%, -130%) rotate(-40deg);
+    }
+
+    .title2 {
+      top: 21%;
+      left: 60%;
+      color:black;
+      transform: translate(-70%, -25%);
+    }
+
+    .plane-banner {
+      position: absolute;
+      top: 48%;
+      left: -500px;
+      display: flex;
+      align-items: center;
+      animation: fly 12s linear infinite;
+      z-index: 3;
+    }
+
+    .plane-img {
+      width: 140px;
+      transform: translateY(3px);
+    }
+
+    .rope {
+      width: 80px;
+      height: 2px;
+      background-color: #555;
+      margin-right: -20px;
+      transform: translateY(-3px);
+    }
+
+    .banner {
+      background-color: white;
+      color: #e91e63;
+      padding: 12px 40px;
+      border-radius: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      border: 2px solid #e91e63;
+      white-space: nowrap;
+    }
+
+    .confetti {
+      position: absolute;
+      background-color: red;
+      opacity: 0.7;
+      border-radius: 50%;
+      animation: fall 3s linear infinite;
+      z-index: 4;
+    }
+
+    @keyframes fly {
+      from { left: -600px; }
+      to { left: 120%; }
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    .open-letter-btn {
+      position: absolute;
+      bottom: 725px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 15px 30px;
+      font-size: 20px;
+      background-color: white;
+      border: 2px solid #e91e63;
+      border-radius: 30px;
+      color: #e91e63;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+      z-index: 5;
+    }
+
+    #letterPage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('kk.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .note {
+      width: 500px;
+      height: 700px;
+      background-color: #fff8dc;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 28px,
+        rgba(0, 0, 0, 0.5) 29px
+      );
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      padding-top: 30px;
+      border-radius: 20px;
+      font-size: 20px;
+      line-height: 28px;
+      overflow-y: auto;
+      opacity: 0;
+      transform: translateY(100px);
+      animation: slideUpFade 1s ease-out forwards;
+      z-index: 2;
+    }
+
+    @keyframes slideUpFade {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #letterText::after {
+      content: '|';
+      animation: blink 1s step-start infinite;
+      color: black;
+      font-weight: bold;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .photo-section, .photo-section2 {
+      position: absolute;
+      top: 10%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1;
+    }
+
+    .photo-section { left: 80%; }
+    .photo-section2 { right: 80%; }
+
+    .photo-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 10px;
+      opacity: 0;
+      transform: translateY(-50px);
+      animation: dropIn 0.7s ease-out forwards;
+    }
+
+    .photo {
+      width: 150px;
+      height: auto;
+      border-width: 20px;
+      border-style: solid;
+      border-image: url('kom.png') 60 round;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .rope-line, .rope-line2, .long-top-line, .long-top-line2 {
+      width: 4px;
+      background-color: black;
+    }
+
+    .rope-line, .rope-line2 {
+      height: 120px;
+      margin: -6px 0;
+    }
+
+    .long-top-line, .long-top-line2 {
+      height: 280px;
+      margin-top:-127px;
+      animation: dropIn 0.7s ease-out forwards;
+    }
+
+    .best-wishes-text {
+      position: absolute;
+      top: 5%;
+      left:50%;
+      transform: translateX(-50%);
+      font-size: 150px;
+      font-family: 'Lobster', cursive;
+      color: red;
+      font-weight: 1000;
+      opacity: 0.3;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes dropIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="mainPage">
+    <img class="background-img" src="kk.jpg" alt="Background Image">
+    <h1 class="title">Happy 🎉</h1>
+    <h2 class="title2">Birthday</h2>
+    <h3 class="title1">🎉</h3>
+
+    <div class="plane-banner">
+      <div class="banner">🎈 Chúc chị tui sinh nhật zui zẻ! hé hé hé 🎉</div>
+      <div class="rope"></div>
+      <img src="kimm.png" alt="plane" class="plane-img">
+    </div>
+
+    <button class="open-letter-btn" onclick="showLetter()">📩 Mở thư</button>
+  </div>
+
+  <div id="letterPage">
+    <div class="note">
+      <div id="letterText"></div>
+    </div>
+
+    <img src="khanh11.png" alt="cute" style="width:120px; margin-bottom: 550px;">
+
+    <div class="photo-section">
+      <div class="long-top-line"></div>
+      <div class="photo-wrapper" style="animation-delay: 1.5s;"><img src="khanh1.png" class="photo"><div class="rope-line"></div></div>
+      <div class="photo-wrapper" style="animation-delay: 2.2s;"><img src="khanh2.png" class="photo"><div class="rope-line"></div></div>
+      <div class="photo-wrapper" style="animation-delay: 2.9s;"><img src="khanh3.png" class="photo"></div>
+    </div>
+
+    <div class="photo-section2">
+      <div class="long-top-line2"></div>
+      <div class="photo-wrapper" style="animation-delay: 1.5s;"><img src="khanh4.png" class="photo"><div class="rope-line"></div></div>
+      <div class="photo-wrapper" style="animation-delay: 2.2s;"><img src="khanh5.png" class="photo"><div class="rope-line"></div></div>
+      <div class="photo-wrapper" style="animation-delay: 2.9s;"><img src="khanh6.png" class="photo"></div>
+    </div>
+
+    <div class="best-wishes-text">Best Wishes</div>
+  </div>
+
+  <script>
+    for (let i = 0; i < 100; i++) {
+      let confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.backgroundColor = ["#ff0", "#f0f", "#0ff", "#0f0", "#f00", "#00f"][Math.floor(Math.random() * 6)];
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.top = Math.random() * -100 + "px";
+      const size = Math.random() * 8 + 5;
+      confetti.style.width = size + "px";
+      confetti.style.height = size + "px";
+      confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+      document.body.appendChild(confetti);
+    }
+
+    function showLetter() {
+      document.getElementById('mainPage').style.display = 'none';
+      document.getElementById('letterPage').style.display = 'flex';
+
+      const letter = `On this special day, I hope the world showers you with all the happiness and love you truly deserve.
+You're an incredible person who brings light wherever you go, and today is just another reminder of how amazing you are.
+Have an absolutely wonderful birthday filled with all the things that make you happiest.
+
+✨ Yours truly,
+- KHANH TOAN ❤️`;
+
+      let index = 0;
+      const speed = 40;
+      const target = document.getElementById("letterText");
+
+      function typeText() {
+        if (index < letter.length) {
+          target.textContent += letter.charAt(index);
+          index++;
+          setTimeout(typeText, speed);
+        }
+      }
+
+      setTimeout(typeText, 1000);
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

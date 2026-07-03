@@ -1,0 +1,1390 @@
+/* =======================================
+   RESET
+======================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    overflow:hidden;
+
+    background:#fff;
+
+    color:#333;
+
+}
+
+/* =======================================
+   BACKGROUND
+======================================= */
+
+.background{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    z-index:-3;
+
+}
+
+.overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(0,0,0,.28);
+
+    backdrop-filter:blur(2px);
+
+    z-index:-2;
+
+}
+
+.page2-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(255,255,255,.18);
+
+    backdrop-filter:blur(6px);
+
+    z-index:-2;
+
+}
+
+/* =======================================
+   PAGE
+======================================= */
+
+section{
+
+    position:relative;
+
+    width:100%;
+
+    min-height:100vh;
+
+    overflow:hidden;
+
+}
+
+/* =======================================
+   TITLE
+======================================= */
+
+.title-box{
+
+    position:absolute;
+
+    top:12%;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    text-align:center;
+
+    z-index:5;
+
+}
+
+.title-box h1{
+
+    font-family:'Lobster',cursive;
+
+    color:#ffb8d4;
+
+    text-shadow:0 6px 18px rgba(0,0,0,.45);
+
+    font-size:clamp(3rem,8vw,6rem);
+
+}
+
+.title-box span{
+
+    display:inline-block;
+
+    animation:spin 3s linear infinite;
+
+}
+
+.title-box h2{
+
+    font-family:'Lobster',cursive;
+
+    color:white;
+
+    margin-top:-10px;
+
+    font-size:clamp(2.5rem,7vw,5rem);
+
+    text-shadow:0 6px 18px rgba(0,0,0,.45);
+
+}
+
+.title-box p{
+
+    margin-top:18px;
+
+    color:white;
+
+    font-size:clamp(1rem,2vw,1.3rem);
+
+    letter-spacing:2px;
+
+}
+
+@keyframes spin{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/* =======================================
+   PLANE
+======================================= */
+
+.plane-wrapper{
+
+    position:absolute;
+
+    top:42%;
+
+    left:-650px;
+
+    display:flex;
+
+    align-items:center;
+
+    animation:fly 15s linear infinite;
+
+    z-index:6;
+
+}
+
+.banner{
+
+    background:white;
+
+    padding:14px 34px;
+
+    border-radius:40px;
+
+    color:#ff4d88;
+
+    font-weight:700;
+
+    font-size:clamp(.9rem,2vw,1.25rem);
+
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+
+    white-space:nowrap;
+
+}
+
+.rope{
+
+    width:90px;
+
+    height:2px;
+
+    background:#555;
+
+}
+
+.plane{
+
+    width:clamp(90px,10vw,150px);
+
+}
+
+@keyframes fly{
+
+    from{
+
+        transform:translateX(0);
+
+    }
+
+    to{
+
+        transform:translateX(calc(100vw + 900px));
+
+    }
+
+}
+
+/* =======================================
+   ENVELOPE
+======================================= */
+
+.envelope-wrapper{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:8%;
+
+    transform:translateX(-50%);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:25px;
+
+}
+
+.envelope{
+
+    position:relative;
+
+    width:min(420px,90vw);
+
+    aspect-ratio:1.45;
+
+    filter:drop-shadow(0 18px 35px rgba(0,0,0,.35));
+
+}
+
+.envelope-back{
+
+    position:absolute;
+
+    inset:0;
+
+    background:#ffe6ef;
+
+    border-radius:10px;
+
+}
+
+.envelope-top{
+
+    position:absolute;
+
+    inset:0;
+
+    background:#ffc6db;
+
+    clip-path:polygon(0 0,50% 52%,100% 0);
+
+    transform-origin:top;
+
+    transition:.9s;
+
+    z-index:10;
+
+}
+
+.letter-preview{
+
+    position:absolute;
+
+    inset:18px;
+
+    border-radius:8px;
+
+    background:white;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:20px;
+
+}
+
+.letter-preview h2{
+
+    font-size:3rem;
+
+}
+
+.letter-preview h3{
+
+    margin-top:10px;
+
+    color:#ff4d88;
+
+}
+
+.letter-preview p{
+
+    margin-top:12px;
+
+    line-height:1.7;
+
+}
+
+#openBtn{
+
+    border:none;
+
+    background:#ff4d88;
+
+    color:white;
+
+    padding:16px 42px;
+
+    border-radius:50px;
+
+    font-size:1rem;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+#openBtn:hover{
+
+    transform:translateY(-4px) scale(1.05);
+
+    box-shadow:0 12px 30px rgba(255,77,136,.4);
+
+}
+/* =======================================
+   PAGE 2
+======================================= */
+
+#letterPage{
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    position:relative;
+
+}
+
+.bestWish{
+
+    position:absolute;
+
+    top:3%;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    font-family:'Lobster',cursive;
+
+    font-size:clamp(4rem,10vw,8rem);
+
+    color:rgba(255,255,255,.25);
+
+    pointer-events:none;
+
+    user-select:none;
+
+}
+
+/* =======================================
+   LAYOUT
+======================================= */
+
+.page2-container{
+
+    width:min(1500px,95vw);
+
+    display:grid;
+
+    grid-template-columns:220px 1fr 220px;
+
+    align-items:center;
+
+    gap:40px;
+
+    padding-top:100px;
+
+}
+
+/* =======================================
+   LETTER
+======================================= */
+
+.letter-container{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.letter-paper{
+
+    width:min(100%,550px);
+
+    height:min(78vh,760px);
+
+    background:#fffdf4;
+
+    border-radius:20px;
+
+    padding:45px;
+
+    box-shadow:0 25px 60px rgba(0,0,0,.25);
+
+    position:relative;
+
+    overflow:auto;
+
+    line-height:2;
+
+    background-image:
+    repeating-linear-gradient(
+
+        transparent,
+
+        transparent 32px,
+
+        rgba(0,0,0,.08) 33px
+
+    );
+
+}
+
+.stamp{
+
+    position:absolute;
+
+    top:25px;
+
+    right:25px;
+
+    font-size:2rem;
+
+}
+
+.letter-paper h2{
+
+    color:#ff4d88;
+
+    margin-bottom:35px;
+
+    font-size:2rem;
+
+}
+
+#typingText{
+
+    white-space:pre-wrap;
+
+    font-size:1rem;
+
+}
+
+.signature{
+
+    margin-top:50px;
+
+    text-align:right;
+
+    font-family:'Lobster',cursive;
+
+    font-size:1.6rem;
+
+    color:#ff4d88;
+
+}
+
+/* =======================================
+   RIBBON
+======================================= */
+
+.left-ribbon,
+.right-ribbon{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+.top-string{
+
+    width:4px;
+
+    height:180px;
+
+    background:#333;
+
+}
+
+.string{
+
+    width:4px;
+
+    height:55px;
+
+    background:#333;
+
+}
+
+/* =======================================
+   PHOTO
+======================================= */
+
+.photo-item{
+
+    width:170px;
+
+    aspect-ratio:3/4;
+
+    background:white;
+
+    padding:10px;
+
+    border-radius:10px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+
+    transform:translateY(-60px);
+
+    opacity:0;
+
+}
+
+.photo-item img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:6px;
+
+}
+
+.delay1{
+
+    animation:dropPhoto .8s ease forwards;
+
+    animation-delay:1.2s;
+
+}
+
+.delay2{
+
+    animation:dropPhoto .8s ease forwards;
+
+    animation-delay:1.8s;
+
+}
+
+.delay3{
+
+    animation:dropPhoto .8s ease forwards;
+
+    animation-delay:2.4s;
+
+}
+
+@keyframes dropPhoto{
+
+    to{
+
+        transform:translateY(0);
+
+        opacity:1;
+
+    }
+
+}
+
+/* =======================================
+   DECORATION
+======================================= */
+
+.cute-image{
+
+    position:absolute;
+
+    bottom:25px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:120px;
+
+    animation:float 3s ease-in-out infinite;
+
+}
+
+@keyframes float{
+
+    0%{
+
+        transform:translate(-50%,0);
+
+    }
+
+    50%{
+
+        transform:translate(-50%,-12px);
+
+    }
+
+    100%{
+
+        transform:translate(-50%,0);
+
+    }
+
+}
+
+.floating-hearts{
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+}
+
+.floating-hearts span{
+
+    position:absolute;
+
+    font-size:2rem;
+
+    animation:heartFloat 8s linear infinite;
+
+    opacity:.7;
+
+}
+
+.floating-hearts span:nth-child(1){
+
+    left:10%;
+
+    bottom:-40px;
+
+    animation-delay:0s;
+
+}
+
+.floating-hearts span:nth-child(2){
+
+    left:30%;
+
+    bottom:-60px;
+
+    animation-delay:1.5s;
+
+}
+
+.floating-hearts span:nth-child(3){
+
+    left:55%;
+
+    bottom:-50px;
+
+    animation-delay:3s;
+
+}
+
+.floating-hearts span:nth-child(4){
+
+    left:75%;
+
+    bottom:-70px;
+
+    animation-delay:4.5s;
+
+}
+
+.floating-hearts span:nth-child(5){
+
+    left:90%;
+
+    bottom:-50px;
+
+    animation-delay:6s;
+
+}
+
+@keyframes heartFloat{
+
+    0%{
+
+        transform:translateY(0) scale(.8);
+
+        opacity:0;
+
+    }
+
+    20%{
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        transform:translateY(-110vh) scale(1.3);
+
+        opacity:0;
+
+    }
+
+}
+/* =======================================
+   RESPONSIVE
+======================================= */
+
+/* Laptop */
+
+@media (max-width:1400px){
+
+.page2-container{
+
+grid-template-columns:180px 1fr 180px;
+
+gap:25px;
+
+}
+
+.photo-item{
+
+width:145px;
+
+}
+
+.top-string{
+
+height:150px;
+
+}
+
+}
+
+/* Tablet */
+
+@media (max-width:1024px){
+
+.title-box{
+
+top:10%;
+
+}
+
+.plane-wrapper{
+
+top:38%;
+
+}
+
+.page2-container{
+
+grid-template-columns:150px 1fr 150px;
+
+gap:20px;
+
+}
+
+.photo-item{
+
+width:120px;
+
+}
+
+.letter-paper{
+
+padding:30px;
+
+height:70vh;
+
+}
+
+.bestWish{
+
+font-size:5rem;
+
+}
+
+}
+
+/* Mobile */
+
+@media (max-width:768px){
+
+body{
+
+overflow-y:auto;
+
+overflow-x:hidden;
+
+}
+
+#home{
+
+min-height:100vh;
+
+}
+
+.title-box{
+
+width:90%;
+
+}
+
+.title-box h1{
+
+font-size:3rem;
+
+}
+
+.title-box h2{
+
+font-size:2.5rem;
+
+margin-top:-5px;
+
+}
+
+.title-box p{
+
+font-size:.95rem;
+
+}
+
+.banner{
+
+padding:10px 18px;
+
+font-size:.85rem;
+
+max-width:250px;
+
+text-align:center;
+
+white-space:normal;
+
+}
+
+.plane{
+
+width:80px;
+
+}
+
+.rope{
+
+width:40px;
+
+}
+
+.envelope{
+
+width:88vw;
+
+max-width:360px;
+
+}
+
+#openBtn{
+
+width:220px;
+
+padding:15px 0;
+
+}
+
+/* PAGE 2 */
+
+.page2-container{
+
+display:flex;
+
+flex-direction:column;
+
+padding:90px 20px 40px;
+
+gap:35px;
+
+}
+
+.left-ribbon,
+
+.right-ribbon{
+
+width:100%;
+
+display:flex;
+
+flex-direction:row;
+
+justify-content:center;
+
+align-items:flex-start;
+
+gap:12px;
+
+}
+
+.top-string,
+
+.string{
+
+display:none;
+
+}
+
+.photo-item{
+
+width:95px;
+
+padding:6px;
+
+}
+
+.letter-paper{
+
+width:100%;
+
+height:auto;
+
+min-height:500px;
+
+padding:25px;
+
+}
+
+.signature{
+
+font-size:1.3rem;
+
+}
+
+.bestWish{
+
+font-size:3.5rem;
+
+top:20px;
+
+}
+
+.cute-image{
+
+width:90px;
+
+bottom:10px;
+
+}
+
+}
+
+/* Small Mobile */
+
+@media (max-width:480px){
+
+.title-box h1{
+
+font-size:2.4rem;
+
+}
+
+.title-box h2{
+
+font-size:2rem;
+
+}
+
+.banner{
+
+font-size:.75rem;
+
+padding:8px 14px;
+
+}
+
+.plane{
+
+width:65px;
+
+}
+
+.photo-item{
+
+width:82px;
+
+}
+
+.letter-paper{
+
+padding:20px;
+
+font-size:.9rem;
+
+line-height:1.8;
+
+}
+
+.letter-paper h2{
+
+font-size:1.5rem;
+
+}
+
+.signature{
+
+font-size:1.1rem;
+
+}
+
+.bestWish{
+
+font-size:2.6rem;
+
+}
+
+}
+
+/* =======================================
+   SCROLLBAR
+======================================= */
+
+::-webkit-scrollbar{
+
+width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:#ff8ab5;
+
+border-radius:50px;
+
+}
+
+::-webkit-scrollbar-track{
+
+background:#ffe6ef;
+
+}
+
+/* =======================================
+   HOVER EFFECT
+======================================= */
+
+.photo-item{
+
+transition:.35s;
+
+}
+
+.photo-item:hover{
+
+transform:translateY(-10px) scale(1.05) rotate(-2deg);
+
+box-shadow:0 25px 45px rgba(0,0,0,.35);
+
+}
+
+#openBtn{
+
+transition:.35s;
+
+}
+
+#openBtn:active{
+
+transform:scale(.96);
+
+}
+
+.envelope{
+
+transition:.4s;
+
+}
+
+.envelope:hover{
+
+transform:translateY(-5px);
+
+}
+
+/* =======================================
+   END
+======================================= */
+
+/* =======================================
+   SCRIPT SUPPORT
+======================================= */
+
+/* Fade */
+
+#home,
+#letterPage{
+
+transition:opacity .8s ease;
+
+}
+
+/* ==============================
+   Envelope Animation
+================================ */
+
+.envelope-top{
+
+transform-style:preserve-3d;
+
+backface-visibility:hidden;
+
+}
+
+.envelope.open .envelope-top{
+
+transform:rotateX(180deg);
+
+}
+
+/* ==============================
+   Confetti
+================================ */
+
+.confetti-piece{
+
+position:fixed;
+
+width:12px;
+
+height:12px;
+
+border-radius:3px;
+
+pointer-events:none;
+
+z-index:99999;
+
+animation:confettiFall linear forwards;
+
+}
+
+@keyframes confettiFall{
+
+0%{
+
+transform:translateY(-100px) rotate(0deg);
+
+opacity:1;
+
+}
+
+100%{
+
+transform:translateY(110vh) rotate(900deg);
+
+opacity:0;
+
+}
+
+}
+
+/* ==============================
+   Ribbon Drop
+================================ */
+
+.left-ribbon,
+
+.right-ribbon{
+
+transform:translateY(-150vh);
+
+animation:ribbonDrop 1.2s ease forwards;
+
+animation-delay:1s;
+
+}
+
+@keyframes ribbonDrop{
+
+to{
+
+transform:translateY(0);
+
+}
+
+}
+
+/* ==============================
+   Letter Animation
+================================ */
+
+.letter-container{
+
+opacity:0;
+
+transform:translateY(80px);
+
+animation:letterUp 1s ease forwards;
+
+animation-delay:1.3s;
+
+}
+
+@keyframes letterUp{
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+/* ==============================
+   Typing Cursor
+================================ */
+
+#typingText::after{
+
+content:"|";
+
+margin-left:3px;
+
+font-weight:bold;
+
+animation:cursorBlink .8s infinite;
+
+}
+
+@keyframes cursorBlink{
+
+50%{
+
+opacity:0;
+
+}
+
+}
+
+/* ==============================
+   Photo Animation
+================================ */
+
+.photo-item{
+
+cursor:pointer;
+
+transition:
+
+transform .35s,
+
+box-shadow .35s;
+
+}
+
+.photo-item:hover{
+
+transform:
+
+translateY(-10px)
+
+rotate(-3deg)
+
+scale(1.05);
+
+box-shadow:
+
+0 25px 45px rgba(0,0,0,.35);
+
+}
+
+/* ==============================
+   Rope Swing
+================================ */
+
+.photo-item{
+
+transform-origin:center top;
+
+animation:swing 4s ease-in-out infinite;
+
+}
+
+.photo-item:nth-child(even){
+
+animation-delay:1s;
+
+}
+
+@keyframes swing{
+
+0%{
+
+rotate:-2deg;
+
+}
+
+50%{
+
+rotate:2deg;
+
+}
+
+100%{
+
+rotate:-2deg;
+
+}
+
+}
