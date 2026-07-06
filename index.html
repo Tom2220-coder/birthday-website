@@ -3764,49 +3764,6 @@
         filter: blur(10px);
       }
 
-      .dust,
-      .opening-dot,
-      .opening-heart,
-      .opening-diamond,
-      .opening-lantern,
-      .opening-comet,
-      .opening-title-spark,
-      .opening-title-orbit,
-      .opening-title-glint,
-      .letter-float-spark,
-      .letter-glow-orb,
-      .letter-page-glint,
-      .vortex-orb,
-      .icing-dot,
-      .spark-star,
-      .ambient-speck,
-      .comet-dot,
-      .cake-shimmer,
-      .cake-orbit-dot,
-      .cake-puff,
-      .vortex-spark,
-      .heart-spark,
-      .firework-dot,
-      .side-figure-dot {
-        filter: saturate(0.92);
-      }
-
-      .opening-moon,
-      .opening-title-glint,
-      .letter-glow-orb,
-      .letter-page-glint,
-      .halo-pulse,
-      .heart-ring,
-      .cake-puff {
-        display: none;
-      }
-
-      .comet-dot::after,
-      .opening-comet::after,
-      .opening-title-orbit::after,
-      .vortex-spark::after {
-        display: none;
-      }
     }
   </style>
 </head>
@@ -3879,8 +3836,7 @@
   <script>
     const colors = ["#ff0", "#f0f", "#0ff", "#0f0", "#f00", "#00f"];
     const reducedMotionMode = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const phoneConfettiMode = window.matchMedia("(max-width: 680px)").matches || window.matchMedia("(pointer: coarse)").matches;
-    const confettiCount = reducedMotionMode ? 0 : phoneConfettiMode ? 12 : 40;
+    const confettiCount = reducedMotionMode ? 0 : 40;
     let confettiCreated = false;
 
     function createConfetti() {
@@ -3945,20 +3901,14 @@
       const fitByHeight = (window.innerHeight * 0.92 / 650) * 840;
       const cakeWidth = Math.min(window.innerWidth * 1.02, fitByHeight, 1060);
       const scale = cakeWidth / 560;
-      const phoneMode = window.innerWidth < 680 || window.matchMedia("(pointer: coarse)").matches;
-      const lowPowerPhone = phoneMode && navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
-      const tabletMode = !phoneMode && window.innerWidth < 980;
+      const phoneMode = false;
+      const lowPowerPhone = false;
+      const tabletMode = false;
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const saveData = navigator.connection && navigator.connection.saveData;
-      const quality = reducedMotion || saveData
+      const quality = reducedMotion
         ? "minimal"
-        : lowPowerPhone
-          ? "low"
-          : phoneMode
-            ? "phone"
-            : tabletMode
-              ? "tablet"
-              : "desktop";
+        : "desktop";
       const qualitySettings = {
         minimal: {
           particleBudget: 220,
@@ -4879,18 +4829,12 @@
       const saveData = navigator.connection?.saveData;
       const width = window.innerWidth;
       const height = window.innerHeight;
-      const phoneMode = width < 620;
-      const tabletMode = width < 980;
-      const lowPower = saveData || navigator.hardwareConcurrency <= 4;
+      const phoneMode = false;
+      const tabletMode = false;
+      const lowPower = false;
       const quality = reducedMotion
         ? "minimal"
-        : lowPower && phoneMode
-          ? "low"
-          : phoneMode
-            ? "phone"
-            : tabletMode
-              ? "tablet"
-              : "desktop";
+        : "desktop";
       const counts = {
         minimal: { dots: 6, hearts: 0, diamonds: 0, moons: 1, lanterns: 0, comets: 0, titleSparks: 4, titleOrbits: 0, titleGlints: 0 },
         low: { dots: 14, hearts: 2, diamonds: 3, moons: 1, lanterns: 1, comets: 1, titleSparks: 10, titleOrbits: 2, titleGlints: 1 },
@@ -5078,7 +5022,7 @@
       const centerY = rect.top + rect.height / 2;
       const stage = document.createElement("div");
       const fragment = document.createDocumentFragment();
-      const phoneMode = window.innerWidth < 620;
+      const phoneMode = false;
       const colors = ["#ffffff", "#ffd60a", "#ffc0da", "#ff5c8a", "#36e6ff", "#fff3b0"];
       const burstCount = reducedMotion ? 6 : phoneMode ? 18 : 42;
       const flareCount = reducedMotion ? 1 : phoneMode ? 3 : 6;
@@ -5152,7 +5096,7 @@
       const note = document.querySelector(".note");
       const width = window.innerWidth;
       const height = window.innerHeight;
-      const phoneMode = width < 620 || window.matchMedia("(pointer: coarse)").matches;
+      const phoneMode = false;
       const colors = ["#ffffff", "#ffd60a", "#fff3b0", "#ffb703", "#ffc0da"];
       const sparkCount = phoneMode ? 18 : 42;
       const orbCount = phoneMode ? 2 : 5;
@@ -5359,5 +5303,6 @@ Chúc bạn có một sinh nhật thật đẹp, thật đáng nhớ và tràn �
   </script>
 </body>
 </html>
+
 
 
