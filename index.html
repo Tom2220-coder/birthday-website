@@ -669,200 +669,6 @@
       animation: cakeStageGlow 22000ms ease-in-out forwards;
     }
 
-    .cake-ghost {
-      position: absolute;
-      left: 50%;
-      bottom: 8%;
-      width: calc(560px * var(--cake-scale));
-      height: calc(520px * var(--cake-scale));
-      opacity: 0;
-      transform: translateX(-50%) translateY(24px) scale(0.84);
-      transform-origin: bottom center;
-      animation: cakeGhostReveal 22000ms ease-in-out forwards;
-      filter:
-        drop-shadow(0 18px 24px rgba(0, 0, 0, 0.34))
-        drop-shadow(0 0 28px rgba(255, 214, 10, 0.45));
-      z-index: 1;
-    }
-
-    .cake-ghost .tier,
-    .cake-ghost .frosting,
-    .cake-ghost .plate,
-    .cake-ghost .candle,
-    .cake-ghost .flame,
-    .cake-ghost .cake-message {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .cake-ghost .plate {
-      bottom: 18px;
-      width: 520px;
-      height: 56px;
-      border-radius: 50%;
-      background:
-        radial-gradient(ellipse at center, rgba(255, 255, 255, 0.95), rgba(255, 219, 102, 0.86) 42%, rgba(222, 116, 42, 0.34) 72%, transparent 74%);
-      box-shadow:
-        inset 0 8px 12px rgba(255, 255, 255, 0.68),
-        0 16px 30px rgba(0, 0, 0, 0.28);
-    }
-
-    .cake-ghost .tier {
-      border-radius: 46% 46% 22px 22px / 34% 34% 22px 22px;
-      background:
-        radial-gradient(ellipse at 50% 8%, rgba(255, 255, 255, 0.78), transparent 44%),
-        linear-gradient(90deg, rgba(255, 244, 178, 0.8), transparent 18% 82%, rgba(184, 91, 18, 0.22)),
-        linear-gradient(180deg, #ffe66d, #ffb703 48%, #f77f00);
-      box-shadow:
-        inset 0 14px 18px rgba(255, 255, 255, 0.42),
-        inset 0 -18px 26px rgba(169, 75, 10, 0.24),
-        0 10px 22px rgba(0, 0, 0, 0.24);
-      overflow: hidden;
-    }
-
-    .cake-ghost .tier::before,
-    .cake-ghost .tier::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      pointer-events: none;
-    }
-
-    .cake-ghost .tier::before {
-      top: 8px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(255, 248, 205, 0.48);
-      filter: blur(0.5px);
-    }
-
-    .cake-ghost .tier::after {
-      top: 42%;
-      height: 14px;
-      background:
-        radial-gradient(circle, rgba(255, 255, 255, 0.68) 0 2px, transparent 3px) 0 0 / 32px 12px,
-        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
-      opacity: 0.88;
-    }
-
-    .cake-ghost .tier-bottom {
-      bottom: 58px;
-      width: 520px;
-      height: 138px;
-    }
-
-    .cake-ghost .tier-middle {
-      bottom: 172px;
-      width: 420px;
-      height: 118px;
-      background:
-        radial-gradient(ellipse at 50% 8%, rgba(255, 255, 255, 0.78), transparent 44%),
-        linear-gradient(90deg, rgba(255, 244, 178, 0.74), transparent 18% 82%, rgba(184, 91, 18, 0.2)),
-        linear-gradient(180deg, #fff176, #ffd60a 48%, #ff9f1c);
-    }
-
-    .cake-ghost .tier-top {
-      bottom: 270px;
-      width: 300px;
-      height: 102px;
-      background:
-        radial-gradient(ellipse at 50% 8%, rgba(255, 255, 255, 0.8), transparent 44%),
-        linear-gradient(90deg, rgba(255, 244, 178, 0.74), transparent 18% 82%, rgba(184, 91, 18, 0.18)),
-        linear-gradient(180deg, #fff3b0, #ffd60a 54%, #ffb703);
-    }
-
-    .cake-ghost .frosting {
-      height: 38px;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 20% 60%, #fff8dc 0 20px, transparent 21px),
-        radial-gradient(circle at 35% 68%, #fff8dc 0 22px, transparent 23px),
-        radial-gradient(circle at 52% 58%, #fff8dc 0 19px, transparent 20px),
-        radial-gradient(circle at 70% 66%, #fff8dc 0 22px, transparent 23px),
-        radial-gradient(circle at 86% 58%, #fff8dc 0 18px, transparent 19px),
-        linear-gradient(180deg, #ffffff, #fff3b0);
-      box-shadow:
-        inset 0 -8px 10px rgba(255, 183, 3, 0.22),
-        0 6px 12px rgba(255, 214, 10, 0.26);
-      z-index: 2;
-    }
-
-    .cake-ghost .frosting-bottom {
-      bottom: 164px;
-      width: 522px;
-    }
-
-    .cake-ghost .frosting-middle {
-      bottom: 276px;
-      width: 422px;
-    }
-
-    .cake-ghost .frosting-top {
-      bottom: 366px;
-      width: 302px;
-    }
-
-    .cake-ghost .candle {
-      bottom: 364px;
-      width: 20px;
-      height: 96px;
-      border-radius: 8px;
-      background:
-        repeating-linear-gradient(45deg, #fff7c2 0 10px, #ff6b9e 10px 20px);
-      box-shadow:
-        inset 4px 0 5px rgba(255, 255, 255, 0.56),
-        0 0 14px rgba(255, 214, 10, 0.36);
-    }
-
-    .cake-ghost .candle-left {
-      margin-left: -118px;
-    }
-
-    .cake-ghost .candle-right {
-      margin-left: 118px;
-    }
-
-    .cake-ghost .flame {
-      bottom: 456px;
-      width: 28px;
-      height: 44px;
-      border-radius: 50% 50% 45% 45%;
-      background:
-        radial-gradient(circle at 50% 68%, #ffffff 0 18%, #fff700 19% 42%, #ff9f1c 43% 72%, transparent 73%);
-      transform: translateX(-50%) rotate(8deg);
-      filter: drop-shadow(0 0 14px #ffd60a) drop-shadow(0 0 24px #ff7a00);
-      animation: flameDance 620ms ease-in-out infinite alternate;
-      z-index: 4;
-    }
-
-    .cake-ghost .flame-left {
-      margin-left: -118px;
-      animation-delay: -180ms;
-    }
-
-    .cake-ghost .flame-right {
-      margin-left: 118px;
-      animation-delay: -320ms;
-    }
-
-    .cake-ghost .cake-message {
-      bottom: 70px;
-      width: 100%;
-      color: #fff8dc;
-      font-family: "Segoe UI", Arial, sans-serif;
-      font-size: 44px;
-      font-weight: 900;
-      letter-spacing: 1px;
-      text-align: center;
-      text-shadow:
-        0 2px 0 rgba(153, 58, 8, 0.75),
-        0 0 12px rgba(255, 255, 255, 0.68),
-        0 0 22px rgba(255, 214, 10, 0.46);
-      z-index: 5;
-    }
-
     .spark-star,
     .icing-dot,
     .vortex-orb,
@@ -1346,6 +1152,45 @@
       z-index: 2;
     }
 
+    .note-wrap::before,
+    .note-wrap::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .note-wrap::before {
+      top: 50%;
+      width: 118%;
+      height: 90%;
+      border-radius: 32px;
+      background:
+        radial-gradient(ellipse at center, rgba(255, 214, 10, 0.2), rgba(255, 192, 218, 0.1) 42%, transparent 72%);
+      filter: blur(18px);
+      transform: translate(-50%, -50%) scale(0.88);
+    }
+
+    .note-wrap::after {
+      top: 10%;
+      width: 76%;
+      height: 4px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), rgba(255, 214, 10, 0.72), transparent);
+      transform: translateX(-50%) scaleX(0.2);
+    }
+
+    #letterPage.final-reveal .note-wrap::before {
+      animation: noteGoldenBreath 5200ms ease-in-out 900ms infinite alternate;
+    }
+
+    #letterPage.final-reveal .note-wrap::after {
+      animation: noteSheenSweep 4400ms ease-in-out 1400ms infinite;
+    }
+
     .note {
       --line-height: 28px;
       --note-padding: clamp(24px, 5vw, 42px);
@@ -1374,6 +1219,12 @@
       transform: translateY(70px);
       animation: slideUpFade 900ms ease-out forwards;
       z-index: 2;
+    }
+
+    #letterPage.final-reveal .note {
+      animation:
+        slideUpFade 900ms ease-out forwards,
+        notePaperGlow 5200ms ease-in-out 1200ms infinite alternate;
     }
 
     #letterText {
@@ -1530,7 +1381,7 @@
     }
 
     .photo-wrapper::after {
-      content: "âœ¦  âœ§  âœ¦";
+      content: "✦  ✧  ✦";
       position: absolute;
       top: -26px;
       left: 50%;
@@ -1615,17 +1466,117 @@
       left: 50%;
       max-width: 96vw;
       transform: translateX(-50%);
-      color: rgba(210, 0, 0, 0.58);
+      color: #ffd60a;
       font-family: "Lobster", "Segoe Script", cursive;
       font-size: clamp(3rem, 14vw, 9rem);
       font-weight: 900;
       line-height: 1;
       white-space: nowrap;
-      text-shadow: 0 3px 10px rgba(255, 255, 255, 0.28);
+      text-shadow:
+        0 3px 0 rgba(126, 66, 0, 0.52),
+        0 0 14px rgba(255, 246, 178, 0.72),
+        0 0 34px rgba(255, 183, 3, 0.45);
       pointer-events: none;
       z-index: 0;
       opacity: 1;
       transition: opacity 900ms ease;
+    }
+
+    .best-wishes-text::before,
+    .best-wishes-text::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      pointer-events: none;
+      transform: translateX(-50%);
+    }
+
+    .best-wishes-text::before {
+      top: 52%;
+      width: 106%;
+      height: 58%;
+      border-radius: 50%;
+      background:
+        radial-gradient(ellipse at center, rgba(255, 214, 10, 0.26), rgba(255, 183, 3, 0.08) 48%, transparent 72%);
+      filter: blur(16px);
+      opacity: 0.72;
+      z-index: -1;
+      animation: wishAuraPulse 4200ms ease-in-out infinite alternate;
+    }
+
+    .best-wishes-text::after {
+      bottom: -0.08em;
+      width: 82%;
+      height: 5px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.88), rgba(255, 214, 10, 0.78), transparent);
+      opacity: 0.76;
+      animation: wishUnderlineShine 3600ms ease-in-out infinite;
+    }
+
+    .letter-float-spark,
+    .letter-glow-orb,
+    .letter-page-glint {
+      position: fixed;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
+      contain: layout paint style;
+      z-index: 3;
+    }
+
+    .letter-float-spark {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 30% 25%, #ffffff, currentColor 48%, transparent 76%);
+      box-shadow:
+        0 0 6px currentColor,
+        0 0 14px rgba(255, 214, 10, 0.32);
+      opacity: 0;
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        scale(0.25);
+      animation: letterSparkFloat calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+    }
+
+    .letter-glow-orb {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255, 246, 178, 0.36), rgba(255, 214, 10, 0.1) 46%, transparent 74%);
+      opacity: 0;
+      filter: blur(0.4px);
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        translate(-50%, -50%)
+        scale(0.35);
+      animation: letterOrbPulse calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 1;
+    }
+
+    .letter-page-glint {
+      width: calc(var(--w) * 1px);
+      height: 3px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.86), rgba(255, 214, 10, 0.66), transparent);
+      opacity: 0;
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        translate(-50%, -50%)
+        rotate(calc(var(--angle) * 1deg))
+        scaleX(0.14);
+      animation: letterGlintSweep calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 4;
     }
 
     @keyframes fly {
@@ -1654,6 +1605,162 @@
       to {
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+
+    @keyframes notePaperGlow {
+      0% {
+        box-shadow:
+          0 12px 28px rgba(0, 0, 0, 0.3),
+          0 0 0 rgba(255, 214, 10, 0);
+      }
+
+      100% {
+        box-shadow:
+          0 12px 28px rgba(0, 0, 0, 0.3),
+          0 0 28px rgba(255, 214, 10, 0.18);
+      }
+    }
+
+    @keyframes noteGoldenBreath {
+      0% {
+        opacity: 0.18;
+        transform: translate(-50%, -50%) scale(0.88);
+      }
+
+      100% {
+        opacity: 0.42;
+        transform: translate(-50%, -50%) scale(1.04);
+      }
+    }
+
+    @keyframes noteSheenSweep {
+      0%,
+      42% {
+        opacity: 0;
+        transform: translateX(-90%) scaleX(0.2);
+      }
+
+      58% {
+        opacity: 0.72;
+        transform: translateX(-50%) scaleX(1);
+      }
+
+      82%,
+      100% {
+        opacity: 0;
+        transform: translateX(-10%) scaleX(0.26);
+      }
+    }
+
+    @keyframes wishAuraPulse {
+      0% {
+        opacity: 0.46;
+        transform: translate(-50%, -50%) scale(0.88);
+      }
+
+      100% {
+        opacity: 0.86;
+        transform: translate(-50%, -50%) scale(1.08);
+      }
+    }
+
+    @keyframes wishUnderlineShine {
+      0%,
+      100% {
+        opacity: 0.36;
+        transform: translateX(-50%) scaleX(0.58);
+      }
+
+      48% {
+        opacity: 0.88;
+        transform: translateX(-50%) scaleX(1);
+      }
+    }
+
+    @keyframes letterSparkFloat {
+      0%,
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          scale(0.25);
+      }
+
+      18% {
+        opacity: 0.82;
+      }
+
+      48% {
+        opacity: 0.96;
+        transform:
+          translate(calc((var(--x) + var(--mid-x)) * 1px), calc((var(--y) + var(--mid-y)) * 1px))
+          scale(0.95);
+      }
+
+      76% {
+        opacity: 0.44;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          scale(0.52);
+      }
+    }
+
+    @keyframes letterOrbPulse {
+      0%,
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          translate(-50%, -50%)
+          scale(0.35);
+      }
+
+      44% {
+        opacity: 0.36;
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc((var(--y) + var(--drift-y)) * 1px))
+          translate(-50%, -50%)
+          scale(0.92);
+      }
+
+      72% {
+        opacity: 0.18;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          translate(-50%, -50%)
+          scale(1.08);
+      }
+    }
+
+    @keyframes letterGlintSweep {
+      0%,
+      52% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(0.14);
+      }
+
+      62% {
+        opacity: 0.86;
+        transform:
+          translate(calc((var(--x) + var(--shift-x)) * 1px), calc((var(--y) + var(--shift-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(1);
+      }
+
+      82%,
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(0.2);
       }
     }
 
@@ -2526,44 +2633,6 @@
       }
     }
 
-    @keyframes cakeGhostReveal {
-      0%,
-      62% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(46px) scale(0.62);
-      }
-
-      72% {
-        opacity: 0.3;
-        transform: translateX(-50%) translateY(16px) scale(0.9);
-      }
-
-      82% {
-        opacity: 0.94;
-        transform: translateX(-50%) translateY(0) scale(1);
-      }
-
-      92% {
-        opacity: 0.98;
-        transform: translateX(-50%) translateY(-2px) scale(1.02);
-      }
-
-      100% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-30px) scale(1.12);
-      }
-    }
-
-    @keyframes flameDance {
-      from {
-        transform: translateX(-50%) rotate(-7deg) scaleX(0.88) scaleY(1.05);
-      }
-
-      to {
-        transform: translateX(-50%) rotate(9deg) scaleX(1.08) scaleY(0.9);
-      }
-    }
-
     @keyframes starOrbit {
       0%,
       10% {
@@ -3405,6 +3474,9 @@
       .button-burst,
       .button-ripple,
       .button-flare,
+      .letter-float-spark,
+      .letter-glow-orb,
+      .letter-page-glint,
       .dust,
       .burst,
       .spark-star,
@@ -3427,15 +3499,18 @@
       .side-figure-glow,
       .cake-intro::before,
       .cake-intro::after,
-      .cake-ghost,
-      .cake-ghost .flame,
       .letter-char,
       .letter-char.spark::before,
       .letter-char.spark::after,
       #letterText.typing::after,
       #letterPage.final-reveal .photo-section::before,
       #letterPage.final-reveal .long-top-line,
-      #letterPage.final-reveal .photo-wrapper {
+      #letterPage.final-reveal .photo-wrapper,
+      #letterPage.final-reveal .note,
+      #letterPage.final-reveal .note-wrap::before,
+      #letterPage.final-reveal .note-wrap::after,
+      .best-wishes-text::before,
+      .best-wishes-text::after {
         animation-duration: 1ms !important;
         animation-delay: 0ms !important;
         animation-iteration-count: 1 !important;
@@ -3461,6 +3536,9 @@
       .button-burst,
       .button-ripple,
       .button-flare,
+      .letter-float-spark,
+      .letter-glow-orb,
+      .letter-page-glint,
       .spark-star,
       .icing-dot,
       .vortex-orb,
@@ -3481,11 +3559,6 @@
       .side-figure-glow,
       .burst {
         opacity: 0 !important;
-      }
-
-      .cake-ghost {
-        opacity: 0.95 !important;
-        transform: translateX(-50%) translateY(0) scale(1) !important;
       }
 
       .note,
@@ -3618,6 +3691,7 @@
       .cake-shimmer,
       .cake-orbit-dot,
       .vortex-spark,
+      .letter-float-spark,
       .heart-spark,
       .firework-dot,
       .side-figure-dot {
@@ -3682,6 +3756,14 @@
         font-size: clamp(2.3rem, 19vw, 4.4rem);
       }
 
+      .best-wishes-text::before {
+        filter: blur(10px);
+      }
+
+      .note-wrap::before {
+        filter: blur(10px);
+      }
+
       .dust,
       .opening-dot,
       .opening-heart,
@@ -3691,6 +3773,9 @@
       .opening-title-spark,
       .opening-title-orbit,
       .opening-title-glint,
+      .letter-float-spark,
+      .letter-glow-orb,
+      .letter-page-glint,
       .vortex-orb,
       .icing-dot,
       .spark-star,
@@ -3708,6 +3793,8 @@
 
       .opening-moon,
       .opening-title-glint,
+      .letter-glow-orb,
+      .letter-page-glint,
       .halo-pulse,
       .heart-ring,
       .cake-puff {
@@ -3725,22 +3812,22 @@
 </head>
 <body>
   <main class="page" id="mainPage">
-    <img class="background-img" src="kk.jpg" alt="Birthday background">
+    <img class="background-img" src="kk.jpg" alt="">
     <div class="opening-stage" id="openingStage" aria-hidden="true"></div>
 
     <section class="main-content" aria-label="Birthday greeting">
       <h1 class="birthday-title">
-        Happy ðŸŽ‰
+        Happy 🎉
         <span>Birthday</span>
       </h1>
 
       <div class="plane-banner" aria-hidden="true">
-        <div class="banner">ðŸŽˆ ChÃºc chá»‹ tui sinh nháº­t zui záº»! hÃ© hÃ© hÃ© ðŸŽ‰</div>
+        <div class="banner">🎈 Chúc chị tui sinh nhật vui vẻ! hé hé hé 🎉</div>
         <div class="rope"></div>
         <img src="kimm.png" alt="" class="plane-img">
       </div>
 
-      <button class="open-letter-btn" type="button" onclick="showLetter()">ðŸ“© Má»Ÿ thÆ°</button>
+      <button class="open-letter-btn" type="button" onclick="showLetter()">📩 Mở thư</button>
     </section>
   </main>
 
@@ -3766,7 +3853,7 @@
       </div>
 
       <div class="note-wrap">
-        <img src="khanh11.png" alt="Cute birthday decoration" class="cute-img">
+        <img src="khanh11.png" alt="" class="cute-img">
         <article class="note">
           <div id="letterText" class="typing"></div>
         </article>
@@ -3789,7 +3876,7 @@
     </div>
   </section>
 
-    <script>
+  <script>
     const colors = ["#ff0", "#f0f", "#0ff", "#0f0", "#f00", "#00f"];
     const reducedMotionMode = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const phoneConfettiMode = window.matchMedia("(max-width: 680px)").matches || window.matchMedia("(pointer: coarse)").matches;
@@ -4054,7 +4141,7 @@
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
         const fontSize = window.innerWidth < 680 ? 92 : 126;
-        const sampleGap = window.innerWidth < 680 ? 13 : 11;
+        const sampleGap = window.innerWidth < 680 ? 11 : 10;
         const lineHeight = window.innerWidth < 680 ? 104 : 126;
 
         canvas.width = 1720;
@@ -4592,8 +4679,25 @@
       addCandle(118);
       addTextTargets(["Happy Birthday Minh Khanh"]);
 
-      while (targets.length > particleBudget) {
-        targets.splice(Math.floor(Math.random() * targets.length), 1);
+      if (targets.length > particleBudget) {
+        const protectedTargets = targets.filter((target) => target.kind === "text");
+        const regularTargets = targets.filter((target) => target.kind !== "text");
+        const minimumCakeBudget = phoneMode ? 260 : tabletMode ? 420 : 680;
+        const regularBudget = Math.min(
+          regularTargets.length,
+          Math.max(minimumCakeBudget, particleBudget - protectedTargets.length)
+        );
+        const sampledTargets = [];
+
+        if (regularBudget > 0) {
+          for (let i = 0; i < regularBudget; i++) {
+            const index = Math.floor(i * (regularTargets.length - 1) / Math.max(1, regularBudget - 1));
+            sampledTargets.push(regularTargets[index]);
+          }
+        }
+
+        targets.length = 0;
+        targets.push(...sampledTargets, ...protectedTargets);
       }
 
       while (targets.length < particleBudget) {
@@ -5033,6 +5137,117 @@
       setTimeout(() => stage.remove(), 1700);
     }
 
+    function cleanupLetterPageEffects() {
+      document.querySelectorAll(".letter-float-spark, .letter-glow-orb, .letter-page-glint")
+        .forEach((effect) => effect.remove());
+    }
+
+    function createLetterPageEffects() {
+      cleanupLetterPageEffects();
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion) return;
+
+      const title = document.querySelector(".best-wishes-text");
+      const note = document.querySelector(".note");
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const phoneMode = width < 620 || window.matchMedia("(pointer: coarse)").matches;
+      const colors = ["#ffffff", "#ffd60a", "#fff3b0", "#ffb703", "#ffc0da"];
+      const sparkCount = phoneMode ? 18 : 42;
+      const orbCount = phoneMode ? 2 : 5;
+      const glintCount = phoneMode ? 0 : 4;
+      const fragment = document.createDocumentFragment();
+      const rand = (min, max) => min + Math.random() * (max - min);
+      const titleRect = title?.getBoundingClientRect();
+      const noteRect = note?.getBoundingClientRect();
+
+      if (titleRect && titleRect.width > 0) {
+        for (let i = 0; i < Math.ceil(sparkCount * 0.45); i++) {
+          const spark = document.createElement("span");
+          const side = i % 2 === 0 ? -1 : 1;
+
+          spark.className = "letter-float-spark";
+          spark.style.setProperty("--color", colors[i % colors.length]);
+          spark.style.setProperty("--size", rand(phoneMode ? 2.4 : 3, phoneMode ? 5.4 : 7.2).toFixed(2));
+          spark.style.setProperty("--x", rand(titleRect.left, titleRect.right).toFixed(2));
+          spark.style.setProperty("--y", rand(titleRect.top + titleRect.height * 0.18, titleRect.bottom).toFixed(2));
+          spark.style.setProperty("--mid-x", (side * rand(12, phoneMode ? 32 : 56)).toFixed(2));
+          spark.style.setProperty("--mid-y", rand(-28, 18).toFixed(2));
+          spark.style.setProperty("--end-x", (side * rand(28, phoneMode ? 58 : 96)).toFixed(2));
+          spark.style.setProperty("--end-y", rand(-48, 28).toFixed(2));
+          spark.style.setProperty("--delay", rand(0, 6200).toFixed(2));
+          spark.style.setProperty("--dur", rand(phoneMode ? 5200 : 6200, phoneMode ? 9200 : 11800).toFixed(2));
+          fragment.appendChild(spark);
+        }
+      }
+
+      if (noteRect && noteRect.width > 0) {
+        for (let i = 0; i < Math.floor(sparkCount * 0.55); i++) {
+          const spark = document.createElement("span");
+          const edge = i % 4;
+          const x = edge === 0
+            ? rand(noteRect.left - 54, noteRect.left + 24)
+            : edge === 1
+              ? rand(noteRect.right - 24, noteRect.right + 54)
+              : rand(noteRect.left + 20, noteRect.right - 20);
+          const y = edge < 2
+            ? rand(noteRect.top + 16, noteRect.bottom - 16)
+            : (edge === 2 ? rand(noteRect.top - 42, noteRect.top + 18) : rand(noteRect.bottom - 18, noteRect.bottom + 42));
+
+          spark.className = "letter-float-spark";
+          spark.style.setProperty("--color", colors[(i + 2) % colors.length]);
+          spark.style.setProperty("--size", rand(phoneMode ? 2 : 2.6, phoneMode ? 4.8 : 6.8).toFixed(2));
+          spark.style.setProperty("--x", x.toFixed(2));
+          spark.style.setProperty("--y", y.toFixed(2));
+          spark.style.setProperty("--mid-x", rand(-36, 36).toFixed(2));
+          spark.style.setProperty("--mid-y", rand(-32, 24).toFixed(2));
+          spark.style.setProperty("--end-x", rand(-70, 70).toFixed(2));
+          spark.style.setProperty("--end-y", rand(-54, 42).toFixed(2));
+          spark.style.setProperty("--delay", rand(0, 7600).toFixed(2));
+          spark.style.setProperty("--dur", rand(phoneMode ? 5800 : 7000, phoneMode ? 9800 : 12800).toFixed(2));
+          fragment.appendChild(spark);
+        }
+
+        for (let i = 0; i < orbCount; i++) {
+          const orb = document.createElement("span");
+          const side = i % 2 === 0 ? -1 : 1;
+
+          orb.className = "letter-glow-orb";
+          orb.style.setProperty("--size", rand(phoneMode ? 72 : 110, phoneMode ? 130 : 210).toFixed(2));
+          orb.style.setProperty("--x", (noteRect.left + noteRect.width * (side < 0 ? 0.2 : 0.8)).toFixed(2));
+          orb.style.setProperty("--y", rand(noteRect.top + noteRect.height * 0.18, noteRect.bottom - noteRect.height * 0.18).toFixed(2));
+          orb.style.setProperty("--drift-x", (side * rand(14, 38)).toFixed(2));
+          orb.style.setProperty("--drift-y", rand(-18, 18).toFixed(2));
+          orb.style.setProperty("--end-x", (side * rand(28, 60)).toFixed(2));
+          orb.style.setProperty("--end-y", rand(-28, 28).toFixed(2));
+          orb.style.setProperty("--delay", rand(0, 5200).toFixed(2));
+          orb.style.setProperty("--dur", rand(7400, 12200).toFixed(2));
+          fragment.appendChild(orb);
+        }
+
+        for (let i = 0; i < glintCount; i++) {
+          const glint = document.createElement("span");
+          const direction = i % 2 === 0 ? 1 : -1;
+
+          glint.className = "letter-page-glint";
+          glint.style.setProperty("--w", rand(130, 240).toFixed(2));
+          glint.style.setProperty("--x", (noteRect.left + noteRect.width * (direction > 0 ? 0.22 : 0.78)).toFixed(2));
+          glint.style.setProperty("--y", (noteRect.top + noteRect.height * rand(0.18, 0.82)).toFixed(2));
+          glint.style.setProperty("--shift-x", (direction * noteRect.width * 0.18).toFixed(2));
+          glint.style.setProperty("--shift-y", rand(-8, 8).toFixed(2));
+          glint.style.setProperty("--end-x", (direction * noteRect.width * 0.42).toFixed(2));
+          glint.style.setProperty("--end-y", rand(-18, 18).toFixed(2));
+          glint.style.setProperty("--angle", (direction > 0 ? rand(-6, 5) : rand(176, 186)).toFixed(2));
+          glint.style.setProperty("--delay", (i * 1400 + rand(0, 900)).toFixed(2));
+          glint.style.setProperty("--dur", rand(6200, 9400).toFixed(2));
+          fragment.appendChild(glint);
+        }
+      }
+
+      document.body.appendChild(fragment);
+    }
+
     function showLetter() {
       const mainPage = document.getElementById("mainPage");
       const letterPage = document.getElementById("letterPage");
@@ -5051,12 +5266,12 @@
 
       mainPage.classList.add("opening-out");
 
-      const letter = `On this special day, I hope the world showers you with all the happiness and love you truly deserve.
-You're an incredible person who brings light wherever you go, and today is just another reminder of how amazing you are.
-Have an absolutely wonderful birthday filled with all the things that make you happiest.
+      const letter = `Nhân ngày đặc biệt này, chúc Minh Khanh luôn thật vui vẻ, rạng rỡ và được yêu thương thật nhiều.
+Mong mọi điều dịu dàng, may mắn và hạnh phúc nhất sẽ luôn ở bên bạn.
+Chúc bạn có một sinh nhật thật đẹp, thật đáng nhớ và tràn đầy tiếng cười.
 
-âœ¨ Yours truly,
-- KHANH TOAN â¤ï¸`;
+✨ Gửi từ,
+- KHANH TOAN ❤️`;
 
       let index = 0;
       const speed = 40;
@@ -5077,7 +5292,7 @@ Have an absolutely wonderful birthday filled with all the things that make you h
             const wordElement = document.createElement("span");
             wordElement.className = "letter-word";
 
-            if (token.includes("â¤")) {
+            if (token.includes("❤️") || token.includes("❤")) {
               wordElement.classList.add("red-heart");
             }
 
@@ -5123,6 +5338,7 @@ Have an absolutely wonderful birthday filled with all the things that make you h
         letterPage.classList.remove("intro-playing");
         letterPage.classList.add("final-reveal");
         createConfetti();
+        createLetterPageEffects();
         setTimeout(cleanupCakeIntroParticles, 1400);
         setTimeout(typeText, 850);
       }, 22980);
@@ -5130,6 +5346,12 @@ Have an absolutely wonderful birthday filled with all the things that make you h
 
     createOpeningPageEffects();
     window.addEventListener("resize", () => {
+      if (document.getElementById("letterPage")?.classList.contains("final-reveal")) {
+        clearTimeout(window.__letterEffectResizeTimer);
+        window.__letterEffectResizeTimer = setTimeout(createLetterPageEffects, 220);
+        return;
+      }
+
       if (document.getElementById("mainPage")?.style.display === "none") return;
       clearTimeout(window.__openingEffectResizeTimer);
       window.__openingEffectResizeTimer = setTimeout(createOpeningPageEffects, 220);
@@ -5137,4 +5359,5 @@ Have an absolutely wonderful birthday filled with all the things that make you h
   </script>
 </body>
 </html>
+
 
