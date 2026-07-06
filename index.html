@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preload" as="image" href="kk.jpg">
   <title>Happy Birthday</title>
   <style>
     * {
@@ -41,6 +42,16 @@
       height: 100%;
       object-fit: cover;
       z-index: -2;
+    }
+
+    .background-img {
+      opacity: 0;
+      transition: opacity 520ms ease;
+      transform: translateZ(0);
+    }
+
+    #mainPage.page-ready .background-img {
+      opacity: 1;
     }
 
     .main-content {
@@ -97,6 +108,17 @@
       animation: openingGlowBreath 7600ms ease-in-out infinite alternate;
     }
 
+    #mainPage:not(.page-ready)::before,
+    #mainPage:not(.page-ready)::after {
+      animation: none;
+      opacity: 0.36;
+      transform: scale(1);
+    }
+
+    #mainPage:not(.page-ready) .opening-stage {
+      opacity: 0;
+    }
+
     #mainPage.opening-out .birthday-title,
     #mainPage.opening-out .plane-banner,
     #mainPage.opening-out .open-letter-btn {
@@ -111,6 +133,11 @@
       pointer-events: none;
       z-index: 4;
       contain: layout paint style;
+    }
+
+    .opening-stage {
+      opacity: 1;
+      transition: opacity 360ms ease;
     }
 
     .open-click-stage {
@@ -3769,7 +3796,7 @@
 </head>
 <body>
   <main class="page" id="mainPage">
-    <img class="background-img" src="kk.jpg" alt="">
+    <img class="background-img" src="kk.jpg" alt="" decoding="async" fetchpriority="high">
     <div class="opening-stage" id="openingStage" aria-hidden="true"></div>
 
     <section class="main-content" aria-label="Birthday greeting">
@@ -3864,8 +3891,6 @@
       document.querySelectorAll(".confetti").forEach((confetti) => confetti.remove());
       confettiCreated = false;
     }
-
-    createConfetti();
 
     const celebrationPalette = ["#ffffff", "#ffd60a", "#ffb703", "#ff5c8a", "#ffc0da", "#36e6ff", "#fff3b0", "#b9fbc0"];
     const celebrationMotionPresets = Array.from({ length: 72 }, (_, i) => ({
@@ -4033,6 +4058,38 @@
         return colors[Math.floor(Math.random() * colors.length)];
       }
 
+      function addParticle(particle) {
+        particleFragment.appendChild(particle);
+      }
+
+      function appendIntroParticlesSmoothly() {
+        const particles = Array.from(particleFragment.childNodes);
+        const batchSize = 180;
+        let index = 0;
+
+        if (particles.length <= batchSize || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          intro.appendChild(particleFragment);
+          return;
+        }
+
+        const appendBatch = () => {
+          const fragment = document.createDocumentFragment();
+          const end = Math.min(index + batchSize, particles.length);
+
+          for (; index < end; index++) {
+            fragment.appendChild(particles[index]);
+          }
+
+          intro.appendChild(fragment);
+
+          if (index < particles.length) {
+            requestAnimationFrame(appendBatch);
+          }
+        };
+
+        requestAnimationFrame(appendBatch);
+      }
+
       function addCakeArea(count, options) {
         for (let i = 0; i < count; i++) {
           const x = options.x + (Math.random() - 0.5) * options.w;
@@ -4178,7 +4235,7 @@
           orb.style.setProperty("--burst-x", Math.cos(burstAngle) * burstDistance);
           orb.style.setProperty("--burst-y", Math.sin(burstAngle) * burstDistance);
           orb.style.setProperty("--delay", options.delayBase || Math.random() * 620);
-          particleFragment.appendChild(orb);
+          addParticle(orb);
         }
       }
 
@@ -4209,7 +4266,7 @@
           speck.style.setProperty("--fade-y", Math.sin(fadeAngle) * (40 + Math.random() * 90) * scale);
           speck.style.setProperty("--peak", (0.28 + Math.random() * 0.32).toFixed(2));
           speck.style.setProperty("--delay", 120 + Math.random() * 820);
-          particleFragment.appendChild(speck);
+          addParticle(speck);
         }
       }
 
@@ -4240,7 +4297,7 @@
           comet.style.setProperty("--fade-x", Math.cos(fadeAngle) * (55 + Math.random() * 110) * scale);
           comet.style.setProperty("--fade-y", Math.sin(fadeAngle) * (55 + Math.random() * 110) * scale);
           comet.style.setProperty("--delay", 240 + Math.random() * 740);
-          particleFragment.appendChild(comet);
+          addParticle(comet);
         }
       }
 
@@ -4271,7 +4328,7 @@
           spark.style.setProperty("--fade-x", Math.cos(fadeAngle) * (44 + Math.random() * 90) * scale);
           spark.style.setProperty("--fade-y", Math.sin(fadeAngle) * (44 + Math.random() * 90) * scale);
           spark.style.setProperty("--delay", 160 + Math.random() * 720);
-          particleFragment.appendChild(spark);
+          addParticle(spark);
         }
       }
 
@@ -4285,7 +4342,7 @@
           halo.style.setProperty("--x", side * (window.innerWidth * 0.09 + Math.random() * 28));
           halo.style.setProperty("--y", (46 + Math.random() * 42) * scale);
           halo.style.setProperty("--delay", 260 + i * 190 + Math.random() * 180);
-          particleFragment.appendChild(halo);
+          addParticle(halo);
         }
       }
 
@@ -4310,7 +4367,7 @@
           shimmer.style.setProperty("--fade-x", Math.cos(fadeAngle) * (35 + Math.random() * 80) * scale);
           shimmer.style.setProperty("--fade-y", Math.sin(fadeAngle) * (35 + Math.random() * 80) * scale);
           shimmer.style.setProperty("--delay", 240 + Math.random() * 540);
-          particleFragment.appendChild(shimmer);
+          addParticle(shimmer);
         }
       }
 
@@ -4352,7 +4409,7 @@
           dot.style.setProperty("--fade-x", Math.cos(fadeAngle) * (34 + Math.random() * 72) * scale);
           dot.style.setProperty("--fade-y", Math.sin(fadeAngle) * (34 + Math.random() * 72) * scale);
           dot.style.setProperty("--delay", 220 + Math.random() * 640);
-          particleFragment.appendChild(dot);
+          addParticle(dot);
         }
       }
 
@@ -4371,7 +4428,7 @@
           puff.style.setProperty("--fade-x", side * (24 + Math.random() * 54) * scale);
           puff.style.setProperty("--fade-y", (40 + Math.random() * 70) * scale);
           puff.style.setProperty("--delay", 340 + i * 110 + Math.random() * 280);
-          particleFragment.appendChild(puff);
+          addParticle(puff);
         }
       }
 
@@ -4398,7 +4455,7 @@
           anchor.style.setProperty("--fade-x", Math.cos(fadeAngle) * (20 + Math.random() * 56) * scale);
           anchor.style.setProperty("--fade-y", Math.sin(fadeAngle) * (20 + Math.random() * 56) * scale);
           anchor.style.setProperty("--delay", 180 + Math.random() * 360);
-          particleFragment.appendChild(anchor);
+          addParticle(anchor);
         }
       }
 
@@ -4416,7 +4473,7 @@
           sweep.style.setProperty("--y", (lineY + (Math.random() - 0.5) * 20) * scale);
           sweep.style.setProperty("--drift-x", (width * 0.55 + Math.random() * 80) * scale);
           sweep.style.setProperty("--delay", 80 + i * 140 + Math.random() * 120);
-          particleFragment.appendChild(sweep);
+          addParticle(sweep);
         }
       }
 
@@ -4450,7 +4507,7 @@
           heart.style.setProperty("--fade-y", Math.sin(fadeAngle) * (28 + Math.random() * 48) * scale * preset.fade);
           heart.style.setProperty("--rotate", (-24 + Math.random() * 48).toFixed(2));
           heart.style.setProperty("--delay", preset.delay + Math.random() * 220);
-          particleFragment.appendChild(heart);
+          addParticle(heart);
         }
       }
 
@@ -4465,7 +4522,7 @@
           ring.style.setProperty("--x", 0);
           ring.style.setProperty("--y", (604 - i * 8) * scale);
           ring.style.setProperty("--delay", 80 + i * 150);
-          particleFragment.appendChild(ring);
+          addParticle(ring);
         }
       }
 
@@ -4486,7 +4543,7 @@
           core.style.setProperty("--x", originX);
           core.style.setProperty("--y", originY);
           core.style.setProperty("--delay", 80 + pop * 140 + Math.random() * 90);
-          particleFragment.appendChild(core);
+          addParticle(core);
 
           for (let i = 0; i < sparksPerPop; i++) {
             const spark = document.createElement("span");
@@ -4507,7 +4564,7 @@
             spark.style.setProperty("--fade-x", Math.cos(angle) * distance * 1.28);
             spark.style.setProperty("--fade-y", Math.sin(angle) * distance * 1.28 - 18 * scale * preset.lift);
             spark.style.setProperty("--delay", preset.delay + pop * 80 + Math.random() * 80);
-            particleFragment.appendChild(spark);
+            addParticle(spark);
           }
         }
       }
@@ -4583,7 +4640,7 @@
           glow.style.setProperty("--x", side * (phoneMode ? 190 : tabletMode ? 230 : 260) * scale);
           glow.style.setProperty("--y", (420 + index * 24) * scale);
           glow.style.setProperty("--delay", 160 + index * 100);
-          particleFragment.appendChild(glow);
+          addParticle(glow);
         });
 
         allPoints.forEach((point, i) => {
@@ -4608,7 +4665,7 @@
           dot.style.setProperty("--fade-y", Math.sin(fadeAngle) * (30 + Math.random() * 80) * scale);
           dot.style.setProperty("--rotate", (-16 + Math.random() * 32).toFixed(2));
           dot.style.setProperty("--delay", preset.delay * 0.45 + Math.random() * 260);
-          particleFragment.appendChild(dot);
+          addParticle(dot);
         });
       }
 
@@ -4727,7 +4784,7 @@
         dust.style.setProperty("--explode-y", Math.sin(explodeAngle) * explodeDistance);
         dust.style.setProperty("--delay", Math.random() * 520);
 
-        particleFragment.appendChild(dust);
+        addParticle(dust);
       });
 
       const orbCount = introQuality.orbCount;
@@ -4776,7 +4833,7 @@
         star.style.setProperty("--burst-x", Math.cos(burstAngle) * burstDistance);
         star.style.setProperty("--burst-y", Math.sin(burstAngle) * burstDistance);
         star.style.setProperty("--delay", Math.random() * 820);
-        particleFragment.appendChild(star);
+        addParticle(star);
       }
 
       for (let i = 0; i < icingCount; i++) {
@@ -4800,7 +4857,7 @@
         icing.style.setProperty("--burst-x", Math.cos(burstAngle) * (80 + Math.random() * 160) * scale);
         icing.style.setProperty("--burst-y", Math.sin(burstAngle) * (80 + Math.random() * 160) * scale);
         icing.style.setProperty("--delay", 80 + Math.random() * 620);
-        particleFragment.appendChild(icing);
+        addParticle(icing);
       }
 
       for (let i = 0; i < burstCount; i++) {
@@ -4813,10 +4870,10 @@
         burst.style.setProperty("--burst-x", Math.cos(angle) * distance);
         burst.style.setProperty("--burst-y", Math.sin(angle) * distance);
 
-        particleFragment.appendChild(burst);
+        addParticle(burst);
       }
 
-      intro.appendChild(particleFragment);
+      appendIntroParticlesSmoothly();
     }
 
     function createOpeningPageEffects() {
@@ -5275,7 +5332,9 @@ Chúc bạn có một sinh nhật thật đẹp, thật đáng nhớ và tràn �
         letterPage.classList.remove("final-reveal");
         target.textContent = "";
         target.classList.add("typing");
-        createCakeIntroParticles();
+        requestAnimationFrame(() => {
+          requestAnimationFrame(createCakeIntroParticles);
+        });
       }, 980);
 
       setTimeout(() => {
@@ -5288,7 +5347,53 @@ Chúc bạn có một sinh nhật thật đẹp, thật đáng nhớ và tràn �
       }, 22980);
     }
 
-    createOpeningPageEffects();
+    function waitForBackgroundReady() {
+      const background = document.querySelector(".background-img");
+
+      if (!background) return Promise.resolve();
+      if (background.complete) {
+        return background.decode ? background.decode().catch(() => {}) : Promise.resolve();
+      }
+
+      return new Promise((resolve) => {
+        const finish = () => resolve();
+        const timeout = setTimeout(finish, 900);
+
+        background.addEventListener("load", () => {
+          clearTimeout(timeout);
+          if (background.decode) {
+            background.decode().catch(() => {}).finally(finish);
+          } else {
+            finish();
+          }
+        }, { once: true });
+
+        background.addEventListener("error", () => {
+          clearTimeout(timeout);
+          finish();
+        }, { once: true });
+      });
+    }
+
+    function startOpeningPage() {
+      const mainPage = document.getElementById("mainPage");
+
+      requestAnimationFrame(() => {
+        waitForBackgroundReady().then(() => {
+          requestAnimationFrame(() => {
+            mainPage?.classList.add("page-ready");
+
+            setTimeout(() => {
+              if (mainPage?.dataset.opening === "true") return;
+              createOpeningPageEffects();
+              createConfetti();
+            }, 180);
+          });
+        });
+      });
+    }
+
+    startOpeningPage();
     window.addEventListener("resize", () => {
       if (document.getElementById("letterPage")?.classList.contains("final-reveal")) {
         clearTimeout(window.__letterEffectResizeTimer);
@@ -5297,12 +5402,14 @@ Chúc bạn có một sinh nhật thật đẹp, thật đáng nhớ và tràn �
       }
 
       if (document.getElementById("mainPage")?.style.display === "none") return;
+      if (!document.getElementById("mainPage")?.classList.contains("page-ready")) return;
       clearTimeout(window.__openingEffectResizeTimer);
       window.__openingEffectResizeTimer = setTimeout(createOpeningPageEffects, 220);
     });
   </script>
 </body>
 </html>
+
 
 
 
