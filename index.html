@@ -52,6 +52,374 @@
       text-align: center;
     }
 
+    #mainPage {
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255, 192, 218, 0.16), transparent 28%),
+        radial-gradient(circle at 82% 22%, rgba(255, 214, 10, 0.14), transparent 30%),
+        radial-gradient(circle at 50% 84%, rgba(54, 230, 255, 0.11), transparent 34%),
+        #111;
+    }
+
+    #mainPage::before,
+    #mainPage::after {
+      content: "";
+      position: absolute;
+      inset: -18%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.82;
+      mix-blend-mode: screen;
+      will-change: transform, opacity;
+    }
+
+    #mainPage::before {
+      background:
+        conic-gradient(
+          from 20deg at 50% 50%,
+          transparent 0deg,
+          rgba(255, 192, 218, 0.13) 42deg,
+          transparent 86deg,
+          rgba(255, 214, 10, 0.1) 142deg,
+          transparent 208deg,
+          rgba(54, 230, 255, 0.11) 272deg,
+          transparent 360deg
+        );
+      filter: blur(24px);
+      animation: openingAuroraTurn 18000ms linear infinite;
+    }
+
+    #mainPage::after {
+      background:
+        radial-gradient(ellipse at 50% 62%, rgba(255, 246, 178, 0.22), transparent 42%),
+        radial-gradient(ellipse at 24% 48%, rgba(255, 92, 138, 0.14), transparent 34%),
+        radial-gradient(ellipse at 76% 48%, rgba(54, 230, 255, 0.12), transparent 34%);
+      filter: blur(16px);
+      animation: openingGlowBreath 7600ms ease-in-out infinite alternate;
+    }
+
+    #mainPage.opening-out .birthday-title,
+    #mainPage.opening-out .plane-banner,
+    #mainPage.opening-out .open-letter-btn {
+      animation: openingPageExit 1150ms cubic-bezier(.18, .74, .2, 1) forwards;
+    }
+
+    .opening-stage,
+    .open-click-stage {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 4;
+      contain: layout paint style;
+    }
+
+    .open-click-stage {
+      z-index: 24;
+    }
+
+    .opening-dot,
+    .opening-heart,
+    .opening-diamond,
+    .opening-moon,
+    .opening-lantern,
+    .opening-comet,
+    .opening-title-spark,
+    .opening-title-orbit,
+    .opening-title-glint,
+    .button-burst,
+    .button-ripple,
+    .button-flare {
+      position: fixed;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
+      contain: layout paint style;
+    }
+
+    .opening-dot {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 32% 28%, #ffffff, currentColor 46%, transparent 76%);
+      opacity: 0;
+      box-shadow:
+        0 0 5px currentColor,
+        0 0 14px rgba(255, 246, 178, 0.3);
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        scale(0.24);
+      animation: openingDotFloat calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 2;
+    }
+
+    .opening-heart {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      color: var(--color);
+      opacity: 0;
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        rotate(-45deg)
+        scale(0.28);
+      animation: openingHeartSway calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 3;
+    }
+
+    .opening-heart::before,
+    .opening-heart::after,
+    .opening-heart {
+      background: currentColor;
+    }
+
+    .opening-heart::before,
+    .opening-heart::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+
+    .opening-heart::before {
+      left: 50%;
+      top: 0;
+    }
+
+    .opening-heart::after {
+      left: 0;
+      top: -50%;
+    }
+
+    .opening-diamond {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 22%;
+      color: var(--color);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.92), currentColor 54%, rgba(255, 255, 255, 0.24));
+      opacity: 0;
+      box-shadow: 0 0 10px currentColor;
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        rotate(45deg)
+        scale(0.3);
+      animation: openingDiamondSpin calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 3;
+    }
+
+    .opening-moon {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      opacity: 0;
+      background:
+        radial-gradient(circle at 42% 42%, rgba(255, 255, 255, 0.95), rgba(255, 246, 178, 0.64) 34%, transparent 66%);
+      box-shadow:
+        0 0 18px rgba(255, 246, 178, 0.46),
+        0 0 42px rgba(255, 192, 218, 0.16);
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        scale(0.4);
+      animation: openingMoonPulse calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 1;
+    }
+
+    .opening-lantern {
+      width: calc(var(--w) * 1px);
+      height: calc(var(--h) * 1px);
+      border-radius: 999px 999px 52% 52%;
+      opacity: 0;
+      background:
+        radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.92), transparent 18%),
+        linear-gradient(180deg, rgba(255, 192, 218, 0.9), rgba(255, 92, 138, 0.42) 58%, rgba(255, 214, 10, 0.3));
+      box-shadow:
+        inset 0 0 14px rgba(255, 255, 255, 0.34),
+        0 0 18px rgba(255, 192, 218, 0.38);
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        rotate(calc(var(--rot) * 1deg))
+        scale(0.62);
+      animation: openingLanternRise calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 2;
+    }
+
+    .opening-lantern::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -8px;
+      width: 2px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 246, 178, 0.72);
+      transform: translateX(-50%);
+      box-shadow: 0 0 8px rgba(255, 214, 10, 0.5);
+    }
+
+    .opening-comet {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 30% 25%, #ffffff, currentColor 48%, transparent 78%);
+      opacity: 0;
+      box-shadow:
+        0 0 7px currentColor,
+        0 0 18px rgba(255, 246, 178, 0.34);
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        rotate(calc(var(--angle) * 1deg))
+        scale(0.2);
+      animation: openingCometSweep calc(var(--dur) * 1ms) cubic-bezier(.2, .72, .16, 1) infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 2;
+    }
+
+    .opening-comet::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 55%;
+      width: calc(var(--tail) * 1px);
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.48), currentColor);
+      opacity: 0.5;
+      transform: translateY(-50%);
+    }
+
+    .opening-title-spark {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 32% 28%, #ffffff, currentColor 44%, transparent 78%);
+      opacity: 0;
+      box-shadow:
+        0 0 6px currentColor,
+        0 0 16px rgba(255, 192, 218, 0.34);
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        scale(0.24);
+      animation: openingTitleSparkDance calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 5;
+    }
+
+    .opening-title-orbit {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 999px;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 28% 28%, #ffffff, currentColor 46%, transparent 76%);
+      opacity: 0;
+      box-shadow:
+        0 0 7px currentColor,
+        0 0 18px rgba(255, 214, 10, 0.28);
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        rotate(calc(var(--angle) * 1deg))
+        scale(0.28);
+      animation: openingTitleOrbit calc(var(--dur) * 1ms) cubic-bezier(.2, .72, .18, 1) infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 5;
+    }
+
+    .opening-title-orbit::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 58%;
+      width: calc(var(--tail) * 1px);
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.44), currentColor);
+      opacity: 0.42;
+      transform: translateY(-50%);
+    }
+
+    .opening-title-glint {
+      width: calc(var(--w) * 1px);
+      height: 3px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.94), rgba(255, 192, 218, 0.72), transparent);
+      opacity: 0;
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        translate(-50%, -50%)
+        rotate(calc(var(--angle) * 1deg))
+        scaleX(0.18);
+      animation: openingTitleGlint calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 5;
+    }
+
+    .button-burst {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 30% 25%, #ffffff, currentColor 44%, transparent 76%);
+      box-shadow:
+        0 0 7px currentColor,
+        0 0 16px rgba(255, 246, 178, 0.42);
+      opacity: 0;
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        scale(0.22);
+      animation: buttonBurstFly 1280ms cubic-bezier(.15, .7, .2, 1) forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 30;
+    }
+
+    .button-ripple {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      border: 2px solid rgba(255, 246, 178, 0.78);
+      box-shadow:
+        0 0 22px rgba(255, 214, 10, 0.34),
+        inset 0 0 18px rgba(255, 192, 218, 0.18);
+      opacity: 0;
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        translate(-50%, -50%)
+        scale(0.12);
+      animation: buttonRippleOpen 1100ms ease-out forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 28;
+    }
+
+    .button-flare {
+      width: calc(var(--w) * 1px);
+      height: 3px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.88), rgba(255, 214, 10, 0.72), transparent);
+      opacity: 0;
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        translate(-50%, -50%)
+        rotate(calc(var(--angle) * 1deg))
+        scaleX(0.16);
+      animation: buttonFlareCut 980ms ease-out forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 29;
+    }
+
     .birthday-title {
       align-self: end;
       margin: 0 0 clamp(16px, 5vh, 48px);
@@ -60,8 +428,46 @@
       font-size: clamp(3rem, 13vw, 8.5rem);
       font-style: italic;
       line-height: 0.95;
-      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.75);
-      z-index: 2;
+      position: relative;
+      text-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.75),
+        0 0 16px rgba(255, 192, 218, 0.34);
+      animation: titleSoftFloat 4600ms ease-in-out infinite;
+      z-index: 6;
+    }
+
+    .birthday-title::before,
+    .birthday-title::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      pointer-events: none;
+      transform: translateX(-50%);
+    }
+
+    .birthday-title::before {
+      top: 50%;
+      width: 112%;
+      height: 92%;
+      border-radius: 50%;
+      background:
+        radial-gradient(ellipse at center, rgba(255, 192, 218, 0.24), rgba(255, 214, 10, 0.08) 46%, transparent 72%);
+      filter: blur(18px);
+      opacity: 0.62;
+      z-index: -1;
+      animation: titleAuraPulse 4200ms ease-in-out infinite alternate;
+    }
+
+    .birthday-title::after {
+      bottom: -0.18em;
+      width: 78%;
+      height: 0.14em;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.74), rgba(255, 192, 218, 0.8), transparent);
+      filter: blur(0.5px);
+      opacity: 0.72;
+      animation: titleUnderlineGlow 3600ms ease-in-out infinite;
     }
 
     .birthday-title span {
@@ -69,7 +475,8 @@
       color: #ffc0da;
       text-shadow:
         0 4px 14px rgba(0, 0, 0, 0.75),
-        0 0 12px rgba(255, 192, 218, 0.5);
+        0 0 12px rgba(255, 192, 218, 0.5),
+        0 0 28px rgba(255, 214, 10, 0.16);
     }
 
     .plane-banner {
@@ -122,13 +529,46 @@
       font-weight: 800;
       cursor: pointer;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
-      transition: transform 180ms ease, box-shadow 180ms ease;
+      position: relative;
+      overflow: hidden;
+      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
       z-index: 5;
+    }
+
+    .open-letter-btn::before,
+    .open-letter-btn::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .open-letter-btn::before {
+      background:
+        conic-gradient(from 0deg, transparent, rgba(255, 214, 10, 0.46), transparent, rgba(255, 192, 218, 0.5), transparent);
+      animation: openButtonHalo 3600ms linear infinite;
+      opacity: 0.68;
+      mix-blend-mode: screen;
+    }
+
+    .open-letter-btn::after {
+      inset: 0;
+      background:
+        linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.88) 44%, transparent 58%);
+      transform: translateX(-140%);
+      animation: openButtonSheen 2600ms ease-in-out infinite;
+      opacity: 0.45;
     }
 
     .open-letter-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    }
+
+    .open-letter-btn:active {
+      transform: translateY(1px) scale(0.98);
+      filter: brightness(1.08);
     }
 
     .confetti {
@@ -172,6 +612,7 @@
     }
 
     .cake-intro {
+      --cake-scale: 1;
       position: absolute;
       inset: 0;
       display: none;
@@ -180,10 +621,504 @@
       overflow: hidden;
       pointer-events: none;
       z-index: 6;
+      background:
+        radial-gradient(circle at 50% 70%, rgba(255, 226, 96, 0.28), transparent 34%),
+        radial-gradient(circle at 25% 58%, rgba(255, 90, 160, 0.16), transparent 30%),
+        radial-gradient(circle at 75% 58%, rgba(80, 220, 255, 0.16), transparent 30%),
+        linear-gradient(180deg, rgba(11, 6, 26, 0.1), rgba(11, 6, 26, 0.54));
     }
 
     #letterPage.intro-playing .cake-intro {
       display: flex;
+    }
+
+    .cake-intro::before,
+    .cake-intro::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 6%;
+      width: min(92vw, 960px);
+      height: min(82vw, 760px);
+      border-radius: 50%;
+      opacity: 0;
+      transform: translate(-50%, 18%) scale(0.72);
+      pointer-events: none;
+      mix-blend-mode: screen;
+      will-change: transform, opacity;
+    }
+
+    .cake-intro::before {
+      background:
+        repeating-conic-gradient(
+          from 0deg,
+          rgba(255, 246, 178, 0.3) 0deg 6deg,
+          rgba(255, 165, 64, 0.08) 6deg 13deg,
+          transparent 13deg 22deg
+        );
+      filter: blur(12px);
+      animation: introAura 22000ms ease-in-out forwards;
+    }
+
+    .cake-intro::after {
+      width: min(80vw, 720px);
+      height: min(58vw, 430px);
+      background:
+        radial-gradient(ellipse at center, rgba(255, 226, 96, 0.42), rgba(255, 120, 60, 0.1) 44%, transparent 68%);
+      filter: blur(18px);
+      animation: cakeStageGlow 22000ms ease-in-out forwards;
+    }
+
+    .cake-ghost {
+      position: absolute;
+      left: 50%;
+      bottom: 8%;
+      width: calc(560px * var(--cake-scale));
+      height: calc(520px * var(--cake-scale));
+      opacity: 0;
+      transform: translateX(-50%) translateY(24px) scale(0.84);
+      transform-origin: bottom center;
+      animation: cakeGhostReveal 22000ms ease-in-out forwards;
+      filter:
+        drop-shadow(0 18px 24px rgba(0, 0, 0, 0.34))
+        drop-shadow(0 0 28px rgba(255, 214, 10, 0.45));
+      z-index: 1;
+    }
+
+    .cake-ghost .tier,
+    .cake-ghost .frosting,
+    .cake-ghost .plate,
+    .cake-ghost .candle,
+    .cake-ghost .flame,
+    .cake-ghost .cake-message {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .cake-ghost .plate {
+      bottom: 18px;
+      width: 520px;
+      height: 56px;
+      border-radius: 50%;
+      background:
+        radial-gradient(ellipse at center, rgba(255, 255, 255, 0.95), rgba(255, 219, 102, 0.86) 42%, rgba(222, 116, 42, 0.34) 72%, transparent 74%);
+      box-shadow:
+        inset 0 8px 12px rgba(255, 255, 255, 0.68),
+        0 16px 30px rgba(0, 0, 0, 0.28);
+    }
+
+    .cake-ghost .tier {
+      border-radius: 46% 46% 22px 22px / 34% 34% 22px 22px;
+      background:
+        radial-gradient(ellipse at 50% 8%, rgba(255, 255, 255, 0.78), transparent 44%),
+        linear-gradient(90deg, rgba(255, 244, 178, 0.8), transparent 18% 82%, rgba(184, 91, 18, 0.22)),
+        linear-gradient(180deg, #ffe66d, #ffb703 48%, #f77f00);
+      box-shadow:
+        inset 0 14px 18px rgba(255, 255, 255, 0.42),
+        inset 0 -18px 26px rgba(169, 75, 10, 0.24),
+        0 10px 22px rgba(0, 0, 0, 0.24);
+      overflow: hidden;
+    }
+
+    .cake-ghost .tier::before,
+    .cake-ghost .tier::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+    }
+
+    .cake-ghost .tier::before {
+      top: 8px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 248, 205, 0.48);
+      filter: blur(0.5px);
+    }
+
+    .cake-ghost .tier::after {
+      top: 42%;
+      height: 14px;
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.68) 0 2px, transparent 3px) 0 0 / 32px 12px,
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+      opacity: 0.88;
+    }
+
+    .cake-ghost .tier-bottom {
+      bottom: 58px;
+      width: 520px;
+      height: 138px;
+    }
+
+    .cake-ghost .tier-middle {
+      bottom: 172px;
+      width: 420px;
+      height: 118px;
+      background:
+        radial-gradient(ellipse at 50% 8%, rgba(255, 255, 255, 0.78), transparent 44%),
+        linear-gradient(90deg, rgba(255, 244, 178, 0.74), transparent 18% 82%, rgba(184, 91, 18, 0.2)),
+        linear-gradient(180deg, #fff176, #ffd60a 48%, #ff9f1c);
+    }
+
+    .cake-ghost .tier-top {
+      bottom: 270px;
+      width: 300px;
+      height: 102px;
+      background:
+        radial-gradient(ellipse at 50% 8%, rgba(255, 255, 255, 0.8), transparent 44%),
+        linear-gradient(90deg, rgba(255, 244, 178, 0.74), transparent 18% 82%, rgba(184, 91, 18, 0.18)),
+        linear-gradient(180deg, #fff3b0, #ffd60a 54%, #ffb703);
+    }
+
+    .cake-ghost .frosting {
+      height: 38px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 20% 60%, #fff8dc 0 20px, transparent 21px),
+        radial-gradient(circle at 35% 68%, #fff8dc 0 22px, transparent 23px),
+        radial-gradient(circle at 52% 58%, #fff8dc 0 19px, transparent 20px),
+        radial-gradient(circle at 70% 66%, #fff8dc 0 22px, transparent 23px),
+        radial-gradient(circle at 86% 58%, #fff8dc 0 18px, transparent 19px),
+        linear-gradient(180deg, #ffffff, #fff3b0);
+      box-shadow:
+        inset 0 -8px 10px rgba(255, 183, 3, 0.22),
+        0 6px 12px rgba(255, 214, 10, 0.26);
+      z-index: 2;
+    }
+
+    .cake-ghost .frosting-bottom {
+      bottom: 164px;
+      width: 522px;
+    }
+
+    .cake-ghost .frosting-middle {
+      bottom: 276px;
+      width: 422px;
+    }
+
+    .cake-ghost .frosting-top {
+      bottom: 366px;
+      width: 302px;
+    }
+
+    .cake-ghost .candle {
+      bottom: 364px;
+      width: 20px;
+      height: 96px;
+      border-radius: 8px;
+      background:
+        repeating-linear-gradient(45deg, #fff7c2 0 10px, #ff6b9e 10px 20px);
+      box-shadow:
+        inset 4px 0 5px rgba(255, 255, 255, 0.56),
+        0 0 14px rgba(255, 214, 10, 0.36);
+    }
+
+    .cake-ghost .candle-left {
+      margin-left: -118px;
+    }
+
+    .cake-ghost .candle-right {
+      margin-left: 118px;
+    }
+
+    .cake-ghost .flame {
+      bottom: 456px;
+      width: 28px;
+      height: 44px;
+      border-radius: 50% 50% 45% 45%;
+      background:
+        radial-gradient(circle at 50% 68%, #ffffff 0 18%, #fff700 19% 42%, #ff9f1c 43% 72%, transparent 73%);
+      transform: translateX(-50%) rotate(8deg);
+      filter: drop-shadow(0 0 14px #ffd60a) drop-shadow(0 0 24px #ff7a00);
+      animation: flameDance 620ms ease-in-out infinite alternate;
+      z-index: 4;
+    }
+
+    .cake-ghost .flame-left {
+      margin-left: -118px;
+      animation-delay: -180ms;
+    }
+
+    .cake-ghost .flame-right {
+      margin-left: 118px;
+      animation-delay: -320ms;
+    }
+
+    .cake-ghost .cake-message {
+      bottom: 70px;
+      width: 100%;
+      color: #fff8dc;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 44px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-align: center;
+      text-shadow:
+        0 2px 0 rgba(153, 58, 8, 0.75),
+        0 0 12px rgba(255, 255, 255, 0.68),
+        0 0 22px rgba(255, 214, 10, 0.46);
+      z-index: 5;
+    }
+
+    .spark-star,
+    .icing-dot,
+    .vortex-orb,
+    .ambient-speck,
+    .comet-dot,
+    .halo-pulse,
+    .cake-shimmer,
+    .cake-orbit-dot,
+    .cake-puff,
+    .vortex-spark,
+    .text-anchor,
+    .text-sweep,
+    .heart-spark,
+    .heart-ring,
+    .firework-dot,
+    .firework-core,
+    .side-figure-dot,
+    .side-figure-glow {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
+      contain: layout paint style;
+    }
+
+    .vortex-orb {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.95), currentColor 42%, rgba(255, 159, 28, 0.34) 76%, transparent 78%);
+      opacity: 0;
+      box-shadow:
+        0 0 5px currentColor,
+        0 0 11px rgba(255, 214, 10, 0.42);
+      transform:
+        translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+        scale(0.18);
+      animation: vortexOrbDance 22000ms cubic-bezier(.17, .7, .18, 1) forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 2;
+    }
+
+    .vortex-orb.deep {
+      filter: blur(0.2px) saturate(0.82);
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .vortex-orb.bright {
+      background:
+        radial-gradient(circle at 35% 28%, #ffffff, currentColor 38%, rgba(255, 255, 255, 0.2) 72%, transparent 76%);
+      box-shadow:
+        0 0 7px currentColor,
+        0 0 16px rgba(255, 246, 178, 0.62);
+      z-index: 4;
+    }
+
+    .ambient-speck {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.92), currentColor 44%, transparent 74%);
+      opacity: 0;
+      box-shadow: 0 0 6px currentColor;
+      transform:
+        translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+        scale(0.2);
+      animation: ambientSpeckDrift 22000ms ease-in-out forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 1;
+    }
+
+    .comet-dot {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 34% 28%, #ffffff, currentColor 48%, transparent 76%);
+      opacity: 0;
+      box-shadow:
+        0 0 5px currentColor,
+        0 0 10px rgba(255, 214, 10, 0.42);
+      transform:
+        translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+        scale(0.2);
+      animation: cometDotArc 22000ms cubic-bezier(.18, .72, .2, 1) forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 4;
+    }
+
+    .comet-dot::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: calc(var(--tail) * 1px);
+      height: 2px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, currentColor, rgba(255, 255, 255, 0.52), transparent);
+      opacity: 0.38;
+      transform:
+        translate(-92%, -50%)
+        rotate(calc(var(--tail-angle) * 1deg));
+      transform-origin: right center;
+    }
+
+    .halo-pulse {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255, 248, 210, 0.5), rgba(255, 214, 10, 0.16) 46%, transparent 72%);
+      opacity: 0;
+      transform:
+        translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+        scale(0.25);
+      animation: haloPulseClean 22000ms ease-out forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 0;
+    }
+
+    .cake-shimmer {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 30% 25%, #ffffff, currentColor 46%, rgba(255, 183, 3, 0.34) 72%, transparent 76%);
+      opacity: 0;
+      box-shadow:
+        0 0 4px currentColor,
+        0 0 8px rgba(255, 246, 178, 0.35);
+      transform:
+        translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+        scale(0.24);
+      animation: cakeShimmerSettle 22000ms ease-in-out forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 5;
+    }
+
+    .cake-orbit-dot {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 30% 25%, #ffffff, currentColor 42%, rgba(255, 196, 0, 0.32) 72%, transparent 78%);
+      opacity: 0;
+      box-shadow:
+        0 0 5px currentColor,
+        0 0 12px rgba(255, 214, 10, 0.38);
+      transform:
+        translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+        scale(0.2);
+      animation: cakeOrbitPolish 22000ms cubic-bezier(.18, .72, .2, 1) forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 6;
+    }
+
+    .cake-puff {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255, 247, 190, 0.34), rgba(255, 183, 3, 0.13) 48%, transparent 72%);
+      opacity: 0;
+      filter: blur(0.35px);
+      transform:
+        translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+        scale(0.18);
+      animation: cakePuffBreath 22000ms ease-out forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 3;
+    }
+
+    .vortex-spark {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 999px;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 28% 28%, #ffffff, currentColor 48%, transparent 76%);
+      opacity: 0;
+      box-shadow:
+        0 0 5px currentColor,
+        0 0 11px rgba(255, 246, 178, 0.42);
+      transform:
+        translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+        rotate(calc(var(--angle) * 1deg))
+        scale(0.18);
+      animation: vortexSparkSnap 22000ms cubic-bezier(.16, .74, .2, 1) forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 5;
+    }
+
+    .vortex-spark::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: calc(var(--tail) * 1px);
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, currentColor, rgba(255, 255, 255, 0.4), transparent);
+      opacity: 0.32;
+      transform: translate(-96%, -50%);
+      transform-origin: right center;
+    }
+
+
+    .spark-star {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      color: var(--color);
+      opacity: 0;
+      transform: translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px)) scale(0.2);
+      animation: starOrbit 22000ms cubic-bezier(.2, .72, .18, 1) forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 4;
+    }
+
+    .spark-star::before,
+    .spark-star::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: currentColor;
+      border-radius: 999px;
+      box-shadow: 0 0 10px currentColor;
+    }
+
+    .spark-star::after {
+      transform: rotate(90deg);
+    }
+
+    .icing-dot {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, #ffffff, var(--color) 42%, rgba(255, 183, 3, 0.72));
+      opacity: 0;
+      box-shadow:
+        0 0 9px rgba(255, 255, 255, 0.62),
+        0 0 16px var(--color);
+      transform: translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px)) scale(0.18);
+      animation: icingPop 22000ms cubic-bezier(.18, .78, .22, 1.02) forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 5;
     }
 
     .dust {
@@ -193,18 +1128,195 @@
       width: calc(var(--size) * 1px);
       height: calc(var(--size) * 1px);
       border-radius: 50%;
-      background: #ffd86b;
+      background:
+        radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.9), currentColor 40%, rgba(247, 127, 0, 0.78));
       opacity: 0;
       transform:
         translateX(calc(var(--x) * 1px))
         translateY(calc(var(--ground-y) * -1px))
         scale(0.35);
-      box-shadow: 0 0 7px currentColor;
+      box-shadow:
+        0 0 7px currentColor,
+        0 0 13px currentColor;
       color: var(--color);
       animation: dustToCake 22000ms linear forwards;
       animation-delay: calc(var(--delay) * 1ms);
       will-change: transform, opacity;
       contain: layout paint style;
+      z-index: 3;
+    }
+
+    .dust.text-dust {
+      box-shadow:
+        0 0 2px currentColor,
+        0 0 5px rgba(255, 248, 210, 0.62);
+      filter: saturate(0.9);
+      z-index: 6;
+    }
+
+    .text-anchor {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.98), currentColor 52%, transparent 78%);
+      opacity: 0;
+      box-shadow:
+        0 0 3px currentColor,
+        0 0 8px rgba(255, 248, 210, 0.42);
+      transform:
+        translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+        scale(0.32);
+      animation: textAnchorSettle 22000ms ease-out forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 7;
+    }
+
+    .text-sweep {
+      width: calc(var(--w) * 1px);
+      height: 2px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.92), rgba(255, 230, 110, 0.7), transparent);
+      opacity: 0;
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * -1px))
+        scaleX(0.16);
+      filter: drop-shadow(0 0 8px rgba(255, 230, 110, 0.52));
+      animation: textSweepReveal 22000ms ease-in-out forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 8;
+    }
+
+    .heart-spark {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      opacity: 0;
+      color: var(--color);
+      transform:
+        translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+        scale(0.22)
+        rotate(calc(var(--rotate) * 1deg));
+      animation: heartSparkBloom 22000ms cubic-bezier(.18, .74, .22, 1) forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 6;
+    }
+
+    .heart-spark::before,
+    .heart-spark::after {
+      content: "";
+      position: absolute;
+      width: 62%;
+      height: 86%;
+      border-radius: 999px 999px 0 0;
+      background:
+        radial-gradient(circle at 38% 24%, #ffffff, currentColor 48%, rgba(255, 92, 138, 0.42) 78%);
+      box-shadow:
+        0 0 5px currentColor,
+        0 0 12px rgba(255, 92, 138, 0.42);
+      transform-origin: 50% 88%;
+    }
+
+    .heart-spark::before {
+      left: 50%;
+      transform: translateX(-50%) rotate(-45deg);
+    }
+
+    .heart-spark::after {
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    .heart-ring {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      border: 1px solid rgba(255, 192, 218, 0.55);
+      opacity: 0;
+      transform:
+        translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+        scale(0.12);
+      filter: drop-shadow(0 0 8px rgba(255, 92, 138, 0.38));
+      animation: heartRingPulse 22000ms ease-out forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 5;
+    }
+
+    .firework-dot {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 35% 28%, #ffffff, currentColor 48%, transparent 76%);
+      opacity: 0;
+      box-shadow:
+        0 0 4px currentColor,
+        0 0 10px rgba(255, 214, 10, 0.38);
+      transform:
+        translate(calc(var(--origin-x) * 1px), calc(var(--origin-y) * -1px))
+        scale(0.16);
+      animation: fireworkDotPop 22000ms cubic-bezier(.17, .7, .2, 1) forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 6;
+    }
+
+    .firework-core {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(255, 214, 10, 0.42) 46%, transparent 72%);
+      opacity: 0;
+      transform:
+        translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+        scale(0.2);
+      animation: fireworkCorePulse 22000ms ease-out forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 5;
+    }
+
+    .side-figure-dot {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 34% 28%, #ffffff, currentColor 45%, rgba(255, 214, 10, 0.22) 72%, transparent 78%);
+      opacity: 0;
+      box-shadow:
+        0 0 4px currentColor,
+        0 0 10px rgba(255, 246, 178, 0.42);
+      transform:
+        translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+        scale(0.2);
+      animation: sideFigureGather 22000ms cubic-bezier(.18, .72, .22, 1) forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 6;
+    }
+
+    .side-figure-dot.square {
+      border-radius: 5px;
+      transform:
+        translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+        rotate(calc(var(--rotate) * 1deg))
+        scale(0.2);
+    }
+
+    .side-figure-glow {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255, 248, 210, 0.22), rgba(255, 214, 10, 0.08) 44%, transparent 70%);
+      opacity: 0;
+      transform:
+        translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+        scale(0.2);
+      animation: sideFigureGlow 22000ms ease-out forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 4;
     }
 
     .cake {
@@ -418,7 +1530,7 @@
     }
 
     .photo-wrapper::after {
-      content: "✦  ✧  ✦";
+      content: "âœ¦  âœ§  âœ¦";
       position: absolute;
       top: -26px;
       left: 50%;
@@ -548,6 +1660,996 @@
     @keyframes blink {
       50% {
         opacity: 0;
+      }
+    }
+
+    @keyframes introAura {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 28%) scale(0.52) rotate(0deg);
+      }
+
+      14% {
+        opacity: 0.4;
+      }
+
+      54% {
+        opacity: 0.68;
+        transform: translate(-50%, 10%) scale(1.05) rotate(520deg);
+      }
+
+      78% {
+        opacity: 0.5;
+        transform: translate(-50%, 8%) scale(0.92) rotate(920deg);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, 2%) scale(1.42) rotate(1280deg);
+      }
+    }
+
+    @keyframes cakeStageGlow {
+      0%,
+      12% {
+        opacity: 0;
+        transform: translate(-50%, 42%) scale(0.55);
+      }
+
+      46% {
+        opacity: 0.34;
+        transform: translate(-50%, 18%) scale(1.05);
+      }
+
+      78% {
+        opacity: 0.82;
+        transform: translate(-50%, 8%) scale(1.18);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -4%) scale(1.5);
+      }
+    }
+
+    @keyframes vortexOrbDance {
+      0%,
+      7% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+          rotate(0deg)
+          scale(0.18);
+      }
+
+      14% {
+        opacity: 0.78;
+        transform:
+          translate(calc(var(--ground-x) * 1px), calc(var(--ground-y) * -1px))
+          rotate(180deg)
+          scale(0.58);
+      }
+
+      24% {
+        opacity: 0.94;
+        transform:
+          translate(calc(var(--orbit-a-x) * 1px), calc(var(--orbit-a-y) * -1px))
+          rotate(520deg)
+          scale(0.84);
+      }
+
+      34% {
+        opacity: 1;
+        transform:
+          translate(calc(var(--orbit-b-x) * 1px), calc(var(--orbit-b-y) * -1px))
+          rotate(900deg)
+          scale(1.02);
+      }
+
+      45% {
+        opacity: 0.96;
+        transform:
+          translate(calc(var(--orbit-c-x) * 1px), calc(var(--orbit-c-y) * -1px))
+          rotate(1320deg)
+          scale(0.92);
+      }
+
+      56% {
+        opacity: 1;
+        transform:
+          translate(calc(var(--orbit-d-x) * 1px), calc(var(--orbit-d-y) * -1px))
+          rotate(1780deg)
+          scale(1.08);
+      }
+
+      66% {
+        opacity: 0.86;
+        transform:
+          translate(calc(var(--pinch-x) * 1px), calc(var(--pinch-y) * -1px))
+          rotate(2200deg)
+          scale(0.72);
+      }
+
+      76% {
+        opacity: 0.72;
+        transform:
+          translate(calc(var(--merge-x) * 1px), calc(var(--merge-y) * -1px))
+          rotate(2520deg)
+          scale(0.44);
+      }
+
+      86% {
+        opacity: 0.34;
+        transform:
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          rotate(2820deg)
+          scale(0.2);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--end-x) + var(--burst-x)) * 1px), calc((var(--end-y) + var(--burst-y)) * -1px))
+          rotate(3180deg)
+          scale(0.1);
+      }
+    }
+
+    @keyframes windRingLift {
+      0%,
+      8% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          rotate(calc(var(--spin) * 1deg))
+          scale(0.24);
+      }
+
+      18% {
+        opacity: 0.46;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc((var(--y) + 28) * -1px))
+          rotate(calc((var(--spin) + 170) * 1deg))
+          scale(0.72);
+      }
+
+      34% {
+        opacity: 0.72;
+        transform:
+          translate(calc((var(--mid-x) * 1px) - 50%), calc(var(--mid-y) * -1px))
+          rotate(calc((var(--spin) + 460) * 1deg))
+          scale(1);
+      }
+
+      52% {
+        opacity: 0.58;
+        transform:
+          translate(calc((var(--high-x) * 1px) - 50%), calc(var(--high-y) * -1px))
+          rotate(calc((var(--spin) + 820) * 1deg))
+          scale(0.74);
+      }
+
+      70% {
+        opacity: 0.22;
+        transform:
+          translate(calc((var(--pinch-x) * 1px) - 50%), calc(var(--pinch-y) * -1px))
+          rotate(calc((var(--spin) + 1120) * 1deg))
+          scale(0.36);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--pinch-x) * 1px) - 50%), calc((var(--pinch-y) + 80) * -1px))
+          rotate(calc((var(--spin) + 1480) * 1deg))
+          scale(0.08);
+      }
+    }
+
+    @keyframes glimmerSlash {
+      0%,
+      18% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(0.1);
+      }
+
+      28% {
+        opacity: 0.92;
+        transform:
+          translate(calc(var(--slash-a-x) * 1px), calc(var(--slash-a-y) * -1px))
+          rotate(calc((var(--angle) + 70) * 1deg))
+          scaleX(1);
+      }
+
+      44% {
+        opacity: 0.52;
+        transform:
+          translate(calc(var(--slash-b-x) * 1px), calc(var(--slash-b-y) * -1px))
+          rotate(calc((var(--angle) + 220) * 1deg))
+          scaleX(0.74);
+      }
+
+      62% {
+        opacity: 0.72;
+        transform:
+          translate(calc(var(--slash-c-x) * 1px), calc(var(--slash-c-y) * -1px))
+          rotate(calc((var(--angle) + 390) * 1deg))
+          scaleX(1.1);
+      }
+
+      80% {
+        opacity: 0.18;
+        transform:
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          rotate(calc((var(--angle) + 560) * 1deg))
+          scaleX(0.24);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--end-x) + var(--burst-x)) * 1px), calc((var(--end-y) + var(--burst-y)) * -1px))
+          rotate(calc((var(--angle) + 720) * 1deg))
+          scaleX(0.08);
+      }
+    }
+
+    @keyframes pressurePulse {
+      0%,
+      12% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          scale(0.18);
+      }
+
+      22% {
+        opacity: 0.48;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          scale(0.72);
+      }
+
+      42% {
+        opacity: 0.24;
+        transform:
+          translate(calc((var(--drift-x) * 1px) - 50%), calc((var(--y) + 42) * -1px))
+          scale(1.1);
+      }
+
+      62% {
+        opacity: 0.16;
+        transform:
+          translate(calc((var(--drift-x) * 1px) - 50%), calc((var(--y) + 94) * -1px))
+          scale(0.88);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--drift-x) * 1px) - 50%), calc((var(--y) + 140) * -1px))
+          scale(0.24);
+      }
+    }
+
+    @keyframes ambientSpeckDrift {
+      0%,
+      12% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+          scale(0.2);
+      }
+
+      24% {
+        opacity: var(--peak);
+        transform:
+          translate(calc(var(--float-a-x) * 1px), calc(var(--float-a-y) * -1px))
+          scale(0.72);
+      }
+
+      44% {
+        opacity: calc(var(--peak) * 0.78);
+        transform:
+          translate(calc(var(--float-b-x) * 1px), calc(var(--float-b-y) * -1px))
+          scale(0.9);
+      }
+
+      64% {
+        opacity: calc(var(--peak) * 0.58);
+        transform:
+          translate(calc(var(--float-c-x) * 1px), calc(var(--float-c-y) * -1px))
+          scale(0.62);
+      }
+
+      82% {
+        opacity: calc(var(--peak) * 0.32);
+        transform:
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          scale(0.34);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--end-x) + var(--fade-x)) * 1px), calc((var(--end-y) + var(--fade-y)) * -1px))
+          scale(0.12);
+      }
+    }
+
+    @keyframes cometDotArc {
+      0%,
+      18% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+          rotate(0deg)
+          scale(0.18);
+      }
+
+      30% {
+        opacity: 0.84;
+        transform:
+          translate(calc(var(--arc-a-x) * 1px), calc(var(--arc-a-y) * -1px))
+          rotate(180deg)
+          scale(0.76);
+      }
+
+      48% {
+        opacity: 0.94;
+        transform:
+          translate(calc(var(--arc-b-x) * 1px), calc(var(--arc-b-y) * -1px))
+          rotate(420deg)
+          scale(1);
+      }
+
+      66% {
+        opacity: 0.66;
+        transform:
+          translate(calc(var(--arc-c-x) * 1px), calc(var(--arc-c-y) * -1px))
+          rotate(620deg)
+          scale(0.72);
+      }
+
+      82% {
+        opacity: 0.28;
+        transform:
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          rotate(760deg)
+          scale(0.38);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--end-x) + var(--fade-x)) * 1px), calc((var(--end-y) + var(--fade-y)) * -1px))
+          rotate(860deg)
+          scale(0.12);
+      }
+    }
+
+    @keyframes haloPulseClean {
+      0%,
+      22% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          scale(0.18);
+      }
+
+      36% {
+        opacity: 0.24;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc((var(--y) + 20) * -1px))
+          scale(0.62);
+      }
+
+      58% {
+        opacity: 0.16;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc((var(--y) + 58) * -1px))
+          scale(0.94);
+      }
+
+      78% {
+        opacity: 0.06;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc((var(--y) + 92) * -1px))
+          scale(0.58);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc((var(--y) + 116) * -1px))
+          scale(0.18);
+      }
+    }
+
+    @keyframes cakeShimmerSettle {
+      0%,
+      58% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+          scale(0.22);
+      }
+
+      70% {
+        opacity: 0.92;
+        transform:
+          translate(calc(var(--swoop-x) * 1px), calc(var(--swoop-y) * -1px))
+          scale(0.78);
+      }
+
+      82% {
+        opacity: 1;
+        transform:
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          scale(1);
+      }
+
+      92% {
+        opacity: 0.76;
+        transform:
+          translate(calc((var(--end-x) + var(--jitter-x)) * 1px), calc((var(--end-y) + var(--jitter-y)) * -1px))
+          scale(0.84);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--end-x) + var(--fade-x)) * 1px), calc((var(--end-y) + var(--fade-y)) * -1px))
+          scale(0.38);
+      }
+    }
+
+    @keyframes cakeOrbitPolish {
+      0%,
+      54% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+          rotate(0deg)
+          scale(0.2);
+      }
+
+      64% {
+        opacity: 0.78;
+        transform:
+          translate(calc(var(--arc-a-x) * 1px), calc(var(--arc-a-y) * -1px))
+          rotate(170deg)
+          scale(0.78);
+      }
+
+      74% {
+        opacity: 1;
+        transform:
+          translate(calc(var(--arc-b-x) * 1px), calc(var(--arc-b-y) * -1px))
+          rotate(380deg)
+          scale(1);
+      }
+
+      84% {
+        opacity: 0.92;
+        transform:
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          rotate(560deg)
+          scale(0.88);
+      }
+
+      94% {
+        opacity: 0.42;
+        transform:
+          translate(calc((var(--end-x) + var(--lift-x)) * 1px), calc((var(--end-y) + var(--lift-y)) * -1px))
+          rotate(700deg)
+          scale(0.58);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--end-x) + var(--fade-x)) * 1px), calc((var(--end-y) + var(--fade-y)) * -1px))
+          rotate(840deg)
+          scale(0.22);
+      }
+    }
+
+    @keyframes cakePuffBreath {
+      0%,
+      58% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          scale(0.18);
+      }
+
+      70% {
+        opacity: 0.34;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          scale(0.62);
+      }
+
+      84% {
+        opacity: 0.22;
+        transform:
+          translate(calc(((var(--x) + var(--drift-x)) * 1px) - 50%), calc((var(--y) + var(--drift-y)) * -1px))
+          scale(0.96);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(((var(--x) + var(--fade-x)) * 1px) - 50%), calc((var(--y) + var(--fade-y)) * -1px))
+          scale(0.3);
+      }
+    }
+
+    @keyframes vortexSparkSnap {
+      0%,
+      16% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+          rotate(calc(var(--angle) * 1deg))
+          scale(0.18);
+      }
+
+      28% {
+        opacity: 0.86;
+        transform:
+          translate(calc(var(--snap-a-x) * 1px), calc(var(--snap-a-y) * -1px))
+          rotate(calc((var(--angle) + 140) * 1deg))
+          scale(0.82);
+      }
+
+      42% {
+        opacity: 0.72;
+        transform:
+          translate(calc(var(--snap-b-x) * 1px), calc(var(--snap-b-y) * -1px))
+          rotate(calc((var(--angle) + 340) * 1deg))
+          scale(1);
+      }
+
+      58% {
+        opacity: 0.92;
+        transform:
+          translate(calc(var(--snap-c-x) * 1px), calc(var(--snap-c-y) * -1px))
+          rotate(calc((var(--angle) + 560) * 1deg))
+          scale(0.76);
+      }
+
+      74% {
+        opacity: 0.46;
+        transform:
+          translate(calc(var(--pinch-x) * 1px), calc(var(--pinch-y) * -1px))
+          rotate(calc((var(--angle) + 760) * 1deg))
+          scale(0.42);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--pinch-x) + var(--fade-x)) * 1px), calc((var(--pinch-y) + var(--fade-y)) * -1px))
+          rotate(calc((var(--angle) + 980) * 1deg))
+          scale(0.14);
+      }
+    }
+
+    @keyframes textAnchorSettle {
+      0%,
+      62% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+          scale(0.28);
+      }
+
+      72% {
+        opacity: 0.72;
+        transform:
+          translate(calc(var(--swoop-x) * 1px), calc(var(--swoop-y) * -1px))
+          scale(0.82);
+      }
+
+      80% {
+        opacity: 0.95;
+        transform:
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          scale(1);
+      }
+
+      92% {
+        opacity: 0.95;
+        transform:
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--end-x) + var(--fade-x)) * 1px), calc((var(--end-y) + var(--fade-y)) * -1px))
+          scale(0.52);
+      }
+    }
+
+    @keyframes textSweepReveal {
+      0%,
+      70% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * -1px))
+          scaleX(0.16);
+      }
+
+      78% {
+        opacity: 0.74;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * -1px))
+          scaleX(1);
+      }
+
+      88% {
+        opacity: 0.24;
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc(var(--y) * -1px))
+          scaleX(0.42);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc((var(--y) + 30) * -1px))
+          scaleX(0.12);
+      }
+    }
+
+    @keyframes heartSparkBloom {
+      0%,
+      66% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+          scale(0.22)
+          rotate(calc(var(--rotate) * 1deg));
+      }
+
+      74% {
+        opacity: 0.92;
+        transform:
+          translate(calc(var(--bloom-x) * 1px), calc(var(--bloom-y) * -1px))
+          scale(0.78)
+          rotate(calc((var(--rotate) + 18) * 1deg));
+      }
+
+      84% {
+        opacity: 0.95;
+        transform:
+          translate(calc(var(--float-x) * 1px), calc(var(--float-y) * -1px))
+          scale(1)
+          rotate(calc((var(--rotate) - 10) * 1deg));
+      }
+
+      94% {
+        opacity: 0.48;
+        transform:
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          scale(0.72)
+          rotate(calc((var(--rotate) + 24) * 1deg));
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--end-x) + var(--fade-x)) * 1px), calc((var(--end-y) + var(--fade-y)) * -1px))
+          scale(0.36)
+          rotate(calc((var(--rotate) + 36) * 1deg));
+      }
+    }
+
+    @keyframes heartRingPulse {
+      0%,
+      68% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          scale(0.12);
+      }
+
+      78% {
+        opacity: 0.42;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          scale(0.64);
+      }
+
+      90% {
+        opacity: 0.18;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc((var(--y) + 16) * -1px))
+          scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc((var(--y) + 34) * -1px))
+          scale(0.48);
+      }
+    }
+
+    @keyframes fireworkDotPop {
+      0%,
+      70% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--origin-x) * 1px), calc(var(--origin-y) * -1px))
+          scale(0.16);
+      }
+
+      76% {
+        opacity: 0.95;
+        transform:
+          translate(calc((var(--origin-x) + var(--mid-x)) * 1px), calc((var(--origin-y) + var(--mid-y)) * -1px))
+          scale(0.9);
+      }
+
+      86% {
+        opacity: 0.72;
+        transform:
+          translate(calc((var(--origin-x) + var(--end-x)) * 1px), calc((var(--origin-y) + var(--end-y)) * -1px))
+          scale(0.72);
+      }
+
+      96% {
+        opacity: 0.24;
+        transform:
+          translate(calc((var(--origin-x) + var(--fade-x)) * 1px), calc((var(--origin-y) + var(--fade-y)) * -1px))
+          scale(0.34);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--origin-x) + var(--fade-x)) * 1px), calc((var(--origin-y) + var(--fade-y)) * -1px))
+          scale(0.14);
+      }
+    }
+
+    @keyframes fireworkCorePulse {
+      0%,
+      70% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          scale(0.2);
+      }
+
+      76% {
+        opacity: 0.62;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          scale(1);
+      }
+
+      88% {
+        opacity: 0.2;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          scale(1.72);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          scale(0.36);
+      }
+    }
+
+    @keyframes sideFigureGather {
+      0%,
+      48% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+          rotate(calc(var(--rotate) * 1deg))
+          scale(0.2);
+      }
+
+      60% {
+        opacity: 0.78;
+        transform:
+          translate(calc(var(--swoop-x) * 1px), calc(var(--swoop-y) * -1px))
+          rotate(calc((var(--rotate) + 120) * 1deg))
+          scale(0.72);
+      }
+
+      72% {
+        opacity: 1;
+        transform:
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          rotate(calc(var(--rotate) * 1deg))
+          scale(1);
+      }
+
+      88% {
+        opacity: 0.94;
+        transform:
+          translate(calc((var(--end-x) + var(--hold-x)) * 1px), calc((var(--end-y) + var(--hold-y)) * -1px))
+          rotate(calc(var(--rotate) * 1deg))
+          scale(0.98);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--end-x) + var(--fade-x)) * 1px), calc((var(--end-y) + var(--fade-y)) * -1px))
+          rotate(calc((var(--rotate) + 80) * 1deg))
+          scale(0.38);
+      }
+    }
+
+    @keyframes sideFigureGlow {
+      0%,
+      56% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          scale(0.2);
+      }
+
+      70% {
+        opacity: 0.42;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          scale(0.72);
+      }
+
+      88% {
+        opacity: 0.22;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
+          scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) * 1px) - 50%), calc((var(--y) + 24) * -1px))
+          scale(0.42);
+      }
+    }
+
+    @keyframes cakeGhostReveal {
+      0%,
+      62% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(46px) scale(0.62);
+      }
+
+      72% {
+        opacity: 0.3;
+        transform: translateX(-50%) translateY(16px) scale(0.9);
+      }
+
+      82% {
+        opacity: 0.94;
+        transform: translateX(-50%) translateY(0) scale(1);
+      }
+
+      92% {
+        opacity: 0.98;
+        transform: translateX(-50%) translateY(-2px) scale(1.02);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-30px) scale(1.12);
+      }
+    }
+
+    @keyframes flameDance {
+      from {
+        transform: translateX(-50%) rotate(-7deg) scaleX(0.88) scaleY(1.05);
+      }
+
+      to {
+        transform: translateX(-50%) rotate(9deg) scaleX(1.08) scaleY(0.9);
+      }
+    }
+
+    @keyframes starOrbit {
+      0%,
+      10% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+          rotate(0deg)
+          scale(0.2);
+      }
+
+      26% {
+        opacity: 0.95;
+        transform:
+          translate(calc(var(--orbit-a-x) * 1px), calc(var(--orbit-a-y) * -1px))
+          rotate(260deg)
+          scale(0.88);
+      }
+
+      48% {
+        opacity: 1;
+        transform:
+          translate(calc(var(--orbit-b-x) * 1px), calc(var(--orbit-b-y) * -1px))
+          rotate(640deg)
+          scale(1.12);
+      }
+
+      72% {
+        opacity: 0.98;
+        transform:
+          translate(calc(var(--land-x) * 1px), calc(var(--land-y) * -1px))
+          rotate(920deg)
+          scale(0.9);
+      }
+
+      88% {
+        opacity: 1;
+        transform:
+          translate(calc(var(--pop-x) * 1px), calc(var(--pop-y) * -1px))
+          rotate(1140deg)
+          scale(1.36);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--pop-x) + var(--burst-x)) * 1px), calc((var(--pop-y) + var(--burst-y)) * -1px))
+          rotate(1320deg)
+          scale(0.2);
+      }
+    }
+
+    @keyframes icingPop {
+      0%,
+      56% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
+          scale(0.18);
+      }
+
+      70% {
+        opacity: 0.96;
+        transform:
+          translate(calc(var(--swoop-x) * 1px), calc(var(--swoop-y) * -1px))
+          scale(1);
+      }
+
+      80% {
+        opacity: 1;
+        transform:
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          scale(1.12);
+      }
+
+      92% {
+        opacity: 0.92;
+        transform:
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          scale(0.96);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--end-x) + var(--burst-x)) * 1px), calc((var(--end-y) + var(--burst-y)) * -1px))
+          scale(1.8);
       }
     }
 
@@ -777,11 +2879,643 @@
       }
     }
 
+    @keyframes openingAuroraTurn {
+      0% {
+        transform: rotate(0deg) scale(1);
+        opacity: 0.58;
+      }
+
+      50% {
+        transform: rotate(180deg) scale(1.08);
+        opacity: 0.86;
+      }
+
+      100% {
+        transform: rotate(360deg) scale(1);
+        opacity: 0.58;
+      }
+    }
+
+    @keyframes openingGlowBreath {
+      0% {
+        transform: translate3d(-1.5%, 1.2%, 0) scale(1);
+        opacity: 0.48;
+      }
+
+      100% {
+        transform: translate3d(1.5%, -1.2%, 0) scale(1.08);
+        opacity: 0.82;
+      }
+    }
+
+    @keyframes openingPageExit {
+      0% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0) scale(1);
+      }
+
+      58% {
+        opacity: 1;
+        filter: blur(0.5px);
+        transform: translateY(-8px) scale(1.03);
+      }
+
+      100% {
+        opacity: 0;
+        filter: blur(10px);
+        transform: translateY(-42px) scale(0.92);
+      }
+    }
+
+    @keyframes openButtonHalo {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes openButtonSheen {
+      0%,
+      48% {
+        transform: translateX(-145%);
+      }
+
+      72% {
+        transform: translateX(145%);
+      }
+
+      100% {
+        transform: translateX(145%);
+      }
+    }
+
+    @keyframes openingDotFloat {
+      0% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          scale(0.24);
+      }
+
+      16% {
+        opacity: var(--peak);
+      }
+
+      48% {
+        opacity: calc(var(--peak) * 0.85);
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc((var(--y) + var(--drift-y)) * 1px))
+          scale(0.92);
+      }
+
+      78% {
+        opacity: calc(var(--peak) * 0.56);
+        transform:
+          translate(calc((var(--x) + var(--sway-x)) * 1px), calc((var(--y) + var(--sway-y)) * 1px))
+          scale(0.62);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          scale(0.22);
+      }
+    }
+
+    @keyframes openingHeartSway {
+      0% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          rotate(-45deg)
+          scale(0.28);
+      }
+
+      18% {
+        opacity: 0.76;
+      }
+
+      54% {
+        opacity: 0.94;
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc((var(--y) + var(--drift-y)) * 1px))
+          rotate(calc((var(--rot) - 45) * 1deg))
+          scale(0.92);
+      }
+
+      82% {
+        opacity: 0.52;
+        transform:
+          translate(calc((var(--x) + var(--sway-x)) * 1px), calc((var(--y) + var(--sway-y)) * 1px))
+          rotate(calc((var(--rot) + 30) * 1deg))
+          scale(0.68);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          rotate(calc((var(--rot) + 90) * 1deg))
+          scale(0.22);
+      }
+    }
+
+    @keyframes openingDiamondSpin {
+      0% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          rotate(45deg)
+          scale(0.3);
+      }
+
+      22% {
+        opacity: 0.74;
+      }
+
+      52% {
+        opacity: 0.92;
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc((var(--y) + var(--drift-y)) * 1px))
+          rotate(225deg)
+          scale(0.96);
+      }
+
+      76% {
+        opacity: 0.5;
+        transform:
+          translate(calc((var(--x) + var(--sway-x)) * 1px), calc((var(--y) + var(--sway-y)) * 1px))
+          rotate(420deg)
+          scale(0.64);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          rotate(620deg)
+          scale(0.18);
+      }
+    }
+
+    @keyframes openingMoonPulse {
+      0%,
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          scale(0.4);
+      }
+
+      32% {
+        opacity: 0.38;
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc((var(--y) + var(--drift-y)) * 1px))
+          scale(0.86);
+      }
+
+      62% {
+        opacity: 0.24;
+        transform:
+          translate(calc((var(--x) + var(--sway-x)) * 1px), calc((var(--y) + var(--sway-y)) * 1px))
+          scale(1.06);
+      }
+    }
+
+    @keyframes openingLanternRise {
+      0% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          rotate(calc(var(--rot) * 1deg))
+          scale(0.62);
+      }
+
+      18% {
+        opacity: 0.72;
+      }
+
+      52% {
+        opacity: 0.9;
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc((var(--y) + var(--drift-y)) * 1px))
+          rotate(calc((var(--rot) + 5) * 1deg))
+          scale(0.95);
+      }
+
+      82% {
+        opacity: 0.5;
+        transform:
+          translate(calc((var(--x) + var(--sway-x)) * 1px), calc((var(--y) + var(--sway-y)) * 1px))
+          rotate(calc((var(--rot) - 7) * 1deg))
+          scale(0.78);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          rotate(calc((var(--rot) + 10) * 1deg))
+          scale(0.42);
+      }
+    }
+
+    @keyframes openingCometSweep {
+      0%,
+      18% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          rotate(calc(var(--angle) * 1deg))
+          scale(0.2);
+      }
+
+      34% {
+        opacity: 0.78;
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc((var(--y) + var(--drift-y)) * 1px))
+          rotate(calc(var(--angle) * 1deg))
+          scale(0.82);
+      }
+
+      58% {
+        opacity: 0.46;
+        transform:
+          translate(calc((var(--x) + var(--sway-x)) * 1px), calc((var(--y) + var(--sway-y)) * 1px))
+          rotate(calc((var(--angle) + 12) * 1deg))
+          scale(0.58);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          rotate(calc((var(--angle) + 24) * 1deg))
+          scale(0.16);
+      }
+    }
+
+    @keyframes titleSoftFloat {
+      0%,
+      100% {
+        transform: translateY(0) rotate(-0.5deg);
+        filter: brightness(1);
+      }
+
+      50% {
+        transform: translateY(-8px) rotate(0.5deg);
+        filter: brightness(1.08);
+      }
+    }
+
+    @keyframes titleAuraPulse {
+      0% {
+        opacity: 0.42;
+        transform: translate(-50%, -50%) scale(0.9);
+      }
+
+      100% {
+        opacity: 0.78;
+        transform: translate(-50%, -50%) scale(1.08);
+      }
+    }
+
+    @keyframes titleUnderlineGlow {
+      0%,
+      100% {
+        opacity: 0.32;
+        transform: translateX(-50%) scaleX(0.62);
+      }
+
+      45% {
+        opacity: 0.86;
+        transform: translateX(-50%) scaleX(1);
+      }
+    }
+
+    @keyframes openingTitleSparkDance {
+      0%,
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          scale(0.24);
+      }
+
+      18% {
+        opacity: 0.88;
+      }
+
+      44% {
+        opacity: 1;
+        transform:
+          translate(calc((var(--x) + var(--hop-x)) * 1px), calc((var(--y) + var(--hop-y)) * 1px))
+          scale(0.98);
+      }
+
+      72% {
+        opacity: 0.62;
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc((var(--y) + var(--drift-y)) * 1px))
+          scale(0.58);
+      }
+    }
+
+    @keyframes openingTitleOrbit {
+      0%,
+      14% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          rotate(calc(var(--angle) * 1deg))
+          scale(0.28);
+      }
+
+      30% {
+        opacity: 0.82;
+        transform:
+          translate(calc((var(--x) + var(--arc-a-x)) * 1px), calc((var(--y) + var(--arc-a-y)) * 1px))
+          rotate(calc((var(--angle) + 130) * 1deg))
+          scale(0.82);
+      }
+
+      54% {
+        opacity: 0.92;
+        transform:
+          translate(calc((var(--x) + var(--arc-b-x)) * 1px), calc((var(--y) + var(--arc-b-y)) * 1px))
+          rotate(calc((var(--angle) + 340) * 1deg))
+          scale(1);
+      }
+
+      78% {
+        opacity: 0.46;
+        transform:
+          translate(calc((var(--x) + var(--arc-c-x)) * 1px), calc((var(--y) + var(--arc-c-y)) * 1px))
+          rotate(calc((var(--angle) + 520) * 1deg))
+          scale(0.5);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          rotate(calc((var(--angle) + 700) * 1deg))
+          scale(0.16);
+      }
+    }
+
+    @keyframes openingTitleGlint {
+      0%,
+      48% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(0.18);
+      }
+
+      58% {
+        opacity: 0.82;
+        transform:
+          translate(calc((var(--x) + var(--shift-x)) * 1px), calc((var(--y) + var(--shift-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(1);
+      }
+
+      76% {
+        opacity: 0.18;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(0.34);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(0.18);
+      }
+    }
+
+    @keyframes buttonBurstFly {
+      0% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          scale(0.22);
+      }
+
+      18% {
+        opacity: 1;
+      }
+
+      64% {
+        opacity: 0.94;
+        transform:
+          translate(calc((var(--x) + var(--burst-x)) * 1px), calc((var(--y) + var(--burst-y)) * 1px))
+          rotate(calc(var(--rot) * 1deg))
+          scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          rotate(calc((var(--rot) + 120) * 1deg))
+          scale(0.16);
+      }
+    }
+
+    @keyframes buttonRippleOpen {
+      0% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          translate(-50%, -50%)
+          scale(0.12);
+      }
+
+      16% {
+        opacity: 0.82;
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          translate(-50%, -50%)
+          scale(1.34);
+      }
+    }
+
+    @keyframes buttonFlareCut {
+      0% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(0.16);
+      }
+
+      28% {
+        opacity: 0.92;
+        transform:
+          translate(calc((var(--x) + var(--shift-x)) * 1px), calc((var(--y) + var(--shift-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(0.2);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+      }
+
+      .plane-banner,
+      .confetti,
+      .opening-dot,
+      .opening-heart,
+      .opening-diamond,
+      .opening-moon,
+      .opening-lantern,
+      .opening-comet,
+      .opening-title-spark,
+      .opening-title-orbit,
+      .opening-title-glint,
+      .button-burst,
+      .button-ripple,
+      .button-flare,
+      .dust,
+      .burst,
+      .spark-star,
+      .icing-dot,
+      .vortex-orb,
+      .ambient-speck,
+      .comet-dot,
+      .halo-pulse,
+      .cake-shimmer,
+      .cake-orbit-dot,
+      .cake-puff,
+      .vortex-spark,
+      .text-anchor,
+      .text-sweep,
+      .heart-spark,
+      .heart-ring,
+      .firework-dot,
+      .firework-core,
+      .side-figure-dot,
+      .side-figure-glow,
+      .cake-intro::before,
+      .cake-intro::after,
+      .cake-ghost,
+      .cake-ghost .flame,
+      .letter-char,
+      .letter-char.spark::before,
+      .letter-char.spark::after,
+      #letterText.typing::after,
+      #letterPage.final-reveal .photo-section::before,
+      #letterPage.final-reveal .long-top-line,
+      #letterPage.final-reveal .photo-wrapper {
+        animation-duration: 1ms !important;
+        animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+      }
+
+      .cake-intro {
+        background:
+          radial-gradient(circle at 50% 62%, rgba(255, 226, 96, 0.28), transparent 42%),
+          linear-gradient(180deg, rgba(11, 6, 26, 0.12), rgba(11, 6, 26, 0.48));
+      }
+
+      .dust,
+      .opening-dot,
+      .opening-heart,
+      .opening-diamond,
+      .opening-moon,
+      .opening-lantern,
+      .opening-comet,
+      .opening-title-spark,
+      .opening-title-orbit,
+      .opening-title-glint,
+      .button-burst,
+      .button-ripple,
+      .button-flare,
+      .spark-star,
+      .icing-dot,
+      .vortex-orb,
+      .ambient-speck,
+      .comet-dot,
+      .halo-pulse,
+      .cake-shimmer,
+      .cake-orbit-dot,
+      .cake-puff,
+      .vortex-spark,
+      .text-anchor,
+      .text-sweep,
+      .heart-spark,
+      .heart-ring,
+      .firework-dot,
+      .firework-core,
+      .side-figure-dot,
+      .side-figure-glow,
+      .burst {
+        opacity: 0 !important;
+      }
+
+      .cake-ghost {
+        opacity: 0.95 !important;
+        transform: translateX(-50%) translateY(0) scale(1) !important;
+      }
+
+      .note,
+      .letter-layout,
+      .best-wishes-text {
+        transition: none !important;
+      }
+
+      .letter-char {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .photo-wrapper,
+      .long-top-line,
+      .photo-section::before {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
     @media (max-width: 820px) {
       #letterPage {
         align-items: flex-start;
         overflow-y: auto;
         padding: 12px 6px 18px;
+      }
+
+      .cake-intro {
+        --cake-scale: 0.78;
       }
 
       .letter-layout {
@@ -853,6 +3587,51 @@
         width: clamp(42px, 13vw, 58px);
         transform: translate(-42%, -62%) rotate(-8deg);
       }
+
+      .dust {
+        box-shadow:
+          0 0 4px currentColor,
+          0 0 8px currentColor;
+      }
+
+      .opening-dot,
+      .opening-diamond,
+      .opening-comet,
+      .opening-title-spark,
+      .opening-title-orbit,
+      .button-burst {
+        box-shadow: 0 0 7px currentColor;
+      }
+
+      .opening-lantern {
+        box-shadow: 0 0 10px rgba(255, 192, 218, 0.28);
+      }
+
+      .vortex-orb {
+        box-shadow:
+          0 0 4px currentColor,
+          0 0 8px rgba(255, 214, 10, 0.32);
+      }
+
+      .ambient-speck,
+      .comet-dot,
+      .cake-shimmer,
+      .cake-orbit-dot,
+      .vortex-spark,
+      .heart-spark,
+      .firework-dot,
+      .side-figure-dot {
+        box-shadow: 0 0 5px currentColor;
+      }
+
+      .comet-dot::after {
+        opacity: 0.18;
+      }
+
+      .spark-star::before,
+      .spark-star::after {
+        box-shadow: 0 0 6px currentColor;
+      }
     }
 
     @media (max-width: 520px) {
@@ -860,8 +3639,27 @@
         padding: 18px;
       }
 
+      .cake-intro {
+        --cake-scale: 0.58;
+      }
+
       .birthday-title {
         margin-bottom: 20px;
+      }
+
+      .birthday-title::before {
+        filter: blur(10px);
+        opacity: 0.46;
+      }
+
+      #mainPage::before {
+        filter: blur(14px);
+        opacity: 0.42;
+      }
+
+      #mainPage::after {
+        filter: blur(10px);
+        opacity: 0.5;
       }
 
       .banner {
@@ -883,26 +3681,66 @@
         top: 2.5%;
         font-size: clamp(2.3rem, 19vw, 4.4rem);
       }
+
+      .dust,
+      .opening-dot,
+      .opening-heart,
+      .opening-diamond,
+      .opening-lantern,
+      .opening-comet,
+      .opening-title-spark,
+      .opening-title-orbit,
+      .opening-title-glint,
+      .vortex-orb,
+      .icing-dot,
+      .spark-star,
+      .ambient-speck,
+      .comet-dot,
+      .cake-shimmer,
+      .cake-orbit-dot,
+      .cake-puff,
+      .vortex-spark,
+      .heart-spark,
+      .firework-dot,
+      .side-figure-dot {
+        filter: saturate(0.92);
+      }
+
+      .opening-moon,
+      .opening-title-glint,
+      .halo-pulse,
+      .heart-ring,
+      .cake-puff {
+        display: none;
+      }
+
+      .comet-dot::after,
+      .opening-comet::after,
+      .opening-title-orbit::after,
+      .vortex-spark::after {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
   <main class="page" id="mainPage">
     <img class="background-img" src="kk.jpg" alt="Birthday background">
+    <div class="opening-stage" id="openingStage" aria-hidden="true"></div>
 
     <section class="main-content" aria-label="Birthday greeting">
       <h1 class="birthday-title">
-        Happy 🎉
+        Happy ðŸŽ‰
         <span>Birthday</span>
       </h1>
 
       <div class="plane-banner" aria-hidden="true">
-        <div class="banner">🎈 Chúc chị tui sinh nhật zui zẻ! hé hé hé 🎉</div>
+        <div class="banner">ðŸŽˆ ChÃºc chá»‹ tui sinh nháº­t zui záº»! hÃ© hÃ© hÃ© ðŸŽ‰</div>
         <div class="rope"></div>
         <img src="kimm.png" alt="" class="plane-img">
       </div>
 
-      <button class="open-letter-btn" type="button" onclick="showLetter()">📩 Mở thư</button>
+      <button class="open-letter-btn" type="button" onclick="showLetter()">ðŸ“© Má»Ÿ thÆ°</button>
     </section>
   </main>
 
@@ -951,13 +3789,16 @@
     </div>
   </section>
 
-  <script>
+    <script>
     const colors = ["#ff0", "#f0f", "#0ff", "#0f0", "#f00", "#00f"];
-    const confettiCount = window.matchMedia("(max-width: 520px)").matches ? 28 : 60;
+    const reducedMotionMode = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const phoneConfettiMode = window.matchMedia("(max-width: 680px)").matches || window.matchMedia("(pointer: coarse)").matches;
+    const confettiCount = reducedMotionMode ? 0 : phoneConfettiMode ? 12 : 40;
     let confettiCreated = false;
 
     function createConfetti() {
       if (confettiCreated) return;
+      if (confettiCount <= 0) return;
       confettiCreated = true;
 
       for (let i = 0; i < confettiCount; i++) {
@@ -983,63 +3824,253 @@
 
     createConfetti();
 
+    const celebrationPalette = ["#ffffff", "#ffd60a", "#ffb703", "#ff5c8a", "#ffc0da", "#36e6ff", "#fff3b0", "#b9fbc0"];
+    const celebrationMotionPresets = Array.from({ length: 72 }, (_, i) => ({
+      phase: (i * 137) % 360,
+      arc: 0.72 + (i % 19) * 0.025,
+      lift: 0.68 + (i % 17) * 0.028,
+      bloom: 0.74 + (i % 23) * 0.021,
+      fade: 0.82 + (i % 13) * 0.031,
+      sparkle: 0.62 + (i % 29) * 0.014,
+      delay: 40 + (i * 17) % 470,
+      color: celebrationPalette[i % celebrationPalette.length],
+      alt: celebrationPalette[(i + 3) % celebrationPalette.length],
+    }));
+
+    function cleanupCakeIntroParticles() {
+      const intro = document.getElementById("cakeIntro");
+
+      if (!intro) return;
+
+      intro.querySelectorAll(
+        ".dust, .burst, .spark-star, .icing-dot, .vortex-orb, .ambient-speck, .comet-dot, .halo-pulse, .cake-shimmer, .cake-orbit-dot, .cake-puff, .vortex-spark, .text-anchor, .text-sweep, .heart-spark, .heart-ring, .firework-dot, .firework-core, .side-figure-dot, .side-figure-glow"
+      ).forEach((particle) => particle.remove());
+    }
+
     function createCakeIntroParticles() {
       const intro = document.getElementById("cakeIntro");
       const layerColors = ["#ffd60a", "#ffb703", "#ff9f1c", "#ffe66d", "#fff3b0", "#f77f00"];
+      const creamColors = ["#ffffff", "#fff8dc", "#fff3b0", "#ffe66d"];
       const flameColors = ["#fff700", "#ffd60a", "#ff9f1c", "#ffffff"];
       const textColors = ["#fff8c7", "#fff3a3", "#ffe66d", "#ffd60a"];
+      const sprinkleColors = ["#ff5c8a", "#36e6ff", "#ffffff", "#fff700", "#ff9f1c", "#b9fbc0"];
       const burstColors = ["#ffd60a", "#ffb703", "#ff9f1c", "#fff3b0", "#f77f00", "#ffffff"];
-      const fitByHeight = (window.innerHeight * 0.94 / 650) * 840;
-      const cakeWidth = Math.min(window.innerWidth * 1.08, fitByHeight, 1120);
+      const fitByHeight = (window.innerHeight * 0.92 / 650) * 840;
+      const cakeWidth = Math.min(window.innerWidth * 1.02, fitByHeight, 1060);
       const scale = cakeWidth / 560;
+      const phoneMode = window.innerWidth < 680 || window.matchMedia("(pointer: coarse)").matches;
+      const lowPowerPhone = phoneMode && navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+      const tabletMode = !phoneMode && window.innerWidth < 980;
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const saveData = navigator.connection && navigator.connection.saveData;
+      const quality = reducedMotion || saveData
+        ? "minimal"
+        : lowPowerPhone
+          ? "low"
+          : phoneMode
+            ? "phone"
+            : tabletMode
+              ? "tablet"
+              : "desktop";
+      const qualitySettings = {
+        minimal: {
+          particleBudget: 220,
+          orbCount: 12,
+          starCount: 6,
+          icingCount: 8,
+          burstCount: 6,
+          ambientCount: 0,
+          cometCount: 0,
+          shimmerCount: 0,
+          haloCount: 0,
+          textAnchorCount: 0,
+          textSweepCount: 0,
+          heartCount: 0,
+          heartRingCount: 0,
+          fireworkCount: 0,
+          sideFigureCount: 0,
+          cakeOrbitCount: 0,
+          cakePuffCount: 0,
+          vortexSparkCount: 0,
+          glowScale: 0.54,
+        },
+        low: {
+          particleBudget: 340,
+          orbCount: 24,
+          starCount: 14,
+          icingCount: 16,
+          burstCount: 10,
+          ambientCount: 4,
+          cometCount: 0,
+          shimmerCount: 6,
+          haloCount: 0,
+          textAnchorCount: 0,
+          textSweepCount: 0,
+          heartCount: 3,
+          heartRingCount: 0,
+          fireworkCount: 0,
+          sideFigureCount: 10,
+          cakeOrbitCount: 8,
+          cakePuffCount: 1,
+          vortexSparkCount: 4,
+          glowScale: 0.62,
+        },
+        phone: {
+          particleBudget: 460,
+          orbCount: 42,
+          starCount: 22,
+          icingCount: 24,
+          burstCount: 14,
+          ambientCount: 8,
+          cometCount: 3,
+          shimmerCount: 10,
+          haloCount: 0,
+          textAnchorCount: 0,
+          textSweepCount: 0,
+          heartCount: 5,
+          heartRingCount: 0,
+          fireworkCount: 1,
+          sideFigureCount: 18,
+          cakeOrbitCount: 12,
+          cakePuffCount: 1,
+          vortexSparkCount: 7,
+          glowScale: 0.7,
+        },
+        tablet: {
+          particleBudget: 820,
+          orbCount: 82,
+          starCount: 46,
+          icingCount: 48,
+          burstCount: 28,
+          ambientCount: 18,
+          cometCount: 9,
+          shimmerCount: 24,
+          haloCount: 1,
+          textAnchorCount: 0,
+          textSweepCount: 0,
+          heartCount: 10,
+          heartRingCount: 1,
+          fireworkCount: 2,
+          sideFigureCount: 34,
+          cakeOrbitCount: 24,
+          cakePuffCount: 2,
+          vortexSparkCount: 16,
+          glowScale: 0.82,
+        },
+        desktop: {
+          particleBudget: 1450,
+          orbCount: 160,
+          starCount: 76,
+          icingCount: 76,
+          burstCount: 46,
+          ambientCount: 38,
+          cometCount: 22,
+          shimmerCount: 48,
+          haloCount: 3,
+          textAnchorCount: 0,
+          textSweepCount: 0,
+          heartCount: 18,
+          heartRingCount: 2,
+          fireworkCount: 4,
+          sideFigureCount: 58,
+          cakeOrbitCount: 42,
+          cakePuffCount: 4,
+          vortexSparkCount: 32,
+          glowScale: 0.92,
+        },
+      };
+      const introQuality = qualitySettings[quality];
+      const particleBudget = introQuality.particleBudget;
       const targets = [];
+      const textTargets = [];
       const particleFragment = document.createDocumentFragment();
 
-      intro.querySelectorAll(".dust, .burst").forEach((particle) => particle.remove());
+      intro.dataset.quality = quality;
+      intro.querySelectorAll(".dust, .burst, .spark-star, .icing-dot, .vortex-orb, .ambient-speck, .comet-dot, .halo-pulse, .cake-shimmer, .cake-orbit-dot, .cake-puff, .vortex-spark, .text-anchor, .text-sweep, .heart-spark, .heart-ring, .firework-dot, .firework-core, .side-figure-dot, .side-figure-glow").forEach((particle) => particle.remove());
+
+      function pushTarget(target) {
+        targets.push(target);
+      }
+
+      function randomFrom(colors) {
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
 
       function addCakeArea(count, options) {
         for (let i = 0; i < count; i++) {
           const x = options.x + (Math.random() - 0.5) * options.w;
           const y = options.y + (Math.random() - 0.5) * options.h;
-          targets.push({ x, y, color: options.colors[i % options.colors.length], size: options.size });
+          const edge = Math.abs(x - options.x) / Math.max(1, options.w * 0.5);
+          const dome = Math.max(0, 1 - edge * edge);
+          pushTarget({
+            x,
+            y: y + dome * (options.dome || 0),
+            color: options.colors[i % options.colors.length],
+            size: options.size + Math.random() * (options.sizeJitter || 1.8),
+          });
         }
       }
 
       function addCakeLine(count, options) {
         for (let i = 0; i < count; i++) {
           const progress = count === 1 ? 0 : i / (count - 1);
+          const wave = Math.sin(progress * Math.PI * (options.waves || 1));
           const x = options.x1 + (options.x2 - options.x1) * progress + (Math.random() - 0.5) * options.jitter;
-          const y = options.y1 + (options.y2 - options.y1) * progress + (Math.random() - 0.5) * options.jitter;
-          targets.push({ x, y, color: options.colors[i % options.colors.length], size: options.size });
+          const y = options.y1 + (options.y2 - options.y1) * progress + wave * (options.amp || 0) + (Math.random() - 0.5) * options.jitter;
+          pushTarget({ x, y, color: options.colors[i % options.colors.length], size: options.size });
+        }
+      }
+
+      function addEllipseRing(count, options) {
+        for (let i = 0; i < count; i++) {
+          const angle = (Math.PI * 2 * i) / count;
+          const radiusNoise = 1 + (Math.random() - 0.5) * options.noise;
+          pushTarget({
+            x: options.x + Math.cos(angle) * options.rx * radiusNoise,
+            y: options.y + Math.sin(angle) * options.ry * radiusNoise,
+            color: randomFrom(options.colors),
+            size: options.size + Math.random() * 1.6,
+          });
+        }
+      }
+
+      function addIcingDrips(count, options) {
+        for (let i = 0; i < count; i++) {
+          const progress = count === 1 ? 0 : i / (count - 1);
+          const x = options.x1 + (options.x2 - options.x1) * progress;
+          const drip = Math.max(0, Math.sin(progress * Math.PI * options.drips));
+          const y = options.y + drip * options.depth + (Math.random() - 0.5) * 10;
+          pushTarget({ x, y, color: randomFrom(creamColors), size: options.size + drip * 2.2 });
         }
       }
 
       function addCandle(x) {
-        addCakeArea(28, { x, y: 360, w: 30, h: 92, colors: ["#fff3b0", "#ffd60a", "#ffb703"], size: 5.5 });
-        addCakeArea(28, { x, y: 442, w: 62, h: 66, colors: flameColors, size: 6 });
+        addCakeArea(48, { x, y: 358, w: 28, h: 96, colors: ["#fff3b0", "#ff5c8a", "#ffffff"], size: 4.8, sizeJitter: 1.2 });
+        addCakeArea(58, { x, y: 452, w: 60, h: 78, colors: flameColors, size: 5.4, sizeJitter: 1.4 });
+        addEllipseRing(18, { x, y: 456, rx: 38, ry: 20, noise: 0.28, colors: flameColors, size: 4.2 });
       }
 
       function addTextTargets(lines) {
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
-        const fontSize = 126;
-        const sampleGap = window.innerWidth < 680 ? 12 : 10;
-        const lineHeight = 122;
+        const fontSize = window.innerWidth < 680 ? 92 : 126;
+        const sampleGap = window.innerWidth < 680 ? 13 : 11;
+        const lineHeight = window.innerWidth < 680 ? 104 : 126;
 
-        canvas.width = 1180;
-        canvas.height = 300;
+        canvas.width = 1720;
+        canvas.height = 250;
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.fillStyle = "#fff3b0";
         context.strokeStyle = "#ffd60a";
-        context.lineWidth = 1.4;
+        context.lineWidth = 0.9;
         context.lineJoin = "round";
         context.lineCap = "round";
         context.textAlign = "center";
         context.textBaseline = "middle";
 
         lines.forEach((line, index) => {
-          const y = 72 + index * lineHeight;
-          context.font = `800 ${fontSize}px "Arial Rounded MT Bold", "Trebuchet MS", "Segoe UI", Arial, sans-serif`;
+          const y = 118 + index * lineHeight;
+          context.font = `700 ${fontSize}px "Trebuchet MS", "Segoe UI", Arial, sans-serif`;
           context.strokeText(line, canvas.width / 2, y);
           context.fillText(line, canvas.width / 2, y);
         });
@@ -1050,102 +4081,678 @@
           for (let x = 0; x < canvas.width; x += sampleGap) {
             const alpha = pixels[(y * canvas.width + x) * 4 + 3];
 
-            if (alpha > 84) {
-              targets.push({
-                x: (x - canvas.width / 2) * 0.4,
-                y: 548 + (canvas.height - y) * 0.22,
+            if (alpha > 145) {
+              const textTarget = {
+                x: (x - canvas.width / 2) * 0.32,
+                y: 584 + (canvas.height - y) * 0.22,
                 color: textColors[(x + y) % textColors.length],
-                size: 4.7,
-              });
+                size: 3.5 + Math.random() * 0.8,
+                kind: "text",
+              };
+
+              pushTarget(textTarget);
+              textTargets.push(textTarget);
             }
           }
         }
       }
 
-      addCakeArea(168, { x: 0, y: 96, w: 550, h: 142, colors: ["#ffd60a", "#ffb703", "#ff9f1c", "#fff3b0"], size: 8.4 });
-      addCakeArea(118, { x: 0, y: 220, w: 448, h: 120, colors: ["#ffe66d", "#ffd60a", "#f77f00", "#fff3b0"], size: 8 });
-      addCakeArea(92, { x: 0, y: 308, w: 314, h: 96, colors: ["#ffb703", "#ff9f1c", "#ffd60a", "#fff3b0"], size: 7.6 });
-      addCakeLine(86, { x1: -276, y1: 168, x2: 276, y2: 168, jitter: 14, colors: ["#fff3b0", "#ffd60a", "#ffb703"], size: 8.5 });
-      addCakeLine(72, { x1: -226, y1: 268, x2: 226, y2: 268, jitter: 12, colors: ["#fff3b0", "#ffd60a", "#ffb703"], size: 8 });
-      addCakeLine(62, { x1: -164, y1: 350, x2: 164, y2: 350, jitter: 10, colors: ["#fff3b0", "#ffd60a", "#ffb703"], size: 7.6 });
+      function addVortexOrbs(count, options = {}) {
+        const colors = options.colors || ["#fff8dc", "#ffd60a", "#ffb703", "#ffffff"];
+        const height = options.height || 560;
+        const sideBias = options.sideBias || 1;
+
+        for (let i = 0; i < count; i++) {
+          const orb = document.createElement("span");
+          const progress = count === 1 ? 0 : i / (count - 1);
+          const side = i % 2 === 0 ? -1 : 1;
+          const phase = i * 0.73 + progress * Math.PI * 7.5;
+          const phaseB = phase + Math.PI * 1.25;
+          const phaseC = phase + Math.PI * 2.35;
+          const curve = Math.pow(progress, 0.72);
+          const baseRadius = (34 + curve * 150) * scale;
+          const narrowRadius = (18 + curve * 78) * scale;
+          const highY = (80 + progress * height) * scale;
+          const groundX = side * (window.innerWidth * 0.2 + Math.cos(phase) * 42 * scale) * sideBias;
+          const burstAngle = Math.random() * Math.PI * 2;
+          const burstDistance = (80 + Math.random() * 190) * scale;
+
+          orb.className = "vortex-orb" + (i % 7 === 0 ? " bright" : i % 5 === 0 ? " deep" : "");
+          orb.style.setProperty("--color", colors[i % colors.length]);
+          orb.style.setProperty("--size", (2.8 + Math.random() * 4.8) * scale);
+          orb.style.setProperty("--start-x", side * (window.innerWidth * (0.32 + Math.random() * 0.1)));
+          orb.style.setProperty("--start-y", 18 + Math.random() * 46);
+          orb.style.setProperty("--ground-x", groundX);
+          orb.style.setProperty("--ground-y", (34 + Math.random() * 38) * scale);
+          orb.style.setProperty("--orbit-a-x", side * window.innerWidth * 0.28 + Math.cos(phase) * baseRadius);
+          orb.style.setProperty("--orbit-a-y", highY * 0.48 + Math.sin(phase) * 24 * scale);
+          orb.style.setProperty("--orbit-b-x", side * window.innerWidth * 0.18 + Math.cos(phaseB) * baseRadius * 0.82);
+          orb.style.setProperty("--orbit-b-y", highY * 0.72 + Math.sin(phaseB) * 30 * scale);
+          orb.style.setProperty("--orbit-c-x", side * window.innerWidth * 0.09 + Math.cos(phaseC) * narrowRadius);
+          orb.style.setProperty("--orbit-c-y", highY + Math.sin(phaseC) * 34 * scale);
+          orb.style.setProperty("--orbit-d-x", Math.cos(phase + Math.PI * 3.1) * narrowRadius * 0.72);
+          orb.style.setProperty("--orbit-d-y", (180 + progress * 390 + Math.sin(phase) * 34) * scale);
+          orb.style.setProperty("--pinch-x", Math.cos(phaseB) * (26 + progress * 42) * scale);
+          orb.style.setProperty("--pinch-y", (230 + progress * 300) * scale);
+          orb.style.setProperty("--merge-x", Math.cos(phaseC) * 24 * scale);
+          orb.style.setProperty("--merge-y", (260 + progress * 230) * scale);
+          orb.style.setProperty("--end-x", (Math.random() - 0.5) * 340 * scale);
+          orb.style.setProperty("--end-y", (220 + Math.random() * 320) * scale);
+          orb.style.setProperty("--burst-x", Math.cos(burstAngle) * burstDistance);
+          orb.style.setProperty("--burst-y", Math.sin(burstAngle) * burstDistance);
+          orb.style.setProperty("--delay", options.delayBase || Math.random() * 620);
+          particleFragment.appendChild(orb);
+        }
+      }
+
+      function addAmbientSpecks(count) {
+        for (let i = 0; i < count; i++) {
+          const speck = document.createElement("span");
+          const side = i % 2 === 0 ? -1 : 1;
+          const phase = i * 0.83;
+          const baseX = side * (window.innerWidth * (0.18 + Math.random() * 0.26));
+          const baseY = (70 + Math.random() * 520) * scale;
+          const drift = (36 + Math.random() * 110) * scale;
+          const fadeAngle = Math.random() * Math.PI * 2;
+
+          speck.className = "ambient-speck";
+          speck.style.setProperty("--color", sprinkleColors[i % sprinkleColors.length]);
+          speck.style.setProperty("--size", ((1.8 + Math.random() * 3.6) * introQuality.glowScale * scale).toFixed(2));
+          speck.style.setProperty("--start-x", baseX + Math.cos(phase) * drift);
+          speck.style.setProperty("--start-y", 24 + Math.random() * 72);
+          speck.style.setProperty("--float-a-x", baseX + Math.sin(phase) * drift);
+          speck.style.setProperty("--float-a-y", baseY * 0.42);
+          speck.style.setProperty("--float-b-x", baseX * 0.6 + Math.cos(phase * 1.7) * drift);
+          speck.style.setProperty("--float-b-y", baseY * 0.72);
+          speck.style.setProperty("--float-c-x", baseX * 0.28 + Math.sin(phase * 2.1) * drift * 0.72);
+          speck.style.setProperty("--float-c-y", baseY);
+          speck.style.setProperty("--end-x", (Math.random() - 0.5) * 340 * scale);
+          speck.style.setProperty("--end-y", (240 + Math.random() * 360) * scale);
+          speck.style.setProperty("--fade-x", Math.cos(fadeAngle) * (40 + Math.random() * 90) * scale);
+          speck.style.setProperty("--fade-y", Math.sin(fadeAngle) * (40 + Math.random() * 90) * scale);
+          speck.style.setProperty("--peak", (0.28 + Math.random() * 0.32).toFixed(2));
+          speck.style.setProperty("--delay", 120 + Math.random() * 820);
+          particleFragment.appendChild(speck);
+        }
+      }
+
+      function addCometDots(count) {
+        for (let i = 0; i < count; i++) {
+          const comet = document.createElement("span");
+          const side = i % 2 === 0 ? -1 : 1;
+          const progress = count === 1 ? 0 : i / (count - 1);
+          const arc = progress * Math.PI * 6 + i * 0.37;
+          const fadeAngle = Math.random() * Math.PI * 2;
+          const radius = (80 + progress * 180) * scale;
+
+          comet.className = "comet-dot";
+          comet.style.setProperty("--color", i % 4 === 0 ? "#ffffff" : layerColors[i % layerColors.length]);
+          comet.style.setProperty("--size", ((2.2 + Math.random() * 3.8) * introQuality.glowScale * scale).toFixed(2));
+          comet.style.setProperty("--tail", ((10 + Math.random() * 18) * introQuality.glowScale * scale).toFixed(2));
+          comet.style.setProperty("--tail-angle", (-25 + Math.random() * 50).toFixed(2));
+          comet.style.setProperty("--start-x", side * (window.innerWidth * 0.28 + Math.random() * 110));
+          comet.style.setProperty("--start-y", 26 + Math.random() * 58);
+          comet.style.setProperty("--arc-a-x", side * window.innerWidth * 0.22 + Math.cos(arc) * radius);
+          comet.style.setProperty("--arc-a-y", (110 + progress * 420 + Math.sin(arc) * 24) * scale);
+          comet.style.setProperty("--arc-b-x", side * window.innerWidth * 0.1 + Math.sin(arc * 1.2) * radius * 0.72);
+          comet.style.setProperty("--arc-b-y", (170 + progress * 390 + Math.cos(arc) * 30) * scale);
+          comet.style.setProperty("--arc-c-x", Math.cos(arc * 1.7) * radius * 0.38);
+          comet.style.setProperty("--arc-c-y", (250 + progress * 300 + Math.sin(arc * 0.8) * 30) * scale);
+          comet.style.setProperty("--end-x", (Math.random() - 0.5) * 260 * scale);
+          comet.style.setProperty("--end-y", (280 + Math.random() * 260) * scale);
+          comet.style.setProperty("--fade-x", Math.cos(fadeAngle) * (55 + Math.random() * 110) * scale);
+          comet.style.setProperty("--fade-y", Math.sin(fadeAngle) * (55 + Math.random() * 110) * scale);
+          comet.style.setProperty("--delay", 240 + Math.random() * 740);
+          particleFragment.appendChild(comet);
+        }
+      }
+
+      function addVortexSparks(count) {
+        for (let i = 0; i < count; i++) {
+          const spark = document.createElement("span");
+          const side = i % 2 === 0 ? -1 : 1;
+          const progress = count === 1 ? 0 : i / (count - 1);
+          const phase = i * 0.91 + progress * Math.PI * 7;
+          const radius = (56 + progress * 170) * scale;
+          const fadeAngle = Math.random() * Math.PI * 2;
+
+          spark.className = "vortex-spark";
+          spark.style.setProperty("--color", i % 4 === 0 ? "#ffffff" : layerColors[i % layerColors.length]);
+          spark.style.setProperty("--size", ((2.4 + Math.random() * 3.2) * introQuality.glowScale * scale).toFixed(2));
+          spark.style.setProperty("--tail", ((8 + Math.random() * 14) * introQuality.glowScale * scale).toFixed(2));
+          spark.style.setProperty("--angle", (-36 + Math.random() * 72).toFixed(2));
+          spark.style.setProperty("--start-x", side * (window.innerWidth * (0.28 + Math.random() * 0.1)));
+          spark.style.setProperty("--start-y", 28 + Math.random() * 68);
+          spark.style.setProperty("--snap-a-x", side * window.innerWidth * 0.24 + Math.cos(phase) * radius);
+          spark.style.setProperty("--snap-a-y", (100 + progress * 410 + Math.sin(phase) * 22) * scale);
+          spark.style.setProperty("--snap-b-x", side * window.innerWidth * 0.14 + Math.sin(phase * 1.18) * radius * 0.78);
+          spark.style.setProperty("--snap-b-y", (170 + progress * 350 + Math.cos(phase) * 26) * scale);
+          spark.style.setProperty("--snap-c-x", Math.cos(phase * 1.56) * radius * 0.42);
+          spark.style.setProperty("--snap-c-y", (250 + progress * 260 + Math.sin(phase * 0.82) * 24) * scale);
+          spark.style.setProperty("--pinch-x", Math.cos(phase * 1.9) * (28 + progress * 42) * scale);
+          spark.style.setProperty("--pinch-y", (310 + progress * 210) * scale);
+          spark.style.setProperty("--fade-x", Math.cos(fadeAngle) * (44 + Math.random() * 90) * scale);
+          spark.style.setProperty("--fade-y", Math.sin(fadeAngle) * (44 + Math.random() * 90) * scale);
+          spark.style.setProperty("--delay", 160 + Math.random() * 720);
+          particleFragment.appendChild(spark);
+        }
+      }
+
+      function addHaloPulses(count) {
+        for (let i = 0; i < count; i++) {
+          const halo = document.createElement("span");
+          const side = i % 2 === 0 ? -1 : 1;
+
+          halo.className = "halo-pulse";
+          halo.style.setProperty("--size", (160 + i * 70 + Math.random() * 90) * scale);
+          halo.style.setProperty("--x", side * (window.innerWidth * 0.09 + Math.random() * 28));
+          halo.style.setProperty("--y", (46 + Math.random() * 42) * scale);
+          halo.style.setProperty("--delay", 260 + i * 190 + Math.random() * 180);
+          particleFragment.appendChild(halo);
+        }
+      }
+
+      function addCakeShimmers(count) {
+        for (let i = 0; i < count; i++) {
+          const shimmer = document.createElement("span");
+          const target = targets[(i * 29) % targets.length];
+          const phase = i * 0.74;
+          const fadeAngle = Math.random() * Math.PI * 2;
+
+          shimmer.className = "cake-shimmer";
+          shimmer.style.setProperty("--color", i % 5 === 0 ? "#ffffff" : creamColors[i % creamColors.length]);
+          shimmer.style.setProperty("--size", ((2.4 + Math.random() * 3.2) * introQuality.glowScale * scale).toFixed(2));
+          shimmer.style.setProperty("--start-x", (Math.random() - 0.5) * window.innerWidth * 0.72);
+          shimmer.style.setProperty("--start-y", 20 + Math.random() * 80);
+          shimmer.style.setProperty("--swoop-x", Math.cos(phase) * (130 + Math.random() * 110) * scale);
+          shimmer.style.setProperty("--swoop-y", (210 + Math.random() * 280) * scale);
+          shimmer.style.setProperty("--end-x", target.x * scale + (Math.random() - 0.5) * 12 * scale);
+          shimmer.style.setProperty("--end-y", target.y * scale + (Math.random() - 0.5) * 12 * scale);
+          shimmer.style.setProperty("--jitter-x", (Math.random() - 0.5) * 8 * scale);
+          shimmer.style.setProperty("--jitter-y", (Math.random() - 0.5) * 8 * scale);
+          shimmer.style.setProperty("--fade-x", Math.cos(fadeAngle) * (35 + Math.random() * 80) * scale);
+          shimmer.style.setProperty("--fade-y", Math.sin(fadeAngle) * (35 + Math.random() * 80) * scale);
+          shimmer.style.setProperty("--delay", 240 + Math.random() * 540);
+          particleFragment.appendChild(shimmer);
+        }
+      }
+
+      function addCakeOrbitDots(count) {
+        if (!targets.length || count <= 0) return;
+
+        const tierBands = [
+          { y: 112, radius: 220 },
+          { y: 188, radius: 184 },
+          { y: 270, radius: 150 },
+          { y: 355, radius: 114 },
+          { y: 438, radius: 78 },
+        ];
+
+        for (let i = 0; i < count; i++) {
+          const dot = document.createElement("span");
+          const band = tierBands[i % tierBands.length];
+          const progress = count === 1 ? 0 : i / (count - 1);
+          const angle = progress * Math.PI * 8 + i * 0.63;
+          const target = targets[(i * 41 + 17) % targets.length];
+          const side = Math.cos(angle) < 0 ? -1 : 1;
+          const endX = Math.cos(angle) * band.radius * scale * (0.72 + Math.random() * 0.2);
+          const endY = (band.y + Math.sin(angle) * 12) * scale;
+          const fadeAngle = Math.random() * Math.PI * 2;
+
+          dot.className = "cake-orbit-dot";
+          dot.style.setProperty("--color", i % 6 === 0 ? "#ffffff" : creamColors[i % creamColors.length]);
+          dot.style.setProperty("--size", ((2.2 + Math.random() * 3.6) * introQuality.glowScale * scale).toFixed(2));
+          dot.style.setProperty("--start-x", side * (window.innerWidth * 0.25 + Math.random() * 120));
+          dot.style.setProperty("--start-y", 36 + Math.random() * 80);
+          dot.style.setProperty("--arc-a-x", endX * 1.22 + Math.sin(angle) * 36 * scale);
+          dot.style.setProperty("--arc-a-y", endY + 42 * scale);
+          dot.style.setProperty("--arc-b-x", endX * 0.88 + Math.cos(angle * 1.4) * 26 * scale);
+          dot.style.setProperty("--arc-b-y", endY - 18 * scale);
+          dot.style.setProperty("--end-x", target.x * scale * 0.16 + endX * 0.84);
+          dot.style.setProperty("--end-y", target.y * scale * 0.16 + endY * 0.84);
+          dot.style.setProperty("--lift-x", (Math.random() - 0.5) * 24 * scale);
+          dot.style.setProperty("--lift-y", (10 + Math.random() * 26) * scale);
+          dot.style.setProperty("--fade-x", Math.cos(fadeAngle) * (34 + Math.random() * 72) * scale);
+          dot.style.setProperty("--fade-y", Math.sin(fadeAngle) * (34 + Math.random() * 72) * scale);
+          dot.style.setProperty("--delay", 220 + Math.random() * 640);
+          particleFragment.appendChild(dot);
+        }
+      }
+
+      function addCakePuffs(count) {
+        for (let i = 0; i < count; i++) {
+          const puff = document.createElement("span");
+          const side = i % 2 === 0 ? -1 : 1;
+          const baseY = (118 + i * 82 + Math.random() * 40) * scale;
+
+          puff.className = "cake-puff";
+          puff.style.setProperty("--size", ((90 + Math.random() * 150) * introQuality.glowScale * scale).toFixed(2));
+          puff.style.setProperty("--x", side * (70 + Math.random() * 150) * scale);
+          puff.style.setProperty("--y", baseY);
+          puff.style.setProperty("--drift-x", side * (14 + Math.random() * 34) * scale);
+          puff.style.setProperty("--drift-y", (18 + Math.random() * 32) * scale);
+          puff.style.setProperty("--fade-x", side * (24 + Math.random() * 54) * scale);
+          puff.style.setProperty("--fade-y", (40 + Math.random() * 70) * scale);
+          puff.style.setProperty("--delay", 340 + i * 110 + Math.random() * 280);
+          particleFragment.appendChild(puff);
+        }
+      }
+
+      function addTextAnchors(count) {
+        if (!textTargets.length || count <= 0) return;
+
+        const step = Math.max(1, Math.floor(textTargets.length / count));
+
+        for (let i = 0; i < textTargets.length; i += step) {
+          const target = textTargets[i];
+          const anchor = document.createElement("span");
+          const phase = i * 0.47;
+          const fadeAngle = Math.random() * Math.PI * 2;
+
+          anchor.className = "text-anchor";
+          anchor.style.setProperty("--color", target.color);
+          anchor.style.setProperty("--size", ((target.size + 0.7) * introQuality.glowScale * scale).toFixed(2));
+          anchor.style.setProperty("--start-x", (Math.random() - 0.5) * window.innerWidth * 0.62);
+          anchor.style.setProperty("--start-y", 32 + Math.random() * 80);
+          anchor.style.setProperty("--swoop-x", Math.cos(phase) * (120 + Math.random() * 90) * scale);
+          anchor.style.setProperty("--swoop-y", (230 + Math.random() * 260) * scale);
+          anchor.style.setProperty("--end-x", target.x * scale);
+          anchor.style.setProperty("--end-y", target.y * scale);
+          anchor.style.setProperty("--fade-x", Math.cos(fadeAngle) * (20 + Math.random() * 56) * scale);
+          anchor.style.setProperty("--fade-y", Math.sin(fadeAngle) * (20 + Math.random() * 56) * scale);
+          anchor.style.setProperty("--delay", 180 + Math.random() * 360);
+          particleFragment.appendChild(anchor);
+        }
+      }
+
+      function addTextSweeps(count) {
+        if (count <= 0) return;
+
+        for (let i = 0; i < count; i++) {
+          const sweep = document.createElement("span");
+          const lineY = 612;
+          const width = phoneMode ? 220 : tabletMode ? 330 : 420;
+
+          sweep.className = "text-sweep";
+          sweep.style.setProperty("--w", width * scale);
+          sweep.style.setProperty("--x", (-width * 0.5 + Math.random() * 40) * scale);
+          sweep.style.setProperty("--y", (lineY + (Math.random() - 0.5) * 20) * scale);
+          sweep.style.setProperty("--drift-x", (width * 0.55 + Math.random() * 80) * scale);
+          sweep.style.setProperty("--delay", 80 + i * 140 + Math.random() * 120);
+          particleFragment.appendChild(sweep);
+        }
+      }
+
+      function addHeartBloom(count) {
+        if (count <= 0) return;
+
+        const colors = ["#ff5c8a", "#ffc0da", "#ffffff", "#ffd60a"];
+
+        for (let i = 0; i < count; i++) {
+          const heart = document.createElement("span");
+          const preset = celebrationMotionPresets[(i * 11 + count) % celebrationMotionPresets.length];
+          const progress = count === 1 ? 0 : i / (count - 1);
+          const angle = progress * Math.PI * 2 + preset.phase * Math.PI / 180;
+          const radiusX = (phoneMode ? 138 : tabletMode ? 220 : 300) * scale * preset.bloom;
+          const radiusY = (phoneMode ? 46 : tabletMode ? 66 : 86) * scale * preset.arc;
+          const centerY = 604 * scale;
+          const fadeAngle = angle + Math.PI * 0.35;
+
+          heart.className = "heart-spark";
+          heart.style.setProperty("--color", i % 3 === 0 ? preset.alt : preset.color);
+          heart.style.setProperty("--size", ((phoneMode ? 8 : 11) + Math.random() * 5) * introQuality.glowScale * preset.sparkle * scale);
+          heart.style.setProperty("--start-x", (Math.random() - 0.5) * window.innerWidth * 0.36);
+          heart.style.setProperty("--start-y", (210 + Math.random() * 280) * scale);
+          heart.style.setProperty("--bloom-x", Math.cos(angle) * radiusX * 0.72);
+          heart.style.setProperty("--bloom-y", centerY + Math.sin(angle) * radiusY * 0.72);
+          heart.style.setProperty("--float-x", Math.cos(angle) * radiusX);
+          heart.style.setProperty("--float-y", centerY + Math.sin(angle) * radiusY);
+          heart.style.setProperty("--end-x", Math.cos(angle) * radiusX * 1.08);
+          heart.style.setProperty("--end-y", centerY + Math.sin(angle) * radiusY - (18 + Math.random() * 34) * scale);
+          heart.style.setProperty("--fade-x", Math.cos(fadeAngle) * (28 + Math.random() * 48) * scale);
+          heart.style.setProperty("--fade-y", Math.sin(fadeAngle) * (28 + Math.random() * 48) * scale * preset.fade);
+          heart.style.setProperty("--rotate", (-24 + Math.random() * 48).toFixed(2));
+          heart.style.setProperty("--delay", preset.delay + Math.random() * 220);
+          particleFragment.appendChild(heart);
+        }
+      }
+
+      function addHeartRings(count) {
+        if (count <= 0) return;
+
+        for (let i = 0; i < count; i++) {
+          const ring = document.createElement("span");
+
+          ring.className = "heart-ring";
+          ring.style.setProperty("--size", ((phoneMode ? 260 : tabletMode ? 430 : 560) + i * 64) * scale);
+          ring.style.setProperty("--x", 0);
+          ring.style.setProperty("--y", (604 - i * 8) * scale);
+          ring.style.setProperty("--delay", 80 + i * 150);
+          particleFragment.appendChild(ring);
+        }
+      }
+
+      function addMiniFireworks(count) {
+        if (count <= 0) return;
+
+        const colors = ["#ffffff", "#ffd60a", "#ff5c8a", "#36e6ff", "#fff3b0"];
+        const sparksPerPop = phoneMode ? 10 : tabletMode ? 14 : 18;
+
+        for (let pop = 0; pop < count; pop++) {
+          const side = pop % 2 === 0 ? -1 : 1;
+          const originX = side * (phoneMode ? 190 : tabletMode ? 300 : 420) * scale;
+          const originY = (phoneMode ? 610 : 624) * scale + (Math.random() - 0.5) * 46 * scale;
+          const core = document.createElement("span");
+
+          core.className = "firework-core";
+          core.style.setProperty("--size", (phoneMode ? 78 : 116) * scale);
+          core.style.setProperty("--x", originX);
+          core.style.setProperty("--y", originY);
+          core.style.setProperty("--delay", 80 + pop * 140 + Math.random() * 90);
+          particleFragment.appendChild(core);
+
+          for (let i = 0; i < sparksPerPop; i++) {
+            const spark = document.createElement("span");
+            const preset = celebrationMotionPresets[(pop * 37 + i * 7) % celebrationMotionPresets.length];
+            const angle = (Math.PI * 2 * i) / sparksPerPop + preset.phase * Math.PI / 180 * 0.18 + Math.random() * 0.18;
+            const distance = ((phoneMode ? 42 : 74) * preset.bloom * scale) + Math.random() * (phoneMode ? 32 : 54) * scale;
+            const midDistance = distance * 0.45;
+
+            spark.className = "firework-dot";
+            spark.style.setProperty("--color", i % 2 === 0 ? preset.color : preset.alt);
+            spark.style.setProperty("--size", ((phoneMode ? 2.8 : 4.2) + Math.random() * 2.4) * introQuality.glowScale * preset.sparkle * scale);
+            spark.style.setProperty("--origin-x", originX);
+            spark.style.setProperty("--origin-y", originY);
+            spark.style.setProperty("--mid-x", Math.cos(angle) * midDistance);
+            spark.style.setProperty("--mid-y", Math.sin(angle) * midDistance);
+            spark.style.setProperty("--end-x", Math.cos(angle) * distance);
+            spark.style.setProperty("--end-y", Math.sin(angle) * distance);
+            spark.style.setProperty("--fade-x", Math.cos(angle) * distance * 1.28);
+            spark.style.setProperty("--fade-y", Math.sin(angle) * distance * 1.28 - 18 * scale * preset.lift);
+            spark.style.setProperty("--delay", preset.delay + pop * 80 + Math.random() * 80);
+            particleFragment.appendChild(spark);
+          }
+        }
+      }
+
+      function createSideFigureTargets(count, side, type) {
+        const points = [];
+        const half = Math.max(12, Math.floor(count / 2));
+
+        if (type === "heartBalloons") {
+          for (let i = 0; i < half; i++) {
+            const t = (Math.PI * 2 * i) / half;
+            const x = 16 * Math.pow(Math.sin(t), 3);
+            const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+            points.push({
+              x: side * (246 + x * 5.2),
+              y: 366 + y * 5.4,
+              color: i % 3 === 0 ? "#ff5c8a" : i % 3 === 1 ? "#ffc0da" : "#ffffff",
+              square: false,
+            });
+          }
+
+          for (let i = 0; i < count - half; i++) {
+            const angle = (Math.PI * 2 * i) / Math.max(1, count - half);
+            const balloon = i % 2 === 0 ? -1 : 1;
+            points.push({
+              x: side * (202 + balloon * 34 + Math.cos(angle) * 24),
+              y: 470 + Math.sin(angle) * 34 + Math.abs(Math.sin(angle)) * 6,
+              color: i % 2 === 0 ? "#ffd60a" : "#36e6ff",
+              square: false,
+            });
+          }
+        } else {
+          for (let i = 0; i < half; i++) {
+            const arm = i % 5;
+            const inner = i % 2 === 0 ? 34 : 16;
+            const angle = -Math.PI / 2 + (Math.PI * 2 * arm) / 5 + (i / half) * 0.08;
+            points.push({
+              x: side * (232 + Math.cos(angle) * inner * (1 + (i % 7) * 0.025)),
+              y: 376 + Math.sin(angle) * inner * (1 + (i % 5) * 0.035),
+              color: i % 3 === 0 ? "#ffffff" : i % 3 === 1 ? "#ffd60a" : "#ffb703",
+              square: false,
+            });
+          }
+
+          for (let i = 0; i < count - half; i++) {
+            const row = Math.floor(i / 8);
+            const col = i % 8;
+            const boxX = (col - 3.5) * 12;
+            const boxY = row * 12;
+            points.push({
+              x: side * (216 + boxX),
+              y: 462 + boxY,
+              color: row === 1 || col === 3 || col === 4 ? "#ff5c8a" : i % 2 === 0 ? "#fff3b0" : "#ffd60a",
+              square: true,
+            });
+          }
+        }
+
+        return points.slice(0, count);
+      }
+
+      function addSideFigures(count) {
+        if (count <= 0) return;
+
+        const leftPoints = createSideFigureTargets(Math.ceil(count / 2), -1, "heartBalloons");
+        const rightPoints = createSideFigureTargets(Math.floor(count / 2), 1, "starGift");
+        const allPoints = leftPoints.concat(rightPoints);
+
+        [-1, 1].forEach((side, index) => {
+          const glow = document.createElement("span");
+          glow.className = "side-figure-glow";
+          glow.style.setProperty("--size", (phoneMode ? 150 : tabletMode ? 220 : 280) * scale);
+          glow.style.setProperty("--x", side * (phoneMode ? 190 : tabletMode ? 230 : 260) * scale);
+          glow.style.setProperty("--y", (420 + index * 24) * scale);
+          glow.style.setProperty("--delay", 160 + index * 100);
+          particleFragment.appendChild(glow);
+        });
+
+        allPoints.forEach((point, i) => {
+          const dot = document.createElement("span");
+          const side = point.x < 0 ? -1 : 1;
+          const preset = celebrationMotionPresets[(i * 13 + count) % celebrationMotionPresets.length];
+          const fadeAngle = (preset.phase * Math.PI / 180) + Math.PI * 0.5;
+          const startSpread = phoneMode ? 0.42 : 0.58;
+
+          dot.className = "side-figure-dot" + (point.square ? " square" : "");
+          dot.style.setProperty("--color", point.color || preset.color);
+          dot.style.setProperty("--size", ((point.square ? 5.2 : 4.2) + Math.random() * 2.4) * introQuality.glowScale * scale);
+          dot.style.setProperty("--start-x", side * window.innerWidth * startSpread + (Math.random() - 0.5) * 120 * scale);
+          dot.style.setProperty("--start-y", (80 + Math.random() * 180) * scale);
+          dot.style.setProperty("--swoop-x", side * (130 + Math.random() * 80) * scale);
+          dot.style.setProperty("--swoop-y", (250 + Math.random() * 260) * scale);
+          dot.style.setProperty("--end-x", point.x * scale);
+          dot.style.setProperty("--end-y", point.y * scale);
+          dot.style.setProperty("--hold-x", (Math.random() - 0.5) * 3.4 * scale);
+          dot.style.setProperty("--hold-y", (Math.random() - 0.5) * 3.4 * scale);
+          dot.style.setProperty("--fade-x", Math.cos(fadeAngle) * (30 + Math.random() * 80) * scale);
+          dot.style.setProperty("--fade-y", Math.sin(fadeAngle) * (30 + Math.random() * 80) * scale);
+          dot.style.setProperty("--rotate", (-16 + Math.random() * 32).toFixed(2));
+          dot.style.setProperty("--delay", preset.delay * 0.45 + Math.random() * 260);
+          particleFragment.appendChild(dot);
+        });
+      }
+
+      addCakeArea(360, { x: 0, y: 96, w: 548, h: 126, dome: 18, colors: ["#ffd60a", "#ffb703", "#ff9f1c", "#fff3b0"], size: 7.2, sizeJitter: 2.4 });
+      addCakeArea(300, { x: 0, y: 214, w: 438, h: 112, dome: 16, colors: ["#ffe66d", "#ffd60a", "#f77f00", "#fff3b0"], size: 6.8, sizeJitter: 2.1 });
+      addCakeArea(230, { x: 0, y: 306, w: 306, h: 90, dome: 14, colors: ["#ffb703", "#ff9f1c", "#ffd60a", "#fff3b0"], size: 6.5, sizeJitter: 1.9 });
+      addCakeLine(140, { x1: -276, y1: 168, x2: 276, y2: 168, jitter: 12, amp: 6, waves: 6, colors: creamColors, size: 7.4 });
+      addCakeLine(118, { x1: -226, y1: 268, x2: 226, y2: 268, jitter: 10, amp: 5, waves: 5, colors: creamColors, size: 7 });
+      addCakeLine(98, { x1: -164, y1: 350, x2: 164, y2: 350, jitter: 8, amp: 4, waves: 4, colors: creamColors, size: 6.8 });
+      addIcingDrips(120, { x1: -260, x2: 260, y: 154, drips: 8, depth: 24, size: 5.8 });
+      addIcingDrips(96, { x1: -210, x2: 210, y: 256, drips: 7, depth: 20, size: 5.4 });
+      addIcingDrips(72, { x1: -148, x2: 148, y: 338, drips: 5, depth: 18, size: 5.2 });
+      addEllipseRing(110, { x: 0, y: 34, rx: 266, ry: 24, noise: 0.22, colors: ["#ffd60a", "#ffb703", "#fff3b0"], size: 6.2 });
+      addEllipseRing(84, { x: 0, y: 180, rx: 250, ry: 26, noise: 0.16, colors: creamColors, size: 5.7 });
+      addEllipseRing(74, { x: 0, y: 280, rx: 198, ry: 22, noise: 0.16, colors: creamColors, size: 5.5 });
       addCandle(-118);
       addCandle(0);
       addCandle(118);
-      addCakeLine(34, { x1: -260, y1: 34, x2: 260, y2: 34, jitter: 10, colors: ["#ffd60a", "#ffb703", "#fff3b0"], size: 7.2 });
-      addCakeLine(22, { x1: -210, y1: 342, x2: -148, y2: 342, jitter: 8, colors: ["#ffd60a", "#fff3b0"], size: 6.7 });
-      addCakeLine(22, { x1: 148, y1: 342, x2: 210, y2: 342, jitter: 8, colors: ["#ffd60a", "#fff3b0"], size: 6.7 });
-      addTextTargets(["Happy Birthday", "Minh Khanh"]);
+      addTextTargets(["Happy Birthday Minh Khanh"]);
+
+      while (targets.length > particleBudget) {
+        targets.splice(Math.floor(Math.random() * targets.length), 1);
+      }
+
+      while (targets.length < particleBudget) {
+        const side = Math.random() > 0.5 ? -1 : 1;
+        const y = 70 + Math.random() * 430;
+        const width = 270 - y * 0.28;
+        pushTarget({
+          x: side * Math.random() * Math.max(72, width),
+          y,
+          color: randomFrom(Math.random() > 0.72 ? creamColors : layerColors),
+          size: 4.8 + Math.random() * 3.8,
+        });
+      }
 
       targets.forEach((target, i) => {
         const dust = document.createElement("span");
-        const angle = i * 0.52;
+        const angle = i * 0.618;
         const side = i % 2 === 0 ? -1 : 1;
-        const heightBand = i % 170;
-        const heightProgress = heightBand / 169;
-        const armPhase = (i % 4) * Math.PI * 0.5;
-        const helixA = angle + armPhase + heightProgress * Math.PI * 7.4;
-        const helixB = angle + armPhase + heightProgress * Math.PI * 9.8;
-        const helixC = angle + armPhase + heightProgress * Math.PI * 12.2;
+        const heightBand = i % 220;
+        const heightProgress = heightBand / 219;
+        const armPhase = (i % 5) * Math.PI * 0.4;
+        const helixA = angle + armPhase + heightProgress * Math.PI * 8.4;
+        const helixB = angle + armPhase + heightProgress * Math.PI * 11.2;
+        const helixC = angle + armPhase + heightProgress * Math.PI * 14.4;
         const helixSpin1 = helixA + Math.PI * 1.25;
-        const helixSpin2 = helixB + Math.PI * 1.55;
-        const helixSpin3 = helixC + Math.PI * 1.85;
-        const helixSpin4 = helixC + Math.PI * 3.15;
-        const layer = 0.42 + ((i * 37) % 100) / 100 * 0.58;
-        const funnelCurve = Math.pow(heightProgress, 0.72);
-        const tornadoRadius = (18 + funnelCurve * 132) * layer * scale;
-        const tornadoHeight = (70 + heightProgress * 520) * scale;
-        const baseSpread = window.innerWidth * 0.18;
+        const helixSpin2 = helixB + Math.PI * 1.65;
+        const helixSpin3 = helixC + Math.PI * 1.95;
+        const helixSpin4 = helixC + Math.PI * 3.2;
+        const layer = 0.38 + ((i * 37) % 100) / 100 * 0.7;
+        const funnelCurve = Math.pow(heightProgress, 0.68);
+        const tornadoRadius = (18 + funnelCurve * 156) * layer * scale;
+        const tornadoHeight = (62 + heightProgress * 550) * scale;
+        const baseSpread = window.innerWidth * 0.22;
         const groundCenter = side * baseSpread;
-        const vortexA = side * window.innerWidth * 0.3;
+        const vortexA = side * window.innerWidth * 0.32;
         const vortexB = side * window.innerWidth * 0.25;
-        const vortexC = side * window.innerWidth * 0.12;
+        const vortexC = side * window.innerWidth * 0.1;
 
-        dust.className = "dust";
+        dust.className = target.kind === "text" ? "dust text-dust" : "dust";
         dust.style.setProperty("--color", target.color || layerColors[i % layerColors.length]);
         dust.style.setProperty("--size", (target.size * scale).toFixed(2));
-        dust.style.setProperty("--x", groundCenter + (Math.random() - 0.5) * window.innerWidth * 0.24);
-        dust.style.setProperty("--ground-y", 14 + Math.random() * 34);
-        dust.style.setProperty("--ground-ring-x", groundCenter + Math.cos(angle) * (52 + Math.random() * 48) * scale);
-        dust.style.setProperty("--ground-ring-y", (42 + Math.sin(angle) * 20) * scale);
+        dust.style.setProperty("--x", groundCenter + (Math.random() - 0.5) * window.innerWidth * 0.3);
+        dust.style.setProperty("--ground-y", 12 + Math.random() * 42);
+        dust.style.setProperty("--ground-ring-x", groundCenter + Math.cos(angle) * (56 + Math.random() * 70) * scale);
+        dust.style.setProperty("--ground-ring-y", (38 + Math.sin(angle) * 26) * scale);
         dust.style.setProperty("--vortex-x-a", vortexA + Math.cos(helixA) * tornadoRadius);
-        dust.style.setProperty("--vortex-y-a", tornadoHeight + Math.sin(helixA) * 12 * scale);
-        dust.style.setProperty("--vortex-x-spin-1", vortexA + Math.cos(helixSpin1) * tornadoRadius * 1.08);
-        dust.style.setProperty("--vortex-y-spin-1", tornadoHeight + Math.sin(helixSpin1) * 20 * scale);
-        dust.style.setProperty("--vortex-x-b", vortexB + Math.cos(helixB) * tornadoRadius * 0.96);
-        dust.style.setProperty("--vortex-y-b", tornadoHeight + Math.sin(helixB) * 18 * scale);
-        dust.style.setProperty("--vortex-x-spin-2", vortexB + Math.cos(helixSpin2) * tornadoRadius * 1.02);
-        dust.style.setProperty("--vortex-y-spin-2", tornadoHeight + Math.sin(helixSpin2) * 24 * scale);
-        dust.style.setProperty("--vortex-x-c", vortexC + Math.cos(helixC) * tornadoRadius * 0.82);
-        dust.style.setProperty("--vortex-y-c", tornadoHeight + Math.sin(helixC) * 22 * scale);
-        dust.style.setProperty("--vortex-x-spin-3", vortexC + Math.cos(helixSpin3) * tornadoRadius * 0.9);
-        dust.style.setProperty("--vortex-y-spin-3", tornadoHeight + Math.sin(helixSpin3) * 26 * scale);
-        dust.style.setProperty("--vortex-x-spin-4", vortexC + Math.cos(helixSpin4) * tornadoRadius * 0.72);
-        dust.style.setProperty("--vortex-y-spin-4", tornadoHeight + Math.sin(helixSpin4) * 24 * scale);
-        dust.style.setProperty("--near-merge-x", side * window.innerWidth * 0.055 + Math.cos(helixSpin4) * tornadoRadius * 0.45);
-        dust.style.setProperty("--near-merge-y", (target.y * 0.58 + 118 + Math.sin(helixSpin4) * 22) * scale);
-        dust.style.setProperty("--merge-x", target.x * scale * 0.12 + Math.sin(helixC) * 22 * scale);
+        dust.style.setProperty("--vortex-y-a", tornadoHeight + Math.sin(helixA) * 14 * scale);
+        dust.style.setProperty("--vortex-x-spin-1", vortexA + Math.cos(helixSpin1) * tornadoRadius * 1.12);
+        dust.style.setProperty("--vortex-y-spin-1", tornadoHeight + Math.sin(helixSpin1) * 22 * scale);
+        dust.style.setProperty("--vortex-x-b", vortexB + Math.cos(helixB) * tornadoRadius * 0.98);
+        dust.style.setProperty("--vortex-y-b", tornadoHeight + Math.sin(helixB) * 20 * scale);
+        dust.style.setProperty("--vortex-x-spin-2", vortexB + Math.cos(helixSpin2) * tornadoRadius * 1.04);
+        dust.style.setProperty("--vortex-y-spin-2", tornadoHeight + Math.sin(helixSpin2) * 28 * scale);
+        dust.style.setProperty("--vortex-x-c", vortexC + Math.cos(helixC) * tornadoRadius * 0.84);
+        dust.style.setProperty("--vortex-y-c", tornadoHeight + Math.sin(helixC) * 24 * scale);
+        dust.style.setProperty("--vortex-x-spin-3", vortexC + Math.cos(helixSpin3) * tornadoRadius * 0.92);
+        dust.style.setProperty("--vortex-y-spin-3", tornadoHeight + Math.sin(helixSpin3) * 30 * scale);
+        dust.style.setProperty("--vortex-x-spin-4", vortexC + Math.cos(helixSpin4) * tornadoRadius * 0.74);
+        dust.style.setProperty("--vortex-y-spin-4", tornadoHeight + Math.sin(helixSpin4) * 26 * scale);
+        dust.style.setProperty("--near-merge-x", side * window.innerWidth * 0.045 + Math.cos(helixSpin4) * tornadoRadius * 0.44);
+        dust.style.setProperty("--near-merge-y", (target.y * 0.58 + 118 + Math.sin(helixSpin4) * 24) * scale);
+        dust.style.setProperty("--merge-x", target.x * scale * 0.12 + Math.sin(helixC) * 24 * scale);
         dust.style.setProperty("--merge-y", (target.y * 0.74 + 74 + Math.cos(helixC) * 18) * scale);
         dust.style.setProperty("--end-x", target.x * scale);
         dust.style.setProperty("--end-y", target.y * scale);
-        dust.style.setProperty("--twinkle-x", ((Math.random() - 0.5) * 8 * scale).toFixed(2));
-        dust.style.setProperty("--twinkle-y", ((Math.random() - 0.5) * 8 * scale).toFixed(2));
-        dust.style.setProperty("--twinkle-scale", (1.06 + Math.random() * 0.1).toFixed(2));
-        dust.style.setProperty("--twinkle-low", (0.68 + Math.random() * 0.18).toFixed(2));
-        dust.style.setProperty("--twinkle-high", (0.9 + Math.random() * 0.1).toFixed(2));
+        const isTextTarget = target.kind === "text";
+        const twinkleRange = isTextTarget ? 2.2 : 9;
+        dust.style.setProperty("--twinkle-x", ((Math.random() - 0.5) * twinkleRange * scale).toFixed(2));
+        dust.style.setProperty("--twinkle-y", ((Math.random() - 0.5) * twinkleRange * scale).toFixed(2));
+        dust.style.setProperty("--twinkle-scale", (isTextTarget ? 1.01 + Math.random() * 0.035 : 1.04 + Math.random() * 0.14).toFixed(2));
+        dust.style.setProperty("--twinkle-low", (isTextTarget ? 0.86 + Math.random() * 0.08 : 0.62 + Math.random() * 0.22).toFixed(2));
+        dust.style.setProperty("--twinkle-high", (isTextTarget ? 0.96 + Math.random() * 0.04 : 0.9 + Math.random() * 0.1).toFixed(2));
 
         const explodeAngle = Math.atan2(target.y - 260, target.x || (Math.random() - 0.5));
-        const explodeDistance = (120 + Math.random() * 210) * scale;
+        const explodeDistance = (130 + Math.random() * 230) * scale;
         dust.style.setProperty("--explode-x", Math.cos(explodeAngle) * explodeDistance);
         dust.style.setProperty("--explode-y", Math.sin(explodeAngle) * explodeDistance);
-        dust.style.setProperty("--delay", Math.random() * 420);
+        dust.style.setProperty("--delay", Math.random() * 520);
 
         particleFragment.appendChild(dust);
       });
 
-      for (let i = 0; i < 36; i++) {
+      const orbCount = introQuality.orbCount;
+      const starCount = introQuality.starCount;
+      const icingCount = introQuality.icingCount;
+      const burstCount = introQuality.burstCount;
+
+      addHaloPulses(introQuality.haloCount);
+      addAmbientSpecks(introQuality.ambientCount);
+      addVortexOrbs(orbCount, {
+        colors: ["#fff8dc", "#ffd60a", "#ffb703", "#ffffff", "#ffe66d"],
+        height: 590,
+      });
+      addVortexSparks(introQuality.vortexSparkCount);
+      addCometDots(introQuality.cometCount);
+      addCakeShimmers(introQuality.shimmerCount);
+      addCakeOrbitDots(introQuality.cakeOrbitCount);
+      addCakePuffs(introQuality.cakePuffCount);
+      addTextAnchors(introQuality.textAnchorCount);
+      addTextSweeps(introQuality.textSweepCount);
+      addHeartRings(introQuality.heartRingCount);
+      addHeartBloom(introQuality.heartCount);
+      addMiniFireworks(introQuality.fireworkCount);
+      addSideFigures(introQuality.sideFigureCount);
+
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement("span");
+        const angle = Math.random() * Math.PI * 2;
+        const side = i % 2 === 0 ? -1 : 1;
+        const burstAngle = Math.random() * Math.PI * 2;
+        const burstDistance = (90 + Math.random() * 230) * scale;
+
+        star.className = "spark-star";
+        star.style.setProperty("--color", sprinkleColors[i % sprinkleColors.length]);
+        star.style.setProperty("--size", (3 + Math.random() * 5) * scale);
+        star.style.setProperty("--start-x", side * (window.innerWidth * 0.34 + Math.random() * 160));
+        star.style.setProperty("--start-y", 20 + Math.random() * 70);
+        star.style.setProperty("--orbit-a-x", side * window.innerWidth * 0.22 + Math.cos(angle) * 130 * scale);
+        star.style.setProperty("--orbit-a-y", (120 + Math.random() * 420) * scale);
+        star.style.setProperty("--orbit-b-x", side * window.innerWidth * 0.08 + Math.sin(angle) * 170 * scale);
+        star.style.setProperty("--orbit-b-y", (180 + Math.random() * 380) * scale);
+        star.style.setProperty("--land-x", (Math.random() - 0.5) * 640 * scale);
+        star.style.setProperty("--land-y", (60 + Math.random() * 300) * scale);
+        star.style.setProperty("--pop-x", (Math.random() - 0.5) * 520 * scale);
+        star.style.setProperty("--pop-y", (120 + Math.random() * 260) * scale);
+        star.style.setProperty("--burst-x", Math.cos(burstAngle) * burstDistance);
+        star.style.setProperty("--burst-y", Math.sin(burstAngle) * burstDistance);
+        star.style.setProperty("--delay", Math.random() * 820);
+        particleFragment.appendChild(star);
+      }
+
+      for (let i = 0; i < icingCount; i++) {
+        const icing = document.createElement("span");
+        const angle = Math.random() * Math.PI * 2;
+        const tierY = [168, 268, 350][i % 3] * scale;
+        const tierWidth = [270, 220, 150][i % 3] * scale;
+        const endX = (Math.random() - 0.5) * tierWidth * 2;
+        const endY = tierY + Math.sin(angle) * 18 * scale;
+        const burstAngle = Math.random() * Math.PI * 2;
+
+        icing.className = "icing-dot";
+        icing.style.setProperty("--color", creamColors[i % creamColors.length]);
+        icing.style.setProperty("--size", (4 + Math.random() * 6) * scale);
+        icing.style.setProperty("--start-x", (Math.random() - 0.5) * window.innerWidth * 0.82);
+        icing.style.setProperty("--start-y", 30 + Math.random() * 80);
+        icing.style.setProperty("--swoop-x", Math.cos(angle) * (180 + Math.random() * 120) * scale);
+        icing.style.setProperty("--swoop-y", (220 + Math.random() * 240) * scale);
+        icing.style.setProperty("--end-x", endX);
+        icing.style.setProperty("--end-y", endY);
+        icing.style.setProperty("--burst-x", Math.cos(burstAngle) * (80 + Math.random() * 160) * scale);
+        icing.style.setProperty("--burst-y", Math.sin(burstAngle) * (80 + Math.random() * 160) * scale);
+        icing.style.setProperty("--delay", 80 + Math.random() * 620);
+        particleFragment.appendChild(icing);
+      }
+
+      for (let i = 0; i < burstCount; i++) {
         const burst = document.createElement("span");
-        const angle = (Math.PI * 2 * i) / 36;
-        const distance = (120 + Math.random() * 240) * scale;
+        const angle = (Math.PI * 2 * i) / burstCount;
+        const distance = (130 + Math.random() * 280) * scale;
 
         burst.className = "burst";
         burst.style.setProperty("--color", burstColors[i % burstColors.length]);
@@ -1158,26 +4765,298 @@
       intro.appendChild(particleFragment);
     }
 
+    function createOpeningPageEffects() {
+      const stage = document.getElementById("openingStage");
+      const mainPage = document.getElementById("mainPage");
+
+      if (!stage || !mainPage) return;
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const saveData = navigator.connection?.saveData;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const phoneMode = width < 620;
+      const tabletMode = width < 980;
+      const lowPower = saveData || navigator.hardwareConcurrency <= 4;
+      const quality = reducedMotion
+        ? "minimal"
+        : lowPower && phoneMode
+          ? "low"
+          : phoneMode
+            ? "phone"
+            : tabletMode
+              ? "tablet"
+              : "desktop";
+      const counts = {
+        minimal: { dots: 6, hearts: 0, diamonds: 0, moons: 1, lanterns: 0, comets: 0, titleSparks: 4, titleOrbits: 0, titleGlints: 0 },
+        low: { dots: 14, hearts: 2, diamonds: 3, moons: 1, lanterns: 1, comets: 1, titleSparks: 10, titleOrbits: 2, titleGlints: 1 },
+        phone: { dots: 22, hearts: 3, diamonds: 5, moons: 1, lanterns: 1, comets: 1, titleSparks: 16, titleOrbits: 3, titleGlints: 1 },
+        tablet: { dots: 42, hearts: 7, diamonds: 9, moons: 2, lanterns: 3, comets: 3, titleSparks: 28, titleOrbits: 6, titleGlints: 2 },
+        desktop: { dots: 72, hearts: 12, diamonds: 14, moons: 3, lanterns: 5, comets: 5, titleSparks: 46, titleOrbits: 10, titleGlints: 3 },
+      }[quality];
+      const colors = ["#ffffff", "#ffd60a", "#ffc0da", "#ff5c8a", "#36e6ff", "#fff3b0"];
+      const fragment = document.createDocumentFragment();
+      const rand = (min, max) => min + Math.random() * (max - min);
+      const setMotion = (el, drift = 1) => {
+        el.style.setProperty("--drift-x", rand(-70, 70) * drift);
+        el.style.setProperty("--drift-y", rand(-44, 38) * drift);
+        el.style.setProperty("--sway-x", rand(-110, 110) * drift);
+        el.style.setProperty("--sway-y", rand(-78, 58) * drift);
+        el.style.setProperty("--end-x", rand(-90, 90) * drift);
+        el.style.setProperty("--end-y", rand(-120, 60) * drift);
+        el.style.setProperty("--delay", rand(0, 9000));
+        el.style.setProperty("--dur", rand(phoneMode ? 8500 : 9800, phoneMode ? 14500 : 18500));
+      };
+
+      stage.innerHTML = "";
+      stage.dataset.quality = quality;
+
+      const title = document.querySelector(".birthday-title");
+      const titleRect = title?.getBoundingClientRect();
+
+      if (titleRect && titleRect.width > 0) {
+        const titleCenterX = titleRect.left + titleRect.width / 2;
+        const titleCenterY = titleRect.top + titleRect.height / 2;
+
+        for (let i = 0; i < counts.titleSparks; i++) {
+          const spark = document.createElement("span");
+          const progress = counts.titleSparks === 1 ? 0 : i / (counts.titleSparks - 1);
+          const side = i % 2 === 0 ? -1 : 1;
+          const laneY = titleRect.top + titleRect.height * (0.12 + Math.random() * 0.76);
+          const edgeX = titleRect.left + titleRect.width * progress;
+
+          spark.className = "opening-title-spark";
+          spark.style.setProperty("--color", colors[(i + 2) % colors.length]);
+          spark.style.setProperty("--size", rand(phoneMode ? 2.6 : 3, phoneMode ? 6.2 : 8.4).toFixed(2));
+          spark.style.setProperty("--x", (edgeX + rand(-24, 24)).toFixed(2));
+          spark.style.setProperty("--y", (laneY + rand(-10, 10)).toFixed(2));
+          spark.style.setProperty("--hop-x", (side * rand(10, phoneMode ? 28 : 46)).toFixed(2));
+          spark.style.setProperty("--hop-y", rand(-28, 18).toFixed(2));
+          spark.style.setProperty("--drift-x", (side * rand(20, phoneMode ? 52 : 86)).toFixed(2));
+          spark.style.setProperty("--drift-y", rand(-44, 26).toFixed(2));
+          spark.style.setProperty("--delay", rand(0, 6400).toFixed(2));
+          spark.style.setProperty("--dur", rand(phoneMode ? 5200 : 6200, phoneMode ? 9800 : 12200).toFixed(2));
+          fragment.appendChild(spark);
+        }
+
+        for (let i = 0; i < counts.titleOrbits; i++) {
+          const orbit = document.createElement("span");
+          const angle = (Math.PI * 2 * i) / Math.max(1, counts.titleOrbits) + Math.random() * 0.3;
+          const radiusX = titleRect.width * (0.42 + Math.random() * 0.14);
+          const radiusY = titleRect.height * (0.36 + Math.random() * 0.16);
+
+          orbit.className = "opening-title-orbit";
+          orbit.style.setProperty("--color", colors[(i + 1) % colors.length]);
+          orbit.style.setProperty("--size", rand(phoneMode ? 3 : 3.4, phoneMode ? 6.6 : 8.8).toFixed(2));
+          orbit.style.setProperty("--tail", rand(phoneMode ? 10 : 14, phoneMode ? 24 : 34).toFixed(2));
+          orbit.style.setProperty("--x", (titleCenterX + Math.cos(angle) * radiusX).toFixed(2));
+          orbit.style.setProperty("--y", (titleCenterY + Math.sin(angle) * radiusY).toFixed(2));
+          orbit.style.setProperty("--arc-a-x", (Math.cos(angle + 0.9) * radiusX * 0.38).toFixed(2));
+          orbit.style.setProperty("--arc-a-y", (Math.sin(angle + 0.9) * radiusY * 0.46).toFixed(2));
+          orbit.style.setProperty("--arc-b-x", (Math.cos(angle + 1.8) * radiusX * 0.56).toFixed(2));
+          orbit.style.setProperty("--arc-b-y", (Math.sin(angle + 1.8) * radiusY * 0.62).toFixed(2));
+          orbit.style.setProperty("--arc-c-x", (Math.cos(angle + 2.5) * radiusX * 0.32).toFixed(2));
+          orbit.style.setProperty("--arc-c-y", (Math.sin(angle + 2.5) * radiusY * 0.44).toFixed(2));
+          orbit.style.setProperty("--end-x", (Math.cos(angle + 3.2) * radiusX * 0.22).toFixed(2));
+          orbit.style.setProperty("--end-y", (Math.sin(angle + 3.2) * radiusY * 0.28).toFixed(2));
+          orbit.style.setProperty("--angle", (angle * 180 / Math.PI).toFixed(2));
+          orbit.style.setProperty("--delay", rand(0, 7200).toFixed(2));
+          orbit.style.setProperty("--dur", rand(phoneMode ? 6800 : 7600, phoneMode ? 11800 : 14600).toFixed(2));
+          fragment.appendChild(orbit);
+        }
+
+        for (let i = 0; i < counts.titleGlints; i++) {
+          const glint = document.createElement("span");
+          const row = i % 2 === 0 ? 0.32 : 0.68;
+          const direction = i % 2 === 0 ? 1 : -1;
+
+          glint.className = "opening-title-glint";
+          glint.style.setProperty("--w", rand(phoneMode ? 86 : 130, phoneMode ? 140 : 220).toFixed(2));
+          glint.style.setProperty("--x", (titleRect.left + titleRect.width * (direction > 0 ? 0.2 : 0.78)).toFixed(2));
+          glint.style.setProperty("--y", (titleRect.top + titleRect.height * row).toFixed(2));
+          glint.style.setProperty("--shift-x", (direction * titleRect.width * 0.25).toFixed(2));
+          glint.style.setProperty("--shift-y", rand(-10, 10).toFixed(2));
+          glint.style.setProperty("--end-x", (direction * titleRect.width * 0.55).toFixed(2));
+          glint.style.setProperty("--end-y", rand(-18, 18).toFixed(2));
+          glint.style.setProperty("--angle", (direction > 0 ? rand(-8, 4) : rand(176, 188)).toFixed(2));
+          glint.style.setProperty("--delay", (i * 1200 + rand(0, 900)).toFixed(2));
+          glint.style.setProperty("--dur", rand(phoneMode ? 5200 : 6200, phoneMode ? 7600 : 9200).toFixed(2));
+          fragment.appendChild(glint);
+        }
+      }
+
+      for (let i = 0; i < counts.moons; i++) {
+        const moon = document.createElement("span");
+        moon.className = "opening-moon";
+        moon.style.setProperty("--size", rand(phoneMode ? 82 : 120, phoneMode ? 150 : 230).toFixed(2));
+        moon.style.setProperty("--x", rand(width * 0.08, width * 0.86).toFixed(2));
+        moon.style.setProperty("--y", rand(height * 0.08, height * 0.68).toFixed(2));
+        setMotion(moon, 0.4);
+        fragment.appendChild(moon);
+      }
+
+      for (let i = 0; i < counts.lanterns; i++) {
+        const lantern = document.createElement("span");
+        lantern.className = "opening-lantern";
+        lantern.style.setProperty("--w", rand(phoneMode ? 18 : 24, phoneMode ? 30 : 42).toFixed(2));
+        lantern.style.setProperty("--h", rand(phoneMode ? 24 : 32, phoneMode ? 42 : 58).toFixed(2));
+        lantern.style.setProperty("--x", rand(width * 0.08, width * 0.9).toFixed(2));
+        lantern.style.setProperty("--y", rand(height * 0.16, height * 0.9).toFixed(2));
+        lantern.style.setProperty("--rot", rand(-9, 9).toFixed(2));
+        setMotion(lantern, 0.6);
+        lantern.style.setProperty("--end-y", rand(-180, -80).toFixed(2));
+        fragment.appendChild(lantern);
+      }
+
+      for (let i = 0; i < counts.dots; i++) {
+        const dot = document.createElement("span");
+        dot.className = "opening-dot";
+        dot.style.setProperty("--color", colors[i % colors.length]);
+        dot.style.setProperty("--size", rand(phoneMode ? 2 : 2.4, phoneMode ? 5.2 : 7.4).toFixed(2));
+        dot.style.setProperty("--x", rand(0, width).toFixed(2));
+        dot.style.setProperty("--y", rand(0, height).toFixed(2));
+        dot.style.setProperty("--peak", rand(0.32, 0.76).toFixed(2));
+        setMotion(dot, 1);
+        fragment.appendChild(dot);
+      }
+
+      for (let i = 0; i < counts.hearts; i++) {
+        const heart = document.createElement("span");
+        heart.className = "opening-heart";
+        heart.style.setProperty("--color", i % 2 ? "#ffc0da" : "#ff5c8a");
+        heart.style.setProperty("--size", rand(phoneMode ? 6 : 8, phoneMode ? 12 : 18).toFixed(2));
+        heart.style.setProperty("--x", rand(width * 0.08, width * 0.92).toFixed(2));
+        heart.style.setProperty("--y", rand(height * 0.12, height * 0.86).toFixed(2));
+        heart.style.setProperty("--rot", rand(-18, 18).toFixed(2));
+        setMotion(heart, 0.8);
+        fragment.appendChild(heart);
+      }
+
+      for (let i = 0; i < counts.diamonds; i++) {
+        const diamond = document.createElement("span");
+        diamond.className = "opening-diamond";
+        diamond.style.setProperty("--color", colors[(i + 2) % colors.length]);
+        diamond.style.setProperty("--size", rand(phoneMode ? 4 : 5, phoneMode ? 9 : 14).toFixed(2));
+        diamond.style.setProperty("--x", rand(width * 0.04, width * 0.96).toFixed(2));
+        diamond.style.setProperty("--y", rand(height * 0.1, height * 0.92).toFixed(2));
+        setMotion(diamond, 0.9);
+        fragment.appendChild(diamond);
+      }
+
+      for (let i = 0; i < counts.comets; i++) {
+        const comet = document.createElement("span");
+        const fromLeft = i % 2 === 0;
+        comet.className = "opening-comet";
+        comet.style.setProperty("--color", colors[(i + 1) % colors.length]);
+        comet.style.setProperty("--size", rand(phoneMode ? 3 : 4, phoneMode ? 6 : 8).toFixed(2));
+        comet.style.setProperty("--tail", rand(phoneMode ? 24 : 36, phoneMode ? 44 : 74).toFixed(2));
+        comet.style.setProperty("--angle", fromLeft ? rand(18, 32).toFixed(2) : rand(146, 164).toFixed(2));
+        comet.style.setProperty("--x", fromLeft ? rand(-80, width * 0.28).toFixed(2) : rand(width * 0.72, width + 80).toFixed(2));
+        comet.style.setProperty("--y", rand(height * 0.06, height * 0.74).toFixed(2));
+        comet.style.setProperty("--drift-x", (fromLeft ? rand(140, 260) : rand(-260, -140)).toFixed(2));
+        comet.style.setProperty("--drift-y", rand(30, 120).toFixed(2));
+        comet.style.setProperty("--sway-x", (fromLeft ? rand(220, 360) : rand(-360, -220)).toFixed(2));
+        comet.style.setProperty("--sway-y", rand(90, 190).toFixed(2));
+        comet.style.setProperty("--end-x", (fromLeft ? rand(320, 520) : rand(-520, -320)).toFixed(2));
+        comet.style.setProperty("--end-y", rand(160, 280).toFixed(2));
+        comet.style.setProperty("--delay", rand(0, 9000));
+        comet.style.setProperty("--dur", rand(phoneMode ? 9200 : 11000, phoneMode ? 15000 : 19000));
+        fragment.appendChild(comet);
+      }
+
+      stage.appendChild(fragment);
+    }
+
+    function createOpenLetterBurst(button) {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const rect = button.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const stage = document.createElement("div");
+      const fragment = document.createDocumentFragment();
+      const phoneMode = window.innerWidth < 620;
+      const colors = ["#ffffff", "#ffd60a", "#ffc0da", "#ff5c8a", "#36e6ff", "#fff3b0"];
+      const burstCount = reducedMotion ? 6 : phoneMode ? 18 : 42;
+      const flareCount = reducedMotion ? 1 : phoneMode ? 3 : 6;
+      const rippleCount = reducedMotion ? 1 : phoneMode ? 1 : 2;
+
+      stage.className = "open-click-stage";
+
+      for (let i = 0; i < rippleCount; i++) {
+        const ripple = document.createElement("span");
+        ripple.className = "button-ripple";
+        ripple.style.setProperty("--size", (Math.max(rect.width, rect.height) * (2.2 + i * 1.2)).toFixed(2));
+        ripple.style.setProperty("--x", centerX.toFixed(2));
+        ripple.style.setProperty("--y", centerY.toFixed(2));
+        ripple.style.setProperty("--delay", (i * 90).toFixed(2));
+        fragment.appendChild(ripple);
+      }
+
+      for (let i = 0; i < flareCount; i++) {
+        const flare = document.createElement("span");
+        const angle = (Math.PI * 2 * i) / flareCount + Math.random() * 0.25;
+        const distance = (phoneMode ? 70 : 110) + Math.random() * (phoneMode ? 70 : 120);
+        flare.className = "button-flare";
+        flare.style.setProperty("--w", ((phoneMode ? 90 : 140) + Math.random() * 90).toFixed(2));
+        flare.style.setProperty("--x", centerX.toFixed(2));
+        flare.style.setProperty("--y", centerY.toFixed(2));
+        flare.style.setProperty("--shift-x", (Math.cos(angle) * distance * 0.32).toFixed(2));
+        flare.style.setProperty("--shift-y", (Math.sin(angle) * distance * 0.32).toFixed(2));
+        flare.style.setProperty("--end-x", (Math.cos(angle) * distance).toFixed(2));
+        flare.style.setProperty("--end-y", (Math.sin(angle) * distance).toFixed(2));
+        flare.style.setProperty("--angle", (angle * 180 / Math.PI).toFixed(2));
+        flare.style.setProperty("--delay", (i * 34).toFixed(2));
+        fragment.appendChild(flare);
+      }
+
+      for (let i = 0; i < burstCount; i++) {
+        const burst = document.createElement("span");
+        const angle = (Math.PI * 2 * i) / burstCount + Math.random() * 0.34;
+        const distance = (phoneMode ? 58 : 88) + Math.random() * (phoneMode ? 150 : 240);
+        const endDistance = distance + (phoneMode ? 40 : 90) + Math.random() * (phoneMode ? 80 : 150);
+        burst.className = "button-burst";
+        burst.style.setProperty("--color", colors[i % colors.length]);
+        burst.style.setProperty("--size", ((phoneMode ? 3 : 3.4) + Math.random() * (phoneMode ? 5 : 7)).toFixed(2));
+        burst.style.setProperty("--x", (centerX + (Math.random() - 0.5) * rect.width * 0.5).toFixed(2));
+        burst.style.setProperty("--y", (centerY + (Math.random() - 0.5) * rect.height * 0.6).toFixed(2));
+        burst.style.setProperty("--burst-x", (Math.cos(angle) * distance).toFixed(2));
+        burst.style.setProperty("--burst-y", (Math.sin(angle) * distance).toFixed(2));
+        burst.style.setProperty("--end-x", (Math.cos(angle) * endDistance).toFixed(2));
+        burst.style.setProperty("--end-y", (Math.sin(angle) * endDistance - 30).toFixed(2));
+        burst.style.setProperty("--rot", (-180 + Math.random() * 360).toFixed(2));
+        burst.style.setProperty("--delay", (Math.random() * 120).toFixed(2));
+        fragment.appendChild(burst);
+      }
+
+      stage.appendChild(fragment);
+      document.body.appendChild(stage);
+      setTimeout(() => stage.remove(), 1700);
+    }
+
     function showLetter() {
       const mainPage = document.getElementById("mainPage");
       const letterPage = document.getElementById("letterPage");
       const target = document.getElementById("letterText");
+      const openButton = document.querySelector(".open-letter-btn");
+
+      if (mainPage.dataset.opening === "true") return;
+      mainPage.dataset.opening = "true";
 
       clearConfetti();
-      mainPage.style.display = "none";
-      letterPage.style.display = "flex";
-      letterPage.classList.add("intro-playing");
-      letterPage.classList.remove("final-reveal");
-      target.textContent = "";
-      target.classList.add("typing");
-      createCakeIntroParticles();
+      cleanupCakeIntroParticles();
+      if (openButton) {
+        openButton.disabled = true;
+        createOpenLetterBurst(openButton);
+      }
+
+      mainPage.classList.add("opening-out");
 
       const letter = `On this special day, I hope the world showers you with all the happiness and love you truly deserve.
 You're an incredible person who brings light wherever you go, and today is just another reminder of how amazing you are.
 Have an absolutely wonderful birthday filled with all the things that make you happiest.
 
-✨ Yours truly,
-- KHANH TOAN ❤️`;
+âœ¨ Yours truly,
+- KHANH TOAN â¤ï¸`;
 
       let index = 0;
       const speed = 40;
@@ -1198,7 +5077,7 @@ Have an absolutely wonderful birthday filled with all the things that make you h
             const wordElement = document.createElement("span");
             wordElement.className = "letter-word";
 
-            if (token.includes("❤")) {
+            if (token.includes("â¤")) {
               wordElement.classList.add("red-heart");
             }
 
@@ -1230,16 +5109,32 @@ Have an absolutely wonderful birthday filled with all the things that make you h
       }
 
       setTimeout(() => {
+        mainPage.style.display = "none";
+        document.getElementById("openingStage")?.replaceChildren();
+        letterPage.style.display = "flex";
+        letterPage.classList.add("intro-playing");
+        letterPage.classList.remove("final-reveal");
+        target.textContent = "";
+        target.classList.add("typing");
+        createCakeIntroParticles();
+      }, 980);
+
+      setTimeout(() => {
         letterPage.classList.remove("intro-playing");
         letterPage.classList.add("final-reveal");
         createConfetti();
+        setTimeout(cleanupCakeIntroParticles, 1400);
         setTimeout(typeText, 850);
-      }, 22000);
+      }, 22980);
     }
+
+    createOpeningPageEffects();
+    window.addEventListener("resize", () => {
+      if (document.getElementById("mainPage")?.style.display === "none") return;
+      clearTimeout(window.__openingEffectResizeTimer);
+      window.__openingEffectResizeTimer = setTimeout(createOpeningPageEffects, 220);
+    });
   </script>
 </body>
 </html>
-```
-
-
 
