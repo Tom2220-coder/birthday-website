@@ -120,9 +120,12 @@
     }
 
     #mainPage.opening-out .birthday-title,
-    #mainPage.opening-out .plane-banner,
     #mainPage.opening-out .open-letter-btn {
       animation: openingPageExit 1150ms cubic-bezier(.18, .74, .2, 1) forwards;
+    }
+
+    #mainPage.opening-out .plane-banner {
+      opacity: 0;
     }
 
     .opening-stage,
@@ -150,9 +153,14 @@
     .opening-moon,
     .opening-lantern,
     .opening-comet,
+    .opening-ribbon,
+    .opening-wide-ribbon,
+    .opening-starburst,
     .opening-title-spark,
     .opening-title-orbit,
     .opening-title-glint,
+    .opening-music-note,
+    .opening-light-bubble,
     .button-burst,
     .button-ripple,
     .button-flare {
@@ -324,6 +332,100 @@
       transform: translateY(-50%);
     }
 
+    .opening-ribbon {
+      width: calc(var(--w) * 1px);
+      height: calc(var(--h) * 1px);
+      border-radius: 999px;
+      color: var(--color);
+      background:
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.54), currentColor, transparent);
+      opacity: 0;
+      filter: blur(0.2px) drop-shadow(0 0 16px currentColor);
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        translate(-50%, -50%)
+        rotate(calc(var(--angle) * 1deg))
+        scaleX(0.16);
+      animation: openingRibbonFlow calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 1;
+    }
+
+    .opening-wide-ribbon {
+      width: calc(var(--w) * 1px);
+      height: calc(var(--h) * 1px);
+      border-radius: 999px;
+      color: var(--color);
+      opacity: 0;
+      background:
+        linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.72) 16%, currentColor 42%, rgba(255, 246, 178, 0.72) 58%, transparent 100%),
+        repeating-linear-gradient(90deg, transparent 0 24px, rgba(255, 255, 255, 0.22) 24px 32px, transparent 32px 58px);
+      box-shadow:
+        0 0 14px currentColor,
+        0 0 28px rgba(255, 214, 10, 0.24);
+      filter: blur(0.15px) saturate(1.08);
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        translate(-50%, -50%)
+        rotate(calc(var(--angle) * 1deg))
+        scaleX(0.12);
+      animation: openingWideRibbonDrift calc(var(--dur) * 1ms) cubic-bezier(.22, .72, .18, 1) infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 2;
+    }
+
+    .opening-wide-ribbon::before,
+    .opening-wide-ribbon::after {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      height: 1px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+      opacity: 0.68;
+    }
+
+    .opening-wide-ribbon::before {
+      top: 22%;
+    }
+
+    .opening-wide-ribbon::after {
+      bottom: 22%;
+      opacity: 0.38;
+    }
+
+    .opening-starburst {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      color: var(--color);
+      opacity: 0;
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        translate(-50%, -50%)
+        rotate(calc(var(--rot) * 1deg))
+        scale(0.14);
+      animation: openingStarburstPulse calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 4;
+    }
+
+    .opening-starburst::before,
+    .opening-starburst::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: currentColor;
+      border-radius: 999px;
+      box-shadow:
+        0 0 8px currentColor,
+        0 0 22px rgba(255, 214, 10, 0.34);
+    }
+
+    .opening-starburst::after {
+      transform: rotate(90deg);
+    }
+
     .opening-title-spark {
       width: calc(var(--size) * 1px);
       height: calc(var(--size) * 1px);
@@ -393,6 +495,44 @@
       z-index: 5;
     }
 
+    .opening-music-note {
+      color: var(--color);
+      font-size: calc(var(--size) * 1px);
+      font-weight: 800;
+      line-height: 1;
+      opacity: 0;
+      text-shadow:
+        0 0 8px currentColor,
+        0 0 18px rgba(255, 214, 10, 0.32);
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        rotate(calc(var(--rot) * 1deg))
+        scale(0.5);
+      animation: openingMusicNoteFloat calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 5;
+    }
+
+    .opening-light-bubble {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      opacity: 0;
+      border: 1px solid rgba(255, 246, 178, 0.38);
+      background:
+        radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.55), rgba(255, 214, 10, 0.12) 42%, transparent 70%);
+      box-shadow:
+        inset 0 0 14px rgba(255, 255, 255, 0.12),
+        0 0 18px rgba(255, 214, 10, 0.16);
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        translate(-50%, -50%)
+        scale(0.22);
+      animation: openingBubbleRise calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 1;
+    }
+
     .button-burst {
       width: calc(var(--size) * 1px);
       height: calc(var(--size) * 1px);
@@ -450,7 +590,7 @@
     .birthday-title {
       align-self: end;
       margin: 0 0 clamp(16px, 5vh, 48px);
-      color: #ffc0da;
+      color: #ffd60a;
       font-family: "Pacifico", "Segoe Script", cursive;
       font-size: clamp(3rem, 13vw, 8.5rem);
       font-style: italic;
@@ -458,7 +598,8 @@
       position: relative;
       text-shadow:
         0 4px 14px rgba(0, 0, 0, 0.75),
-        0 0 16px rgba(255, 192, 218, 0.34);
+        0 0 16px rgba(255, 214, 10, 0.42),
+        0 0 32px rgba(255, 171, 0, 0.22);
       animation: titleSoftFloat 4600ms ease-in-out infinite;
       z-index: 6;
     }
@@ -478,7 +619,7 @@
       height: 92%;
       border-radius: 50%;
       background:
-        radial-gradient(ellipse at center, rgba(255, 192, 218, 0.24), rgba(255, 214, 10, 0.08) 46%, transparent 72%);
+        radial-gradient(ellipse at center, rgba(255, 214, 10, 0.26), rgba(255, 255, 255, 0.09) 46%, transparent 72%);
       filter: blur(18px);
       opacity: 0.62;
       z-index: -1;
@@ -491,7 +632,7 @@
       height: 0.14em;
       border-radius: 999px;
       background:
-        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.74), rgba(255, 192, 218, 0.8), transparent);
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.74), rgba(255, 214, 10, 0.86), transparent);
       filter: blur(0.5px);
       opacity: 0.72;
       animation: titleUnderlineGlow 3600ms ease-in-out infinite;
@@ -499,11 +640,11 @@
 
     .birthday-title span {
       display: block;
-      color: #ffc0da;
+      color: #ffd60a;
       text-shadow:
         0 4px 14px rgba(0, 0, 0, 0.75),
-        0 0 12px rgba(255, 192, 218, 0.5),
-        0 0 28px rgba(255, 214, 10, 0.16);
+        0 0 12px rgba(255, 214, 10, 0.56),
+        0 0 28px rgba(255, 171, 0, 0.24);
     }
 
     .plane-banner {
@@ -513,29 +654,67 @@
       display: flex;
       align-items: center;
       width: max-content;
-      animation: fly 12s linear infinite;
+      animation: fly 12s linear infinite, bannerAirBob 2600ms ease-in-out infinite alternate;
+      transition: opacity 850ms ease;
       z-index: 3;
     }
 
     .banner {
       max-width: min(72vw, 720px);
       padding: clamp(8px, 1.8vw, 14px) clamp(16px, 5vw, 40px);
-      border: 2px solid #e91e63;
+      border: 2px solid transparent;
       border-radius: 999px;
-      background-color: rgba(255, 255, 255, 0.95);
-      color: #e91e63;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.96)) padding-box,
+        linear-gradient(100deg, #e91e63, #ffd60a, #36e6ff, #ff5c8a, #e91e63) border-box;
+      background-size: 100% 100%, 260% 100%;
+      color: #d28a00;
       font-size: clamp(0.9rem, 2.2vw, 1.35rem);
       font-weight: 800;
       line-height: 1.35;
       white-space: nowrap;
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+      box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.2),
+        0 0 18px rgba(255, 214, 10, 0.22);
+      position: relative;
+      overflow: hidden;
+      animation: livingBarBorder 5200ms linear infinite, livingBarPulse 2400ms ease-in-out infinite alternate;
+    }
+
+    .banner::before,
+    .banner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .banner::before {
+      background:
+        linear-gradient(110deg, transparent 0 34%, rgba(255, 255, 255, 0.72) 44%, rgba(255, 214, 10, 0.28) 50%, transparent 62% 100%);
+      transform: translateX(-125%);
+      animation: livingBarSheen 2600ms ease-in-out infinite;
+      mix-blend-mode: screen;
+    }
+
+    .banner::after {
+      inset: 4px;
+      border: 1px solid rgba(255, 214, 10, 0.16);
+      box-shadow: inset 0 0 14px rgba(255, 192, 218, 0.14);
+      opacity: 0.86;
     }
 
     .rope {
       width: clamp(36px, 9vw, 80px);
       height: 2px;
       margin-left: -2px;
-      background-color: #555;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.86), #555 28%, rgba(255, 214, 10, 0.8) 48%, #555 68%, rgba(255, 255, 255, 0.34));
+      background-size: 220% 100%;
+      box-shadow: 0 0 10px rgba(255, 214, 10, 0.24);
+      animation: ropeSparkTravel 1800ms linear infinite;
     }
 
     .plane-img {
@@ -548,17 +727,26 @@
       min-width: min(78vw, 220px);
       margin-top: clamp(80px, 22vh, 220px);
       padding: 0.85rem 1.5rem;
-      border: 2px solid #e91e63;
+      border: 2px solid #ffd60a;
       border-radius: 999px;
-      background-color: rgba(255, 255, 255, 0.96);
-      color: #e91e63;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.96)) padding-box,
+        linear-gradient(110deg, #ffd60a, #fff1a3, #ffb300, #ffd60a) border-box;
+      background-size: 100% 100%, 240% 100%;
+      color: #d28a00;
       font-size: clamp(1rem, 2.4vw, 1.25rem);
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.22),
+        0 0 18px rgba(255, 214, 10, 0.16);
       position: relative;
       overflow: hidden;
       transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+      transform-origin: 50% 50%;
+      animation:
+        livingBarBorder 5600ms linear infinite,
+        openEnvelopeBreath 5200ms ease-in-out infinite;
       z-index: 5;
     }
 
@@ -574,7 +762,9 @@
     .open-letter-btn::before {
       background:
         conic-gradient(from 0deg, transparent, rgba(255, 214, 10, 0.46), transparent, rgba(255, 192, 218, 0.5), transparent);
-      animation: openButtonHalo 3600ms linear infinite;
+      animation:
+        openButtonHalo 3600ms linear infinite,
+        openEnvelopeHaloBreath 3200ms ease-in-out infinite alternate;
       opacity: 0.68;
       mix-blend-mode: screen;
     }
@@ -626,6 +816,27 @@
       background: url("kk.jpg") center / cover no-repeat;
     }
 
+    #letterPage::after {
+      content: "";
+      position: absolute;
+      inset: -12%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      background:
+        radial-gradient(ellipse at 52% 32%, rgba(255, 214, 10, 0.16), transparent 38%),
+        radial-gradient(ellipse at 32% 68%, rgba(255, 92, 138, 0.12), transparent 42%),
+        radial-gradient(ellipse at 72% 66%, rgba(54, 230, 255, 0.1), transparent 42%),
+        conic-gradient(from 90deg at 50% 55%, transparent, rgba(255, 246, 178, 0.08), transparent, rgba(255, 192, 218, 0.08), transparent);
+      filter: blur(18px) saturate(1.15);
+      transform: scale(1.02) rotate(0deg);
+      mix-blend-mode: screen;
+    }
+
+    #letterPage.final-reveal::after {
+      animation: letterAuroraDrift 9800ms ease-in-out 600ms infinite alternate;
+    }
+
     .letter-layout {
       width: min(1180px, 100%);
       display: grid;
@@ -635,7 +846,10 @@
       justify-content: center;
       margin-top: clamp(76px, 14vh, 140px);
       opacity: 1;
-      transition: opacity 900ms ease;
+      transition:
+        opacity 900ms ease,
+        gap 900ms cubic-bezier(.18, .78, .22, 1),
+        transform 900ms cubic-bezier(.18, .78, .22, 1);
     }
 
     .cake-intro {
@@ -657,6 +871,25 @@
 
     #letterPage.intro-playing .cake-intro {
       display: flex;
+    }
+
+    #letterPage.cake-hold .cake-intro {
+      display: flex;
+    }
+
+    #letterPage.cake-hold .cake-intro::before {
+      animation: cakeHoldAura 1800ms ease-in-out infinite alternate;
+    }
+
+    #letterPage.cake-hold .cake-intro::after {
+      animation: cakeHoldGlow 1600ms ease-in-out infinite alternate;
+    }
+
+    #letterPage.cake-hold .dust,
+    #letterPage.cake-hold .text-anchor,
+    #letterPage.cake-hold .cake-shimmer,
+    #letterPage.cake-hold .cake-orbit-dot {
+      filter: brightness(1.08) saturate(1.08);
     }
 
     .cake-intro::before,
@@ -684,7 +917,7 @@
           transparent 13deg 22deg
         );
       filter: blur(12px);
-      animation: introAura 22000ms ease-in-out forwards;
+      animation: introAura 27000ms ease-in-out forwards;
     }
 
     .cake-intro::after {
@@ -693,7 +926,7 @@
       background:
         radial-gradient(ellipse at center, rgba(255, 226, 96, 0.42), rgba(255, 120, 60, 0.1) 44%, transparent 68%);
       filter: blur(18px);
-      animation: cakeStageGlow 22000ms ease-in-out forwards;
+      animation: cakeStageGlow 27000ms ease-in-out forwards;
     }
 
     .spark-star,
@@ -736,7 +969,7 @@
       transform:
         translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
         scale(0.18);
-      animation: vortexOrbDance 22000ms cubic-bezier(.17, .7, .18, 1) forwards;
+      animation: vortexOrbDance 27000ms cubic-bezier(.17, .7, .18, 1) forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 2;
     }
@@ -768,7 +1001,7 @@
       transform:
         translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
         scale(0.2);
-      animation: ambientSpeckDrift 22000ms ease-in-out forwards;
+      animation: ambientSpeckDrift 27000ms ease-in-out forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 1;
     }
@@ -787,7 +1020,7 @@
       transform:
         translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
         scale(0.2);
-      animation: cometDotArc 22000ms cubic-bezier(.18, .72, .2, 1) forwards;
+      animation: cometDotArc 27000ms cubic-bezier(.18, .72, .2, 1) forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 4;
     }
@@ -819,7 +1052,7 @@
       transform:
         translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
         scale(0.25);
-      animation: haloPulseClean 22000ms ease-out forwards;
+      animation: haloPulseClean 27000ms ease-out forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 0;
     }
@@ -838,7 +1071,7 @@
       transform:
         translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
         scale(0.24);
-      animation: cakeShimmerSettle 22000ms ease-in-out forwards;
+      animation: cakeShimmerSettle 27000ms ease-in-out forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 5;
     }
@@ -857,7 +1090,7 @@
       transform:
         translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
         scale(0.2);
-      animation: cakeOrbitPolish 22000ms cubic-bezier(.18, .72, .2, 1) forwards;
+      animation: cakeOrbitPolish 27000ms cubic-bezier(.18, .72, .2, 1) forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 6;
     }
@@ -873,7 +1106,7 @@
       transform:
         translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
         scale(0.18);
-      animation: cakePuffBreath 22000ms ease-out forwards;
+      animation: cakePuffBreath 27000ms ease-out forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 3;
     }
@@ -893,7 +1126,7 @@
         translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
         rotate(calc(var(--angle) * 1deg))
         scale(0.18);
-      animation: vortexSparkSnap 22000ms cubic-bezier(.16, .74, .2, 1) forwards;
+      animation: vortexSparkSnap 27000ms cubic-bezier(.16, .74, .2, 1) forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 5;
     }
@@ -919,7 +1152,7 @@
       color: var(--color);
       opacity: 0;
       transform: translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px)) scale(0.2);
-      animation: starOrbit 22000ms cubic-bezier(.2, .72, .18, 1) forwards;
+      animation: starOrbit 27000ms cubic-bezier(.2, .72, .18, 1) forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 4;
     }
@@ -949,7 +1182,7 @@
         0 0 9px rgba(255, 255, 255, 0.62),
         0 0 16px var(--color);
       transform: translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px)) scale(0.18);
-      animation: icingPop 22000ms cubic-bezier(.18, .78, .22, 1.02) forwards;
+      animation: icingPop 27000ms cubic-bezier(.18, .78, .22, 1.02) forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 5;
     }
@@ -972,7 +1205,7 @@
         0 0 7px currentColor,
         0 0 13px currentColor;
       color: var(--color);
-      animation: dustToCake 22000ms linear forwards;
+      animation: dustToCake 27000ms linear forwards;
       animation-delay: calc(var(--delay) * 1ms);
       will-change: transform, opacity;
       contain: layout paint style;
@@ -1001,7 +1234,7 @@
       transform:
         translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
         scale(0.32);
-      animation: textAnchorSettle 22000ms ease-out forwards;
+      animation: textAnchorSettle 27000ms ease-out forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 7;
     }
@@ -1017,7 +1250,7 @@
         translate(calc(var(--x) * 1px), calc(var(--y) * -1px))
         scaleX(0.16);
       filter: drop-shadow(0 0 8px rgba(255, 230, 110, 0.52));
-      animation: textSweepReveal 22000ms ease-in-out forwards;
+      animation: textSweepReveal 27000ms ease-in-out forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 8;
     }
@@ -1031,7 +1264,7 @@
         translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
         scale(0.22)
         rotate(calc(var(--rotate) * 1deg));
-      animation: heartSparkBloom 22000ms cubic-bezier(.18, .74, .22, 1) forwards;
+      animation: heartSparkBloom 27000ms cubic-bezier(.18, .74, .22, 1) forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 6;
     }
@@ -1071,7 +1304,7 @@
         translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
         scale(0.12);
       filter: drop-shadow(0 0 8px rgba(255, 92, 138, 0.38));
-      animation: heartRingPulse 22000ms ease-out forwards;
+      animation: heartRingPulse 27000ms ease-out forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 5;
     }
@@ -1090,7 +1323,7 @@
       transform:
         translate(calc(var(--origin-x) * 1px), calc(var(--origin-y) * -1px))
         scale(0.16);
-      animation: fireworkDotPop 22000ms cubic-bezier(.17, .7, .2, 1) forwards;
+      animation: fireworkDotPop 27000ms cubic-bezier(.17, .7, .2, 1) forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 6;
     }
@@ -1105,7 +1338,7 @@
       transform:
         translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
         scale(0.2);
-      animation: fireworkCorePulse 22000ms ease-out forwards;
+      animation: fireworkCorePulse 27000ms ease-out forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 5;
     }
@@ -1124,7 +1357,7 @@
       transform:
         translate(calc(var(--start-x) * 1px), calc(var(--start-y) * -1px))
         scale(0.2);
-      animation: sideFigureGather 22000ms cubic-bezier(.18, .72, .22, 1) forwards;
+      animation: sideFigureGather 27000ms cubic-bezier(.18, .72, .22, 1) forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 6;
     }
@@ -1147,9 +1380,55 @@
       transform:
         translate(calc((var(--x) * 1px) - 50%), calc(var(--y) * -1px))
         scale(0.2);
-      animation: sideFigureGlow 22000ms ease-out forwards;
+      animation: sideFigureGlow 27000ms ease-out forwards;
       animation-delay: calc(var(--delay) * 1ms);
       z-index: 4;
+    }
+
+    .cake-gold-ray,
+    .cake-bubble {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
+      contain: layout paint style;
+    }
+
+    .cake-gold-ray {
+      width: calc(var(--w) * 1px);
+      height: 3px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.92), rgba(255, 214, 10, 0.76), transparent);
+      opacity: 0;
+      filter: drop-shadow(0 0 12px rgba(255, 214, 10, 0.62));
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * -1px))
+        rotate(calc(var(--angle) * 1deg))
+        scaleX(0.1);
+      animation: cakeGoldRaySweep 27000ms ease-in-out forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 8;
+    }
+
+    .cake-bubble {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background:
+        radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.95), currentColor 42%, rgba(255, 214, 10, 0.18) 68%, transparent 76%);
+      opacity: 0;
+      box-shadow:
+        0 0 5px currentColor,
+        0 0 14px rgba(255, 246, 178, 0.34);
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * -1px))
+        scale(0.2);
+      animation: cakeBubbleRise 27000ms ease-in-out forwards;
+      animation-delay: calc(var(--delay) * 1ms);
+      z-index: 7;
     }
 
     .cake {
@@ -1168,7 +1447,7 @@
       transform: translate(-50%, -50%) scale(0.2);
       box-shadow: 0 0 8px currentColor;
       color: var(--color);
-      animation: cakeSpark 1600ms ease-out 21600ms forwards;
+      animation: cakeSpark 1600ms ease-out 26600ms forwards;
       will-change: transform, opacity;
       contain: layout paint style;
     }
@@ -1177,6 +1456,9 @@
       position: relative;
       width: min(100%, 560px);
       z-index: 2;
+      transition:
+        transform 900ms cubic-bezier(.18, .78, .22, 1),
+        filter 900ms ease;
     }
 
     .note-wrap::before,
@@ -1218,6 +1500,77 @@
       animation: noteSheenSweep 4400ms ease-in-out 1400ms infinite;
     }
 
+    .note-wish-seal,
+    .note-floating-deco {
+      position: absolute;
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0;
+      text-shadow:
+        0 0 8px rgba(255, 214, 10, 0.65),
+        0 0 16px rgba(255, 255, 255, 0.35);
+      will-change: transform, opacity;
+    }
+
+    .note-wish-seal {
+      right: clamp(10px, 3vw, 28px);
+      bottom: clamp(76px, 13vh, 132px);
+      width: 58px;
+      height: 58px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: #ffcf24;
+      font-size: 1.95rem;
+      background:
+        radial-gradient(circle at 38% 34%, rgba(255, 255, 255, 0.96), transparent 0 9%),
+        radial-gradient(circle, rgba(255, 214, 10, 0.22), rgba(255, 255, 255, 0.08) 58%, transparent 72%);
+      box-shadow:
+        0 0 20px rgba(255, 214, 10, 0.18),
+        inset 0 0 18px rgba(255, 255, 255, 0.12);
+    }
+
+    .note-floating-deco {
+      color: #ffcf24;
+      font-size: 1.35rem;
+      filter: drop-shadow(0 0 8px rgba(255, 214, 10, 0.46));
+    }
+
+    .note-deco-a {
+      left: clamp(18px, 4vw, 42px);
+      top: clamp(92px, 16vh, 150px);
+    }
+
+    .note-deco-b {
+      right: clamp(24px, 5vw, 48px);
+      top: clamp(118px, 19vh, 180px);
+      color: #ff7ab5;
+      font-size: 1.05rem;
+    }
+
+    .note-deco-c {
+      left: 50%;
+      bottom: clamp(42px, 8vh, 80px);
+      color: #fff5b8;
+      font-size: 1.1rem;
+    }
+
+    #letterPage.final-reveal .note-wish-seal {
+      animation: noteSealBreathe 4600ms ease-in-out 1100ms infinite alternate;
+    }
+
+    #letterPage.final-reveal .note-deco-a {
+      animation: noteDecoDriftA 5200ms ease-in-out 900ms infinite alternate;
+    }
+
+    #letterPage.final-reveal .note-deco-b {
+      animation: noteDecoDriftB 4800ms ease-in-out 1300ms infinite alternate;
+    }
+
+    #letterPage.final-reveal .note-deco-c {
+      animation: noteDecoDriftC 5600ms ease-in-out 1500ms infinite alternate;
+    }
+
     .note {
       --line-height: 28px;
       --note-padding: clamp(24px, 5vw, 42px);
@@ -1248,16 +1601,177 @@
       z-index: 2;
     }
 
+    .note::before,
+    .note::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .note::before {
+      border: 2px solid rgba(255, 214, 10, 0.34);
+      box-shadow:
+        inset 0 0 22px rgba(255, 214, 10, 0.12),
+        0 0 18px rgba(255, 214, 10, 0.14);
+    }
+
+    .note::after {
+      background:
+        linear-gradient(
+          112deg,
+          transparent 0%,
+          transparent 28%,
+          rgba(255, 255, 255, 0.52) 42%,
+          rgba(255, 214, 10, 0.18) 50%,
+          transparent 64%,
+          transparent 100%
+        );
+      transform: translateX(-120%);
+      mix-blend-mode: screen;
+    }
+
+    .note-corner-fold {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: clamp(54px, 8vw, 86px);
+      height: clamp(54px, 8vw, 86px);
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0;
+      border-top-right-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0 48%, rgba(255, 214, 10, 0.18) 52%, rgba(122, 82, 12, 0.08) 100%);
+      clip-path: polygon(100% 0, 100% 100%, 0 0);
+      filter:
+        drop-shadow(-8px 10px 10px rgba(0, 0, 0, 0.14))
+        drop-shadow(0 0 10px rgba(255, 214, 10, 0.24));
+      transform-origin: 100% 0;
+    }
+
+    .note-corner-fold::after {
+      content: "";
+      position: absolute;
+      inset: 12% 8% auto auto;
+      width: 52%;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(255, 214, 10, 0.8), transparent);
+      transform: rotate(-45deg);
+      opacity: 0.72;
+    }
+
     #letterPage.final-reveal .note {
       animation:
         slideUpFade 900ms ease-out forwards,
         notePaperGlow 5200ms ease-in-out 1200ms infinite alternate;
     }
 
+    #letterPage.final-reveal .note::before {
+      animation: noteEdgeGlow 3600ms ease-in-out 900ms infinite alternate;
+    }
+
+    #letterPage.final-reveal .note::after {
+      animation: notePageLightSweep 6200ms ease-in-out 1700ms infinite;
+    }
+
+    #letterPage.final-reveal .note-corner-fold {
+      animation: noteCornerFoldIn 1100ms cubic-bezier(.18, .78, .22, 1.08) 680ms forwards, noteCornerFoldGlow 3400ms ease-in-out 2200ms infinite alternate;
+    }
+
+    .memory-more-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: min(72vw, 210px);
+      margin: 18px auto 0;
+      padding: 0.78rem 1.35rem;
+      border: 2px solid rgba(255, 214, 10, 0.86);
+      border-radius: 999px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 248, 210, 0.92)),
+        radial-gradient(circle at 20% 20%, rgba(255, 214, 10, 0.42), transparent 50%);
+      color: #c77700;
+      font-size: clamp(0.92rem, 2.4vw, 1.05rem);
+      font-weight: 900;
+      letter-spacing: 0.01em;
+      box-shadow:
+        0 12px 24px rgba(0, 0, 0, 0.22),
+        0 0 18px rgba(255, 214, 10, 0.28),
+        inset 0 0 14px rgba(255, 255, 255, 0.78);
+      cursor: pointer;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(12px) scale(0.96);
+      pointer-events: none;
+      transition:
+        opacity 620ms ease,
+        transform 620ms cubic-bezier(.18, .78, .22, 1),
+        border-color 260ms ease,
+        color 260ms ease,
+        box-shadow 260ms ease;
+      z-index: 6;
+    }
+
+    .memory-more-btn::before,
+    .memory-more-btn::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .memory-more-btn::before {
+      inset: -80%;
+      background:
+        conic-gradient(from 0deg, transparent, rgba(255, 214, 10, 0.38), transparent, rgba(255, 128, 171, 0.26), transparent);
+      opacity: 0.7;
+      animation: memoryButtonHalo 4200ms linear infinite;
+    }
+
+    .memory-more-btn::after {
+      inset: 0;
+      background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.92) 42%, transparent 58%);
+      transform: translateX(-150%);
+      animation: memoryButtonSheen 2800ms ease-in-out infinite;
+    }
+
+    .memory-more-btn span {
+      position: relative;
+      z-index: 1;
+    }
+
+    #letterPage.note-read-ready .memory-more-btn {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+      animation: memoryButtonFloat 3200ms ease-in-out 700ms infinite alternate;
+    }
+
+    .memory-more-btn:hover {
+      border-color: #fff3a8;
+      color: #a86100;
+      box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.24),
+        0 0 24px rgba(255, 214, 10, 0.44),
+        inset 0 0 16px rgba(255, 255, 255, 0.86);
+    }
+
+    .memory-more-btn:active {
+      transform: translateY(2px) scale(0.98);
+    }
+
     #letterText {
       display: block;
       white-space: pre-wrap;
       transform: translateY(-3px);
+      position: relative;
+      z-index: 2;
     }
 
     .letter-char {
@@ -1281,6 +1795,145 @@
     .red-heart {
       color: #e91e63;
       text-shadow: 0 0 8px rgba(233, 30, 99, 0.45);
+    }
+
+    .signature-line {
+      position: relative;
+      display: inline-block;
+      padding: 0 0.22em 0.08em 0;
+      border-radius: 10px;
+      isolation: isolate;
+    }
+
+    .signature-line::before,
+    .signature-line::after {
+      content: "";
+      position: absolute;
+      left: -0.18em;
+      right: -0.22em;
+      pointer-events: none;
+      opacity: 0;
+      z-index: -1;
+    }
+
+    .signature-line::before {
+      top: -0.12em;
+      bottom: -0.1em;
+      border-radius: 999px;
+      background:
+        linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.82) 42%, rgba(255, 214, 10, 0.74) 50%, transparent 62%),
+        radial-gradient(ellipse at center, rgba(255, 214, 10, 0.22), transparent 68%);
+      filter: blur(0.2px);
+      transform: translateX(-120%) skewX(-12deg);
+      mix-blend-mode: screen;
+    }
+
+    .signature-line::after {
+      bottom: -0.05em;
+      height: 3px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, transparent, rgba(255, 214, 10, 0.92), rgba(255, 255, 255, 0.96), rgba(255, 92, 138, 0.72), transparent);
+      box-shadow:
+        0 0 8px rgba(255, 214, 10, 0.58),
+        0 0 16px rgba(255, 92, 138, 0.28);
+      transform: scaleX(0);
+      transform-origin: left center;
+    }
+
+    #letterText.signature-ready .signature-line {
+      color: #8a4f00;
+      text-shadow:
+        0 0 8px rgba(255, 214, 10, 0.38),
+        0 0 14px rgba(255, 255, 255, 0.18);
+      animation: signatureTextGlow 4200ms ease-in-out 560ms infinite alternate;
+    }
+
+    #letterText.signature-ready .signature-line::before {
+      animation: signatureLightSweep 2800ms cubic-bezier(.18, .78, .22, 1) 260ms 2;
+    }
+
+    #letterText.signature-ready .signature-line::after {
+      animation: signatureUnderlineDraw 1800ms cubic-bezier(.18, .78, .22, 1) 520ms forwards;
+    }
+
+    .hand-signature-wrap {
+      position: relative;
+      display: block;
+      width: clamp(220px, 48vw, 390px);
+      max-width: 100%;
+      margin: 10px 0 2px -4px;
+      transform-origin: 22% 50%;
+      will-change: transform, opacity;
+    }
+
+    .hand-signature-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 18% auto 18% 0;
+      width: 28px;
+      border-radius: 999px;
+      opacity: 0;
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.96), rgba(255, 214, 10, 0.74) 42%, transparent 72%);
+      filter:
+        blur(0.3px)
+        drop-shadow(0 0 10px rgba(255, 214, 10, 0.9));
+      mix-blend-mode: screen;
+      pointer-events: none;
+      transform: translateX(0) scale(0.72);
+      z-index: 2;
+    }
+
+    .hand-signature-wrap::after {
+      content: "";
+      position: absolute;
+      left: 4%;
+      right: 7%;
+      bottom: 8%;
+      height: 2px;
+      border-radius: 999px;
+      opacity: 0;
+      background:
+        linear-gradient(90deg, transparent, rgba(255, 214, 10, 0.78), rgba(255, 255, 255, 0.92), transparent);
+      transform: scaleX(0);
+      transform-origin: left center;
+      pointer-events: none;
+    }
+
+    .hand-signature-img {
+      display: block;
+      width: 100%;
+      max-height: 118px;
+      object-fit: contain;
+      object-position: left center;
+      opacity: 0;
+      clip-path: inset(0 100% 0 0);
+      transform: translateY(10px) rotate(-1.2deg) scale(0.96);
+      filter:
+        contrast(1.12)
+        drop-shadow(0 1px 0 rgba(255, 255, 255, 0.28))
+        drop-shadow(0 0 10px rgba(255, 214, 10, 0.16));
+      mix-blend-mode: multiply;
+      will-change: transform, opacity, filter;
+    }
+
+    #letterText.signature-ready .hand-signature-wrap {
+      animation: handSignatureFloat 5200ms ease-in-out 2900ms infinite alternate;
+    }
+
+    #letterText.signature-ready .hand-signature-wrap::before {
+      animation: signaturePenTravel 2300ms cubic-bezier(.2, .78, .2, 1) 180ms forwards;
+    }
+
+    #letterText.signature-ready .hand-signature-wrap::after {
+      animation: handSignatureUnderline 1200ms cubic-bezier(.18, .78, .22, 1) 1400ms forwards;
+    }
+
+    #letterText.signature-ready .hand-signature-img {
+      animation:
+        handSignatureWrite 2300ms cubic-bezier(.2, .78, .2, 1) 180ms forwards,
+        handSignatureInkGlow 3600ms ease-in-out 2800ms infinite alternate;
     }
 
     .letter-char.spark::before,
@@ -1327,15 +1980,30 @@
       animation: blink 1s step-start infinite;
     }
 
-    .cute-img {
+    .corner-sticker {
       position: absolute;
       top: 0;
       left: 0;
-      width: clamp(54px, 8vw, 82px);
-      transform: translate(-68%, -72%) rotate(-8deg);
-      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.22));
+      width: clamp(58px, 7.2vw, 82px);
+      height: clamp(58px, 7.2vw, 82px);
+      transform: translate(-62%, -54%) rotate(-7deg);
       pointer-events: none;
-      z-index: 4;
+      z-index: 6;
+    }
+
+    .cute-img {
+      object-fit: contain;
+      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.22));
+    }
+
+    .corner-sticker-fallback {
+      display: grid;
+      place-items: center;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1;
+      filter:
+        drop-shadow(0 8px 12px rgba(0, 0, 0, 0.32))
+        drop-shadow(0 0 10px rgba(255, 214, 10, 0.34));
     }
 
     .photo-section {
@@ -1344,9 +2012,18 @@
       flex-direction: column;
       align-items: center;
       min-width: 0;
-      z-index: 1;
+      z-index: 8;
       filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.24));
       isolation: isolate;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(18px) scale(0.94);
+      transition:
+        opacity 680ms ease,
+        visibility 680ms ease,
+        transform 1100ms cubic-bezier(.18, .78, .22, 1),
+        filter 900ms ease;
     }
 
     .photo-section::before {
@@ -1358,11 +2035,14 @@
       width: 8px;
       border-radius: 999px;
       background:
-        linear-gradient(90deg, transparent 0 18%, rgba(255, 255, 255, 0.82) 22% 36%, transparent 42%),
+        linear-gradient(90deg, transparent 0 18%, rgba(255, 255, 255, 0.9) 22% 36%, transparent 42%),
+        linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.92) 12%, transparent 24%, transparent 100%),
         repeating-linear-gradient(to bottom, #36e6ff 0 12px, #b8f7ff 12px 24px, #ffe66d 24px 36px);
+      background-size: 100% 100%, 100% 120px, 100% 36px;
       box-shadow:
         0 0 14px rgba(54, 230, 255, 0.75),
-        0 0 28px rgba(255, 230, 109, 0.32);
+        0 0 28px rgba(255, 230, 109, 0.32),
+        inset 0 0 10px rgba(255, 255, 255, 0.22);
       --rope-x: -50%;
       opacity: 0;
       transform: translateX(-50%) scaleY(0);
@@ -1371,6 +2051,12 @@
     }
 
     .photo-wrapper {
+      --drop-delay: 0s;
+      --swing: 1.6deg;
+      --swing-start: -0.55deg;
+      --swing-end: 1.6deg;
+      --rope-swing-start: -0.4deg;
+      --rope-swing-end: 1.1deg;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -1388,6 +2074,11 @@
 
     .photo-wrapper:nth-of-type(2n) {
       --tilt: 2deg;
+      --swing: -1.6deg;
+      --swing-start: 0.55deg;
+      --swing-end: -1.6deg;
+      --rope-swing-start: 0.4deg;
+      --rope-swing-end: -1.1deg;
     }
 
     .photo-wrapper::before {
@@ -1405,6 +2096,7 @@
         0 0 12px rgba(54, 230, 255, 0.46);
       transform: translateX(-50%) rotate(var(--tilt, -2deg));
       z-index: 3;
+      animation: ropeCapGlow 2800ms ease-in-out infinite alternate;
     }
 
     .photo-wrapper::after {
@@ -1455,11 +2147,14 @@
       width: 8px;
       border-radius: 999px;
       background:
-        linear-gradient(90deg, transparent 0 18%, rgba(255, 255, 255, 0.82) 22% 36%, transparent 42%),
+        linear-gradient(90deg, transparent 0 18%, rgba(255, 255, 255, 0.9) 22% 36%, transparent 42%),
+        linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.95) 12%, rgba(255, 230, 109, 0.5) 18%, transparent 30%, transparent 100%),
         repeating-linear-gradient(to bottom, #36e6ff 0 12px, #b8f7ff 12px 24px, #ffe66d 24px 36px);
+      background-size: 100% 100%, 100% 110px, 100% 36px;
       box-shadow:
         0 0 14px rgba(54, 230, 255, 0.72),
-        0 0 28px rgba(255, 230, 109, 0.28);
+        0 0 28px rgba(255, 230, 109, 0.28),
+        inset 0 0 9px rgba(255, 255, 255, 0.2);
     }
 
     .rope-line {
@@ -1476,15 +2171,181 @@
     }
 
     #letterPage.final-reveal .photo-section::before {
-      animation: ropeDrop 1.7s cubic-bezier(.18, .78, .22, 1) forwards;
+      animation:
+        ropeDrop 1.7s cubic-bezier(.18, .78, .22, 1) forwards,
+        ropeLightRun 2400ms linear 1.65s infinite,
+        ropeSoftSway 3800ms ease-in-out 1.8s infinite alternate;
     }
 
     #letterPage.final-reveal .long-top-line {
-      animation: ropeDrop 1.35s cubic-bezier(.18, .78, .22, 1) .25s forwards;
+      animation:
+        ropeDrop 1.35s cubic-bezier(.18, .78, .22, 1) .25s forwards,
+        ropeLightRun 2500ms linear 1.55s infinite,
+        ropeSoftSway 4200ms ease-in-out 1.7s infinite alternate;
+    }
+
+    #letterPage.final-reveal .rope-line {
+      animation:
+        ropeLightRun 2200ms linear calc(var(--drop-delay, 0s) + 1.32s) infinite,
+        ropeMiniSway 3600ms ease-in-out calc(var(--drop-delay, 0s) + 1.32s) infinite alternate;
     }
 
     #letterPage.final-reveal .photo-wrapper {
-      animation: photoDropIn 1.25s cubic-bezier(.18, .78, .22, 1.06) forwards;
+      animation:
+        photoDropIn 1.25s cubic-bezier(.18, .78, .22, 1.06) var(--drop-delay, 0s) forwards,
+        hangingPhotoSway 3600ms ease-in-out calc(var(--drop-delay, 0s) + 1.32s) infinite alternate;
+    }
+
+    #letterPage.memories-open .letter-layout {
+      gap: clamp(12px, 2.4vw, 36px);
+      transform: translateY(-8px) scale(1.01);
+    }
+
+    #letterPage.memories-open .photo-section {
+      opacity: 1;
+      visibility: visible;
+      z-index: 9;
+    }
+
+    #letterPage.memories-open .note-wrap {
+      transform: translateY(-4px) scale(1.015);
+      filter:
+        drop-shadow(0 0 18px rgba(255, 214, 10, 0.22))
+        drop-shadow(0 16px 22px rgba(0, 0, 0, 0.18));
+      z-index: 4;
+    }
+
+    #letterPage.memories-open .letter-layout > .photo-section:first-child {
+      transform: translateX(clamp(12px, 2.8vw, 44px)) translateY(-6px) scale(1.03);
+      filter:
+        drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25))
+        drop-shadow(0 0 18px rgba(255, 214, 10, 0.25));
+    }
+
+    #letterPage.memories-open .letter-layout > .photo-section:last-child {
+      transform: translateX(clamp(-44px, -2.8vw, -12px)) translateY(-6px) scale(1.03);
+      filter:
+        drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25))
+        drop-shadow(0 0 18px rgba(255, 214, 10, 0.25));
+    }
+
+    #letterPage.memories-open.memory-flash-run .photo {
+      animation: memoryPhotoFlashPulse 4200ms ease-out calc(var(--flash-delay, 0s) + 260ms) 2;
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.62),
+        inset 0 0 0 5px rgba(255, 214, 10, 0.08),
+        0 0 20px rgba(54, 230, 255, 0.4),
+        0 0 34px rgba(255, 214, 10, 0.28),
+        0 12px 22px rgba(0, 0, 0, 0.36);
+    }
+
+    #letterPage.memories-open.memory-flash-run .photo-wrapper:nth-of-type(2) .photo {
+      --flash-delay: 0.22s;
+    }
+
+    #letterPage.memories-open.memory-flash-run .photo-wrapper:nth-of-type(3) .photo {
+      --flash-delay: 0.44s;
+    }
+
+    #letterPage.memories-open .note::before {
+      border-color: rgba(255, 214, 10, 0.62);
+      box-shadow:
+        inset 0 0 26px rgba(255, 214, 10, 0.18),
+        0 0 24px rgba(255, 214, 10, 0.26);
+    }
+
+    .memory-heart,
+    .memory-frame-spark,
+    .memory-photo-trail,
+    .memory-camera-flash {
+      position: fixed;
+      left: calc(var(--x) * 1px);
+      top: calc(var(--y) * 1px);
+      pointer-events: none;
+      z-index: 20;
+      will-change: transform, opacity;
+      contain: layout paint style;
+    }
+
+    .memory-heart {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      color: var(--color);
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.22) rotate(calc(var(--rot) * 1deg));
+      animation: memoryHeartFloat calc(var(--dur) * 1ms) ease-out calc(var(--delay) * 1ms) forwards;
+    }
+
+    .memory-heart::before {
+      content: "❤";
+      font-size: calc(var(--size) * 1px);
+      line-height: 1;
+      text-shadow:
+        0 0 8px currentColor,
+        0 0 16px rgba(255, 214, 10, 0.32);
+    }
+
+    .memory-frame-spark {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background: radial-gradient(circle, #fff, currentColor 48%, transparent 76%);
+      box-shadow:
+        0 0 8px currentColor,
+        0 0 16px rgba(255, 214, 10, 0.35);
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.2);
+      animation: memorySparkOrbit calc(var(--dur) * 1ms) ease-in-out calc(var(--delay) * 1ms) forwards;
+    }
+
+    .memory-photo-trail {
+      width: calc(var(--w) * 1px);
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), rgba(255, 214, 10, 0.78), transparent);
+      filter: drop-shadow(0 0 10px rgba(255, 214, 10, 0.62));
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(calc(var(--angle) * 1deg)) scaleX(0.2);
+      animation: memoryPhotoTrail calc(var(--dur) * 1ms) ease-out calc(var(--delay) * 1ms) forwards;
+    }
+
+    .memory-camera-flash {
+      width: calc(var(--w) * 1px);
+      height: calc(var(--h) * 1px);
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.62) 28%, transparent 58%),
+        linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.92) 42%, transparent 64%);
+      box-shadow:
+        0 0 22px rgba(255, 255, 255, 0.8),
+        0 0 34px rgba(255, 214, 10, 0.46);
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.92) rotate(calc(var(--rot) * 1deg));
+      mix-blend-mode: screen;
+      animation: memoryCameraFlash 920ms ease-out calc(var(--delay) * 1ms) forwards;
+    }
+
+    .memory-close-spark {
+      position: fixed;
+      left: calc(var(--x) * 1px);
+      top: calc(var(--y) * 1px);
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      border-radius: 50%;
+      color: var(--color);
+      background: radial-gradient(circle, #fff, currentColor 48%, transparent 76%);
+      box-shadow:
+        0 0 8px currentColor,
+        0 0 16px rgba(255, 214, 10, 0.36);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 22;
+      transform: translate(-50%, -50%) scale(0.95);
+      will-change: transform, opacity;
+      contain: layout paint style;
+      animation: memoryCloseSpark 920ms ease-in forwards;
+      animation-delay: calc(var(--delay) * 1ms);
     }
 
     .best-wishes-text {
@@ -1507,6 +2368,10 @@
       z-index: 0;
       opacity: 1;
       transition: opacity 900ms ease;
+    }
+
+    #letterPage.final-reveal .letter-layout {
+      animation: letterLayoutBreath 6200ms ease-in-out 1200ms infinite alternate;
     }
 
     .best-wishes-text::before,
@@ -1544,7 +2409,11 @@
 
     .letter-float-spark,
     .letter-glow-orb,
-    .letter-page-glint {
+    .letter-page-glint,
+    .letter-ribbon,
+    .letter-seal-spark,
+    .letter-gold-leaf,
+    .letter-heart-petal {
       position: fixed;
       left: 0;
       top: 0;
@@ -1606,6 +2475,115 @@
       z-index: 4;
     }
 
+    .letter-ribbon {
+      width: calc(var(--w) * 1px);
+      height: 4px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), rgba(255, 214, 10, 0.58), rgba(255, 192, 218, 0.44), transparent);
+      opacity: 0;
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        translate(-50%, -50%)
+        rotate(calc(var(--angle) * 1deg))
+        scaleX(0.16);
+      filter: drop-shadow(0 0 12px rgba(255, 214, 10, 0.38));
+      animation: letterRibbonDrift calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 2;
+    }
+
+    .letter-seal-spark {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      color: var(--color);
+      opacity: 0;
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        translate(-50%, -50%)
+        rotate(calc(var(--rot) * 1deg))
+        scale(0.2);
+      animation: letterSealSparkPop calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 6;
+    }
+
+    .letter-seal-spark::before,
+    .letter-seal-spark::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: currentColor;
+      border-radius: 999px;
+      box-shadow:
+        0 0 8px currentColor,
+        0 0 20px rgba(255, 214, 10, 0.34);
+    }
+
+    .letter-seal-spark::after {
+      transform: rotate(90deg);
+    }
+
+    .letter-gold-leaf {
+      width: calc(var(--w) * 1px);
+      height: calc(var(--h) * 1px);
+      border-radius: 999px 0 999px 0;
+      opacity: 0;
+      background:
+        radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.82), transparent 18%),
+        linear-gradient(135deg, rgba(255, 246, 178, 0.92), rgba(255, 183, 3, 0.76), rgba(255, 92, 138, 0.22));
+      box-shadow:
+        0 0 7px rgba(255, 214, 10, 0.44),
+        inset 0 0 8px rgba(255, 255, 255, 0.22);
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        translate(-50%, -50%)
+        rotate(calc(var(--rot) * 1deg))
+        scale(0.28);
+      animation: letterGoldLeafFloat calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 4;
+    }
+
+    .letter-heart-petal {
+      width: calc(var(--size) * 1px);
+      height: calc(var(--size) * 1px);
+      color: var(--color);
+      opacity: 0;
+      transform:
+        translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+        scale(0.2)
+        rotate(calc(var(--rot) * 1deg));
+      animation: letterHeartPetalFloat calc(var(--dur) * 1ms) ease-in-out infinite;
+      animation-delay: calc(var(--delay) * -1ms);
+      z-index: 5;
+    }
+
+    .letter-heart-petal::before,
+    .letter-heart-petal::after {
+      content: "";
+      position: absolute;
+      width: 62%;
+      height: 86%;
+      border-radius: 999px 999px 0 0;
+      background:
+        radial-gradient(circle at 36% 24%, #ffffff, currentColor 50%, rgba(255, 92, 138, 0.36) 78%);
+      box-shadow:
+        0 0 5px currentColor,
+        0 0 12px rgba(255, 192, 218, 0.38);
+      transform-origin: 50% 88%;
+    }
+
+    .letter-heart-petal::before {
+      left: 50%;
+      transform: translateX(-50%) rotate(-45deg);
+    }
+
+    .letter-heart-petal::after {
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+    }
+
     @keyframes fly {
       from {
         transform: translateX(-110%);
@@ -1635,6 +2613,28 @@
       }
     }
 
+    @keyframes letterAuroraDrift {
+      0% {
+        opacity: 0.42;
+        transform: scale(1.02) rotate(0deg) translateY(0);
+      }
+
+      100% {
+        opacity: 0.72;
+        transform: scale(1.08) rotate(8deg) translateY(-18px);
+      }
+    }
+
+    @keyframes letterLayoutBreath {
+      0% {
+        filter: drop-shadow(0 0 0 rgba(255, 214, 10, 0));
+      }
+
+      100% {
+        filter: drop-shadow(0 0 18px rgba(255, 214, 10, 0.1));
+      }
+    }
+
     @keyframes notePaperGlow {
       0% {
         box-shadow:
@@ -1646,6 +2646,71 @@
         box-shadow:
           0 12px 28px rgba(0, 0, 0, 0.3),
           0 0 28px rgba(255, 214, 10, 0.18);
+      }
+    }
+
+    @keyframes noteCornerFoldIn {
+      0% {
+        opacity: 0;
+        transform: rotate(-18deg) scale(0.58);
+      }
+
+      72% {
+        opacity: 0.95;
+        transform: rotate(3deg) scale(1.04);
+      }
+
+      100% {
+        opacity: 0.92;
+        transform: rotate(0deg) scale(1);
+      }
+    }
+
+    @keyframes noteCornerFoldGlow {
+      0% {
+        filter:
+          drop-shadow(-8px 10px 10px rgba(0, 0, 0, 0.14))
+          drop-shadow(0 0 8px rgba(255, 214, 10, 0.18));
+      }
+
+      100% {
+        filter:
+          drop-shadow(-8px 10px 10px rgba(0, 0, 0, 0.16))
+          drop-shadow(0 0 18px rgba(255, 214, 10, 0.42));
+      }
+    }
+
+    @keyframes noteEdgeGlow {
+      0% {
+        opacity: 0.24;
+        box-shadow:
+          inset 0 0 14px rgba(255, 214, 10, 0.1),
+          0 0 10px rgba(255, 214, 10, 0.1);
+      }
+
+      100% {
+        opacity: 0.72;
+        box-shadow:
+          inset 0 0 28px rgba(255, 214, 10, 0.18),
+          0 0 28px rgba(255, 214, 10, 0.24);
+      }
+    }
+
+    @keyframes notePageLightSweep {
+      0%,
+      42% {
+        opacity: 0;
+        transform: translateX(-120%);
+      }
+
+      54% {
+        opacity: 0.58;
+      }
+
+      68%,
+      100% {
+        opacity: 0;
+        transform: translateX(120%);
       }
     }
 
@@ -1677,6 +2742,58 @@
       100% {
         opacity: 0;
         transform: translateX(-10%) scaleX(0.26);
+      }
+    }
+
+    @keyframes noteSealBreathe {
+      0% {
+        opacity: 0.34;
+        transform: translate3d(0, 6px, 0) rotate(-8deg) scale(0.86);
+      }
+
+      45% {
+        opacity: 0.92;
+      }
+
+      100% {
+        opacity: 0.68;
+        transform: translate3d(-8px, -8px, 0) rotate(8deg) scale(1.08);
+      }
+    }
+
+    @keyframes noteDecoDriftA {
+      0% {
+        opacity: 0.28;
+        transform: translate3d(-5px, 8px, 0) rotate(-12deg) scale(0.82);
+      }
+
+      100% {
+        opacity: 0.86;
+        transform: translate3d(10px, -10px, 0) rotate(18deg) scale(1.08);
+      }
+    }
+
+    @keyframes noteDecoDriftB {
+      0% {
+        opacity: 0.2;
+        transform: translate3d(8px, -4px, 0) rotate(14deg) scale(0.78);
+      }
+
+      100% {
+        opacity: 0.72;
+        transform: translate3d(-12px, 10px, 0) rotate(-14deg) scale(1.05);
+      }
+    }
+
+    @keyframes noteDecoDriftC {
+      0% {
+        opacity: 0.18;
+        transform: translate3d(-50%, 12px, 0) rotate(-10deg) scale(0.8);
+      }
+
+      100% {
+        opacity: 0.76;
+        transform: translate3d(calc(-50% + 12px), -8px, 0) rotate(16deg) scale(1.12);
       }
     }
 
@@ -1730,6 +2847,37 @@
         transform:
           translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
           scale(0.52);
+      }
+    }
+
+    @keyframes letterHeartPetalFloat {
+      0%,
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          scale(0.22)
+          rotate(calc(var(--rot) * 1deg));
+      }
+
+      20% {
+        opacity: 0.86;
+      }
+
+      48% {
+        opacity: 0.94;
+        transform:
+          translate(calc((var(--x) + var(--mid-x)) * 1px), calc((var(--y) + var(--mid-y)) * 1px))
+          scale(0.9)
+          rotate(calc((var(--rot) + 22) * 1deg));
+      }
+
+      78% {
+        opacity: 0.22;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          scale(0.5)
+          rotate(calc((var(--rot) + 54) * 1deg));
       }
     }
 
@@ -1791,6 +2939,102 @@
       }
     }
 
+    @keyframes letterRibbonDrift {
+      0%,
+      38%,
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(0.16);
+      }
+
+      52% {
+        opacity: 0.58;
+        transform:
+          translate(calc((var(--x) + var(--mid-x)) * 1px), calc((var(--y) + var(--mid-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(1);
+      }
+
+      74% {
+        opacity: 0.2;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(0.36);
+      }
+    }
+
+    @keyframes letterSealSparkPop {
+      0%,
+      38%,
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--rot) * 1deg))
+          scale(0.18);
+      }
+
+      48% {
+        opacity: 0.9;
+        transform:
+          translate(calc((var(--x) + var(--mid-x)) * 1px), calc((var(--y) + var(--mid-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc((var(--rot) + 34) * 1deg))
+          scale(1);
+      }
+
+      72% {
+        opacity: 0.24;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc((var(--rot) + 82) * 1deg))
+          scale(0.46);
+      }
+    }
+
+    @keyframes letterGoldLeafFloat {
+      0%,
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--rot) * 1deg))
+          scale(0.28);
+      }
+
+      22% {
+        opacity: 0.78;
+      }
+
+      52% {
+        opacity: 0.9;
+        transform:
+          translate(calc((var(--x) + var(--mid-x)) * 1px), calc((var(--y) + var(--mid-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc((var(--rot) + 90) * 1deg))
+          scale(1);
+      }
+
+      82% {
+        opacity: 0.18;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc((var(--rot) + 170) * 1deg))
+          scale(0.5);
+      }
+    }
+
     @keyframes blink {
       50% {
         opacity: 0;
@@ -1843,6 +3087,30 @@
       100% {
         opacity: 0;
         transform: translate(-50%, -4%) scale(1.5);
+      }
+    }
+
+    @keyframes cakeHoldAura {
+      from {
+        opacity: 0.42;
+        transform: translate(-50%, 6%) scale(1.02) rotate(920deg);
+      }
+
+      to {
+        opacity: 0.68;
+        transform: translate(-50%, 4%) scale(1.12) rotate(960deg);
+      }
+    }
+
+    @keyframes cakeHoldGlow {
+      from {
+        opacity: 0.48;
+        transform: translate(-50%, 4%) scale(1.02);
+      }
+
+      to {
+        opacity: 0.82;
+        transform: translate(-50%, 2%) scale(1.12);
       }
     }
 
@@ -2234,10 +3502,10 @@
       }
 
       100% {
-        opacity: 0;
+        opacity: 0.82;
         transform:
-          translate(calc((var(--end-x) + var(--fade-x)) * 1px), calc((var(--end-y) + var(--fade-y)) * -1px))
-          scale(0.38);
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          scale(0.96);
       }
     }
 
@@ -2284,11 +3552,11 @@
       }
 
       100% {
-        opacity: 0;
+        opacity: 0.36;
         transform:
-          translate(calc((var(--end-x) + var(--fade-x)) * 1px), calc((var(--end-y) + var(--fade-y)) * -1px))
-          rotate(840deg)
-          scale(0.22);
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          rotate(700deg)
+          scale(0.72);
       }
     }
 
@@ -2405,10 +3673,10 @@
       }
 
       100% {
-        opacity: 0;
+        opacity: 0.94;
         transform:
-          translate(calc((var(--end-x) + var(--fade-x)) * 1px), calc((var(--end-y) + var(--fade-y)) * -1px))
-          scale(0.52);
+          translate(calc(var(--end-x) * 1px), calc(var(--end-y) * -1px))
+          scale(1);
       }
     }
 
@@ -2894,12 +4162,12 @@
       }
 
       100% {
-        opacity: 0;
+        opacity: var(--twinkle-high);
         transform:
-          translateX(calc((var(--end-x) + var(--explode-x)) * 1px))
-          translateY(calc((var(--end-y) + var(--explode-y)) * -1px))
+          translateX(calc(var(--end-x) * 1px))
+          translateY(calc(var(--end-y) * -1px))
           rotate(3180deg)
-          scale(1.85);
+          scale(1.06);
       }
     }
 
@@ -2917,6 +4185,72 @@
             calc(-50% + var(--burst-y) * 1px)
           )
           scale(1.15);
+      }
+    }
+
+    @keyframes cakeGoldRaySweep {
+      0%,
+      58% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * -1px))
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(0.1);
+      }
+
+      66% {
+        opacity: 0.7;
+        transform:
+          translate(calc((var(--x) + var(--mid-x)) * 1px), calc((var(--y) + var(--mid-y)) * -1px))
+          rotate(calc((var(--angle) + 8) * 1deg))
+          scaleX(1);
+      }
+
+      78% {
+        opacity: 0.3;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * -1px))
+          rotate(calc((var(--angle) + 18) * 1deg))
+          scaleX(0.42);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * -1px))
+          rotate(calc((var(--angle) + 18) * 1deg))
+          scaleX(0.12);
+      }
+    }
+
+    @keyframes cakeBubbleRise {
+      0%,
+      42% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * -1px))
+          scale(0.2);
+      }
+
+      58% {
+        opacity: 0.86;
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc((var(--y) + var(--drift-y)) * -1px))
+          scale(0.92);
+      }
+
+      82% {
+        opacity: 0.46;
+        transform:
+          translate(calc((var(--x) + var(--sway-x)) * 1px), calc((var(--y) + var(--sway-y)) * -1px))
+          scale(0.62);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * -1px))
+          scale(0.24);
       }
     }
 
@@ -2944,6 +4278,173 @@
       }
     }
 
+    @keyframes signatureLightSweep {
+      0% {
+        opacity: 0;
+        transform: translateX(-120%) skewX(-12deg);
+      }
+
+      18% {
+        opacity: 0.92;
+      }
+
+      62% {
+        opacity: 0.78;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(120%) skewX(-12deg);
+      }
+    }
+
+    @keyframes signatureUnderlineDraw {
+      0% {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+
+      34% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0.92;
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes signatureTextGlow {
+      0% {
+        filter: brightness(1);
+      }
+
+      100% {
+        filter: brightness(1.08);
+      }
+    }
+
+    @keyframes handSignatureIn {
+      0% {
+        opacity: 0;
+        transform: translateY(12px) rotate(-2deg) scale(0.92);
+        filter:
+          contrast(1.06)
+          blur(0.6px)
+          drop-shadow(0 0 0 rgba(255, 214, 10, 0));
+      }
+
+      62% {
+        opacity: 0.98;
+        transform: translateY(-2px) rotate(0.6deg) scale(1.015);
+      }
+
+      100% {
+        opacity: 0.94;
+        transform: translateY(0) rotate(-0.55deg) scale(1);
+        filter:
+          contrast(1.14)
+          blur(0)
+          drop-shadow(0 1px 0 rgba(255, 255, 255, 0.28))
+          drop-shadow(0 0 10px rgba(255, 214, 10, 0.16));
+      }
+    }
+
+    @keyframes handSignatureWrite {
+      0% {
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+        transform: translateY(10px) rotate(-1.2deg) scale(0.96);
+        filter:
+          contrast(1.05)
+          blur(0.45px)
+          drop-shadow(0 0 0 rgba(255, 214, 10, 0));
+      }
+
+      12% {
+        opacity: 0.88;
+      }
+
+      58% {
+        clip-path: inset(0 32% 0 0);
+        transform: translateY(-1px) rotate(0.25deg) scale(1.006);
+      }
+
+      100% {
+        opacity: 0.96;
+        clip-path: inset(0 0 0 0);
+        transform: translateY(0) rotate(-0.45deg) scale(1);
+        filter:
+          contrast(1.14)
+          blur(0)
+          drop-shadow(0 1px 0 rgba(255, 255, 255, 0.28))
+          drop-shadow(0 0 10px rgba(255, 214, 10, 0.16));
+      }
+    }
+
+    @keyframes signaturePenTravel {
+      0% {
+        opacity: 0;
+        transform: translateX(0) scale(0.58);
+      }
+
+      10%,
+      82% {
+        opacity: 0.96;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(360px) scale(0.82);
+      }
+    }
+
+    @keyframes handSignatureUnderline {
+      0% {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+
+      45% {
+        opacity: 0.8;
+      }
+
+      100% {
+        opacity: 0.32;
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes handSignatureInkGlow {
+      0% {
+        opacity: 0.9;
+        filter:
+          contrast(1.1)
+          drop-shadow(0 1px 0 rgba(255, 255, 255, 0.22))
+          drop-shadow(0 0 6px rgba(255, 214, 10, 0.1));
+      }
+
+      100% {
+        opacity: 0.99;
+        filter:
+          contrast(1.18)
+          drop-shadow(0 1px 0 rgba(255, 255, 255, 0.32))
+          drop-shadow(0 0 14px rgba(255, 214, 10, 0.2));
+      }
+    }
+
+    @keyframes handSignatureFloat {
+      0% {
+        opacity: 0.88;
+        transform: translate3d(0, 0, 0) rotate(-0.55deg) scale(1);
+      }
+
+      100% {
+        opacity: 0.98;
+        transform: translate3d(2px, -2px, 0) rotate(0.35deg) scale(1.008);
+      }
+    }
+
     @keyframes dropIn {
       to {
         opacity: 1;
@@ -2955,6 +4456,23 @@
       to {
         opacity: 1;
         transform: translateY(0) rotate(var(--tilt, -2deg));
+      }
+    }
+
+    @keyframes hangingPhotoSway {
+      0% {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--tilt, -2deg));
+      }
+
+      18% {
+        opacity: 1;
+        transform: translateY(0) rotate(calc(var(--tilt, -2deg) + var(--swing-start, -0.55deg)));
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(3px) rotate(calc(var(--tilt, -2deg) + var(--swing-end, 1.6deg)));
       }
     }
 
@@ -2972,6 +4490,236 @@
       100% {
         opacity: 1;
         transform: translateX(var(--rope-x, 0)) scaleY(1);
+      }
+    }
+
+    @keyframes ropeLightRun {
+      0% {
+        background-position: 0 0, 0 -120px, 0 0;
+        filter: brightness(1);
+      }
+
+      50% {
+        filter: brightness(1.22);
+      }
+
+      100% {
+        background-position: 0 0, 0 120px, 0 36px;
+        filter: brightness(1);
+      }
+    }
+
+    @keyframes ropeSoftSway {
+      0% {
+        transform: translateX(var(--rope-x, 0)) scaleY(1) rotate(-0.7deg);
+      }
+
+      100% {
+        transform: translateX(var(--rope-x, 0)) scaleY(1) rotate(0.7deg);
+      }
+    }
+
+    @keyframes ropeMiniSway {
+      0% {
+        transform: rotate(0deg) translateX(0);
+      }
+
+      18% {
+        transform: rotate(var(--rope-swing-start, -0.4deg)) translateX(-0.4px);
+      }
+
+      100% {
+        transform: rotate(var(--rope-swing-end, 1.1deg)) translateX(1px);
+      }
+    }
+
+    @keyframes ropeCapGlow {
+      0% {
+        filter: brightness(1);
+        box-shadow:
+          0 4px 10px rgba(0, 0, 0, 0.24),
+          0 0 10px rgba(54, 230, 255, 0.38);
+      }
+
+      100% {
+        filter: brightness(1.18);
+        box-shadow:
+          0 4px 10px rgba(0, 0, 0, 0.24),
+          0 0 18px rgba(54, 230, 255, 0.7),
+          0 0 12px rgba(255, 230, 109, 0.46);
+      }
+    }
+
+    @keyframes memoryButtonHalo {
+      to {
+        transform: rotate(1turn);
+      }
+    }
+
+    @keyframes memoryButtonSheen {
+      0%,
+      42% {
+        transform: translateX(-150%);
+        opacity: 0;
+      }
+
+      54% {
+        opacity: 0.82;
+      }
+
+      72%,
+      100% {
+        transform: translateX(150%);
+        opacity: 0;
+      }
+    }
+
+    @keyframes memoryButtonFloat {
+      0% {
+        transform: translateY(0) scale(1);
+        filter: brightness(1);
+      }
+
+      100% {
+        transform: translateY(-4px) scale(1.015);
+        filter: brightness(1.06);
+      }
+    }
+
+    @keyframes memoryHeartFloat {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.2) rotate(calc(var(--rot) * 1deg));
+      }
+
+      18% {
+        opacity: 0.95;
+      }
+
+      72% {
+        opacity: 0.78;
+        transform:
+          translate(calc(-50% + (var(--mid-x) * 1px)), calc(-50% + (var(--mid-y) * 1px)))
+          scale(1)
+          rotate(calc((var(--rot) + 16) * 1deg));
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(-50% + (var(--end-x) * 1px)), calc(-50% + (var(--end-y) * 1px)))
+          scale(0.52)
+          rotate(calc((var(--rot) + 30) * 1deg));
+      }
+    }
+
+    @keyframes memorySparkOrbit {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.18);
+      }
+
+      16% {
+        opacity: 0.92;
+      }
+
+      58% {
+        opacity: 0.82;
+        transform:
+          translate(calc(-50% + (var(--mid-x) * 1px)), calc(-50% + (var(--mid-y) * 1px)))
+          scale(1.05);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(-50% + (var(--end-x) * 1px)), calc(-50% + (var(--end-y) * 1px)))
+          scale(0.34);
+      }
+    }
+
+    @keyframes memoryPhotoTrail {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(calc(var(--angle) * 1deg)) scaleX(0.08);
+      }
+
+      18% {
+        opacity: 0.9;
+      }
+
+      64% {
+        opacity: 0.68;
+        transform:
+          translate(calc(-50% + (var(--mid-x) * 1px)), calc(-50% + (var(--mid-y) * 1px)))
+          rotate(calc((var(--angle) + 4) * 1deg))
+          scaleX(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(-50% + (var(--end-x) * 1px)), calc(-50% + (var(--end-y) * 1px)))
+          rotate(calc((var(--angle) + 8) * 1deg))
+          scaleX(0.18);
+      }
+    }
+
+    @keyframes memoryPhotoFlashPulse {
+      0%,
+      18%,
+      100% {
+        filter: brightness(1) saturate(1);
+      }
+
+      7% {
+        filter: brightness(1.72) saturate(1.18);
+      }
+
+      12% {
+        filter: brightness(1.16) saturate(1.05);
+      }
+    }
+
+    @keyframes memoryCameraFlash {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.86) rotate(calc(var(--rot) * 1deg));
+      }
+
+      18% {
+        opacity: 0.86;
+        transform: translate(-50%, -50%) scale(1.04) rotate(calc(var(--rot) * 1deg));
+      }
+
+      46% {
+        opacity: 0.28;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.18) rotate(calc((var(--rot) + 2) * 1deg));
+      }
+    }
+
+    @keyframes memoryCloseSpark {
+      0% {
+        opacity: 0;
+        transform:
+          translate(
+            calc(-50% + (var(--start-x) * 1px)),
+            calc(-50% + (var(--start-y) * 1px))
+          )
+          scale(0.4);
+      }
+
+      24% {
+        opacity: 0.9;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.16);
       }
     }
 
@@ -3027,6 +4775,147 @@
     @keyframes openButtonHalo {
       to {
         transform: rotate(360deg);
+      }
+    }
+
+    @keyframes livingBarBorder {
+      0% {
+        background-position: 0 0, 0% 50%;
+      }
+
+      100% {
+        background-position: 0 0, 260% 50%;
+      }
+    }
+
+    @keyframes livingBarPulse {
+      0% {
+        box-shadow:
+          0 8px 22px rgba(0, 0, 0, 0.2),
+          0 0 14px rgba(255, 214, 10, 0.14);
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        box-shadow:
+          0 10px 26px rgba(0, 0, 0, 0.24),
+          0 0 26px rgba(255, 214, 10, 0.28);
+        transform: translateY(-2px) scale(1.01);
+      }
+    }
+
+    @keyframes livingBarSheen {
+      0%,
+      44% {
+        transform: translateX(-125%);
+        opacity: 0;
+      }
+
+      58% {
+        opacity: 0.8;
+      }
+
+      78%,
+      100% {
+        transform: translateX(125%);
+        opacity: 0;
+      }
+    }
+
+    @keyframes bannerAirBob {
+      0% {
+        filter: drop-shadow(0 0 0 rgba(255, 214, 10, 0));
+      }
+
+      100% {
+        filter: drop-shadow(0 0 10px rgba(255, 214, 10, 0.18));
+      }
+    }
+
+    @keyframes ropeSparkTravel {
+      0% {
+        background-position: 0% 50%;
+        opacity: 0.68;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        background-position: 220% 50%;
+        opacity: 0.72;
+      }
+    }
+
+    @keyframes openButtonFloat {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-4px);
+      }
+    }
+
+    @keyframes openEnvelopeBreath {
+      0%,
+      100% {
+        transform: translateY(0) scale(1) rotate(0deg);
+        filter: brightness(1);
+        box-shadow:
+          0 8px 24px rgba(0, 0, 0, 0.22),
+          0 0 18px rgba(255, 214, 10, 0.16);
+      }
+
+      18% {
+        transform: translateY(-3px) scale(1.018) rotate(0deg);
+        filter: brightness(1.05);
+        box-shadow:
+          0 11px 28px rgba(0, 0, 0, 0.25),
+          0 0 28px rgba(255, 214, 10, 0.3),
+          0 0 14px rgba(255, 192, 218, 0.18);
+      }
+
+      33% {
+        transform: translateY(-1px) scale(1.006) rotate(0deg);
+      }
+
+      62% {
+        transform: translateY(-4px) scale(1.026) rotate(0deg);
+        filter: brightness(1.08);
+        box-shadow:
+          0 13px 32px rgba(0, 0, 0, 0.27),
+          0 0 34px rgba(255, 214, 10, 0.34),
+          0 0 18px rgba(54, 230, 255, 0.16);
+      }
+
+      70% {
+        transform: translateY(-4px) scale(1.026) rotate(-0.7deg);
+      }
+
+      74% {
+        transform: translateY(-4px) scale(1.026) rotate(0.65deg);
+      }
+
+      78% {
+        transform: translateY(-3px) scale(1.018) rotate(-0.35deg);
+      }
+
+      84% {
+        transform: translateY(-2px) scale(1.01) rotate(0deg);
+      }
+    }
+
+    @keyframes openEnvelopeHaloBreath {
+      0% {
+        opacity: 0.48;
+        filter: blur(0) brightness(1);
+      }
+
+      100% {
+        opacity: 0.82;
+        filter: blur(1.5px) brightness(1.18);
       }
     }
 
@@ -3290,6 +5179,119 @@
       }
     }
 
+    @keyframes openingRibbonFlow {
+      0%,
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(0.16);
+      }
+
+      28% {
+        opacity: 0.34;
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc((var(--y) + var(--drift-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc((var(--angle) + 4) * 1deg))
+          scaleX(0.82);
+      }
+
+      58% {
+        opacity: 0.64;
+        transform:
+          translate(calc((var(--x) + var(--sway-x)) * 1px), calc((var(--y) + var(--sway-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc((var(--angle) + 9) * 1deg))
+          scaleX(1);
+      }
+
+      82% {
+        opacity: 0.18;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc((var(--angle) + 14) * 1deg))
+          scaleX(0.32);
+      }
+    }
+
+    @keyframes openingWideRibbonDrift {
+      0%,
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--angle) * 1deg))
+          scaleX(0.14)
+          skewX(-8deg);
+      }
+
+      13% {
+        opacity: calc(var(--alpha) * 0.72);
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc((var(--y) + var(--drift-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc((var(--angle) + var(--bend-a)) * 1deg))
+          scaleX(0.72)
+          skewX(-4deg);
+      }
+
+      44% {
+        opacity: var(--alpha);
+        transform:
+          translate(calc((var(--x) + var(--sway-x)) * 1px), calc((var(--y) + var(--sway-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc((var(--angle) + var(--bend-b)) * 1deg))
+          scaleX(1)
+          skewX(4deg);
+      }
+
+      74% {
+        opacity: calc(var(--alpha) * 0.62);
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc((var(--angle) + var(--bend-c)) * 1deg))
+          scaleX(0.68)
+          skewX(8deg);
+      }
+    }
+
+    @keyframes openingStarburstPulse {
+      0%,
+      44%,
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          translate(-50%, -50%)
+          rotate(calc(var(--rot) * 1deg))
+          scale(0.14);
+      }
+
+      56% {
+        opacity: 0.9;
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc((var(--y) + var(--drift-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc((var(--rot) + 35) * 1deg))
+          scale(1);
+      }
+
+      72% {
+        opacity: 0.24;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          translate(-50%, -50%)
+          rotate(calc((var(--rot) + 70) * 1deg))
+          scale(0.42);
+      }
+    }
+
     @keyframes openingTitleSparkDance {
       0%,
       100% {
@@ -3400,6 +5402,72 @@
       }
     }
 
+    @keyframes openingMusicNoteFloat {
+      0%,
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          rotate(calc(var(--rot) * 1deg))
+          scale(0.5);
+      }
+
+      24% {
+        opacity: 0.82;
+      }
+
+      52% {
+        opacity: 0.92;
+        transform:
+          translate(calc((var(--x) + var(--mid-x)) * 1px), calc((var(--y) + var(--mid-y)) * 1px))
+          rotate(calc((var(--rot) + 10) * 1deg))
+          scale(1);
+      }
+
+      82% {
+        opacity: 0.18;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          rotate(calc((var(--rot) + 22) * 1deg))
+          scale(0.62);
+      }
+    }
+
+    @keyframes openingBubbleRise {
+      0%,
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(var(--x) * 1px), calc(var(--y) * 1px))
+          translate(-50%, -50%)
+          scale(0.22);
+      }
+
+      30% {
+        opacity: 0.28;
+        transform:
+          translate(calc((var(--x) + var(--drift-x)) * 1px), calc((var(--y) + var(--drift-y)) * 1px))
+          translate(-50%, -50%)
+          scale(0.78);
+      }
+
+      68% {
+        opacity: 0.42;
+        transform:
+          translate(calc((var(--x) + var(--sway-x)) * 1px), calc((var(--y) + var(--sway-y)) * 1px))
+          translate(-50%, -50%)
+          scale(1);
+      }
+
+      88% {
+        opacity: 0.08;
+        transform:
+          translate(calc((var(--x) + var(--end-x)) * 1px), calc((var(--y) + var(--end-y)) * 1px))
+          translate(-50%, -50%)
+          scale(0.5);
+      }
+    }
+
     @keyframes buttonBurstFly {
       0% {
         opacity: 0;
@@ -3488,6 +5556,9 @@
       }
 
       .plane-banner,
+      .open-letter-btn,
+      .open-letter-btn::before,
+      .open-letter-btn::after,
       .confetti,
       .opening-dot,
       .opening-heart,
@@ -3495,6 +5566,10 @@
       .opening-moon,
       .opening-lantern,
       .opening-comet,
+      .opening-ribbon,
+      .opening-wide-ribbon,
+      .opening-music-note,
+      .opening-light-bubble,
       .opening-title-spark,
       .opening-title-orbit,
       .opening-title-glint,
@@ -3504,6 +5579,10 @@
       .letter-float-spark,
       .letter-glow-orb,
       .letter-page-glint,
+      .letter-ribbon,
+      .letter-seal-spark,
+      .letter-gold-leaf,
+      .letter-heart-petal,
       .dust,
       .burst,
       .spark-star,
@@ -3529,13 +5608,34 @@
       .letter-char,
       .letter-char.spark::before,
       .letter-char.spark::after,
+      #letterText.signature-ready .signature-line,
+      #letterText.signature-ready .signature-line::before,
+      #letterText.signature-ready .signature-line::after,
+      #letterText.signature-ready .hand-signature-wrap,
+      #letterText.signature-ready .hand-signature-wrap::before,
+      #letterText.signature-ready .hand-signature-wrap::after,
+      #letterText.signature-ready .hand-signature-img,
       #letterText.typing::after,
       #letterPage.final-reveal .photo-section::before,
       #letterPage.final-reveal .long-top-line,
+      #letterPage.final-reveal .rope-line,
       #letterPage.final-reveal .photo-wrapper,
       #letterPage.final-reveal .note,
+      #letterPage.final-reveal .note-corner-fold,
+      #letterPage.final-reveal .letter-layout,
+      #letterPage.final-reveal::after,
       #letterPage.final-reveal .note-wrap::before,
       #letterPage.final-reveal .note-wrap::after,
+      #letterPage.final-reveal .note-wish-seal,
+      #letterPage.final-reveal .note-floating-deco,
+      #letterPage.note-read-ready .memory-more-btn,
+      .memory-more-btn::before,
+      .memory-more-btn::after,
+      .memory-heart,
+      .memory-frame-spark,
+      .memory-photo-trail,
+      .memory-camera-flash,
+      .memory-close-spark,
       .best-wishes-text::before,
       .best-wishes-text::after {
         animation-duration: 1ms !important;
@@ -3557,6 +5657,8 @@
       .opening-moon,
       .opening-lantern,
       .opening-comet,
+      .opening-music-note,
+      .opening-light-bubble,
       .opening-title-spark,
       .opening-title-orbit,
       .opening-title-glint,
@@ -3566,6 +5668,10 @@
       .letter-float-spark,
       .letter-glow-orb,
       .letter-page-glint,
+      .letter-ribbon,
+      .letter-seal-spark,
+      .letter-gold-leaf,
+      .letter-heart-petal,
       .spark-star,
       .icing-dot,
       .vortex-orb,
@@ -3683,9 +5789,30 @@
         width: 5px;
       }
 
-      .cute-img {
-        width: clamp(42px, 13vw, 58px);
-        transform: translate(-42%, -62%) rotate(-8deg);
+      .memory-more-btn {
+        min-width: min(76vw, 180px);
+        margin-top: 12px;
+        padding: 0.68rem 1rem;
+        font-size: clamp(0.82rem, 3.4vw, 0.96rem);
+      }
+
+      #letterPage.memories-open .letter-layout {
+        gap: clamp(6px, 2vw, 14px);
+        transform: translateY(-4px);
+      }
+
+      #letterPage.memories-open .letter-layout > .photo-section:first-child {
+        transform: translateX(clamp(4px, 2.4vw, 12px)) translateY(-2px) scale(1.01);
+      }
+
+      #letterPage.memories-open .letter-layout > .photo-section:last-child {
+        transform: translateX(clamp(-12px, -2.4vw, -4px)) translateY(-2px) scale(1.01);
+      }
+
+      .corner-sticker {
+        width: clamp(48px, 13vw, 64px);
+        height: clamp(48px, 13vw, 64px);
+        transform: translate(-38%, -52%) rotate(-7deg);
       }
 
       .dust {
@@ -3705,6 +5832,13 @@
 
       .opening-lantern {
         box-shadow: 0 0 10px rgba(255, 192, 218, 0.28);
+      }
+
+      .opening-wide-ribbon {
+        box-shadow:
+          0 0 8px currentColor,
+          0 0 14px rgba(255, 214, 10, 0.18);
+        filter: blur(0.1px) saturate(1.02);
       }
 
       .vortex-orb {
@@ -3823,37 +5957,46 @@
     <div class="letter-layout">
       <div class="photo-section" aria-hidden="true">
         <div class="long-top-line"></div>
-        <div class="photo-wrapper" style="animation-delay: 2.2s;">
+        <div class="photo-wrapper" style="--drop-delay: 2.2s;">
           <img src="khanh4.png" alt="" class="photo">
           <div class="rope-line"></div>
         </div>
-        <div class="photo-wrapper" style="animation-delay: 3.9s;">
+        <div class="photo-wrapper" style="--drop-delay: 3.9s;">
           <img src="khanh5.png" alt="" class="photo">
           <div class="rope-line"></div>
         </div>
-        <div class="photo-wrapper" style="animation-delay: 5.6s;">
+        <div class="photo-wrapper" style="--drop-delay: 5.6s;">
           <img src="khanh6.png" alt="" class="photo">
         </div>
       </div>
 
       <div class="note-wrap">
-        <img src="khanh11.png" alt="" class="cute-img">
+        <span class="corner-sticker corner-sticker-fallback" aria-hidden="true">&#129395;</span>
+        <img src="khanh11.png" alt="" class="corner-sticker cute-img" onload="this.previousElementSibling.hidden=true" onerror="this.style.display='none'">
+        <span class="note-wish-seal" aria-hidden="true">✦</span>
+        <span class="note-floating-deco note-deco-a" aria-hidden="true">✧</span>
+        <span class="note-floating-deco note-deco-b" aria-hidden="true">♥</span>
+        <span class="note-floating-deco note-deco-c" aria-hidden="true">✦</span>
         <article class="note">
+          <span class="note-corner-fold" aria-hidden="true"></span>
           <div id="letterText" class="typing"></div>
         </article>
+        <button class="memory-more-btn" type="button" onclick="showMemoryFrame()">
+          <span>📸 Xem thêm kỷ niệm</span>
+        </button>
       </div>
 
       <div class="photo-section" aria-hidden="true">
         <div class="long-top-line"></div>
-        <div class="photo-wrapper" style="animation-delay: 2.2s;">
+        <div class="photo-wrapper" style="--drop-delay: 2.2s;">
           <img src="khanh1.png" alt="" class="photo">
           <div class="rope-line"></div>
         </div>
-        <div class="photo-wrapper" style="animation-delay: 3.9s;">
+        <div class="photo-wrapper" style="--drop-delay: 3.9s;">
           <img src="khanh2.png" alt="" class="photo">
           <div class="rope-line"></div>
         </div>
-        <div class="photo-wrapper" style="animation-delay: 5.6s;">
+        <div class="photo-wrapper" style="--drop-delay: 5.6s;">
           <img src="khanh3.png" alt="" class="photo">
         </div>
       </div>
@@ -3911,7 +6054,7 @@
       if (!intro) return;
 
       intro.querySelectorAll(
-        ".dust, .burst, .spark-star, .icing-dot, .vortex-orb, .ambient-speck, .comet-dot, .halo-pulse, .cake-shimmer, .cake-orbit-dot, .cake-puff, .vortex-spark, .text-anchor, .text-sweep, .heart-spark, .heart-ring, .firework-dot, .firework-core, .side-figure-dot, .side-figure-glow"
+        ".dust, .burst, .spark-star, .icing-dot, .vortex-orb, .ambient-speck, .comet-dot, .halo-pulse, .cake-shimmer, .cake-orbit-dot, .cake-puff, .vortex-spark, .text-anchor, .text-sweep, .heart-spark, .heart-ring, .firework-dot, .firework-core, .side-figure-dot, .side-figure-glow, .cake-gold-ray, .cake-bubble"
       ).forEach((particle) => particle.remove());
     }
 
@@ -4048,7 +6191,7 @@
       const particleFragment = document.createDocumentFragment();
 
       intro.dataset.quality = quality;
-      intro.querySelectorAll(".dust, .burst, .spark-star, .icing-dot, .vortex-orb, .ambient-speck, .comet-dot, .halo-pulse, .cake-shimmer, .cake-orbit-dot, .cake-puff, .vortex-spark, .text-anchor, .text-sweep, .heart-spark, .heart-ring, .firework-dot, .firework-core, .side-figure-dot, .side-figure-glow").forEach((particle) => particle.remove());
+      intro.querySelectorAll(".dust, .burst, .spark-star, .icing-dot, .vortex-orb, .ambient-speck, .comet-dot, .halo-pulse, .cake-shimmer, .cake-orbit-dot, .cake-puff, .vortex-spark, .text-anchor, .text-sweep, .heart-spark, .heart-ring, .firework-dot, .firework-core, .side-figure-dot, .side-figure-glow, .cake-gold-ray, .cake-bubble").forEach((particle) => particle.remove());
 
       function pushTarget(target) {
         targets.push(target);
@@ -4147,12 +6290,12 @@
       function addTextTargets(lines) {
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
-        const fontSize = window.innerWidth < 680 ? 92 : 126;
-        const sampleGap = window.innerWidth < 680 ? 11 : 10;
-        const lineHeight = window.innerWidth < 680 ? 104 : 126;
+        const fontSize = window.innerWidth < 680 ? 112 : 154;
+        const sampleGap = window.innerWidth < 680 ? 12 : 11;
+        const lineHeight = window.innerWidth < 680 ? 124 : 154;
 
-        canvas.width = 1720;
-        canvas.height = 250;
+        canvas.width = 2200;
+        canvas.height = 310;
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.fillStyle = "#fff3b0";
         context.strokeStyle = "#ffd60a";
@@ -4163,7 +6306,7 @@
         context.textBaseline = "middle";
 
         lines.forEach((line, index) => {
-          const y = 118 + index * lineHeight;
+          const y = 146 + index * lineHeight;
           context.font = `700 ${fontSize}px "Trebuchet MS", "Segoe UI", Arial, sans-serif`;
           context.strokeText(line, canvas.width / 2, y);
           context.fillText(line, canvas.width / 2, y);
@@ -4177,10 +6320,10 @@
 
             if (alpha > 145) {
               const textTarget = {
-                x: (x - canvas.width / 2) * 0.32,
-                y: 584 + (canvas.height - y) * 0.22,
+                x: (x - canvas.width / 2) * 0.25,
+                y: 568 + (canvas.height - y) * 0.22,
                 color: textColors[(x + y) % textColors.length],
-                size: 3.5 + Math.random() * 0.8,
+                size: 4.15 + Math.random() * 0.95,
                 kind: "text",
               };
 
@@ -4429,6 +6572,49 @@
           puff.style.setProperty("--fade-y", (40 + Math.random() * 70) * scale);
           puff.style.setProperty("--delay", 340 + i * 110 + Math.random() * 280);
           addParticle(puff);
+        }
+      }
+
+      function addCakeGoldRays(count) {
+        for (let i = 0; i < count; i++) {
+          const ray = document.createElement("span");
+          const bandY = [128, 188, 264, 338, 430][i % 5] * scale;
+          const side = i % 2 === 0 ? -1 : 1;
+
+          ray.className = "cake-gold-ray";
+          ray.style.setProperty("--w", ((130 + Math.random() * 240) * scale).toFixed(2));
+          ray.style.setProperty("--x", (side * (40 + Math.random() * 190) * scale).toFixed(2));
+          ray.style.setProperty("--y", (bandY + (Math.random() - 0.5) * 42 * scale).toFixed(2));
+          ray.style.setProperty("--mid-x", (side * (22 + Math.random() * 76) * scale).toFixed(2));
+          ray.style.setProperty("--mid-y", ((Math.random() - 0.5) * 28 * scale).toFixed(2));
+          ray.style.setProperty("--end-x", (side * (70 + Math.random() * 120) * scale).toFixed(2));
+          ray.style.setProperty("--end-y", ((Math.random() - 0.5) * 52 * scale).toFixed(2));
+          ray.style.setProperty("--angle", (-10 + Math.random() * 20).toFixed(2));
+          ray.style.setProperty("--delay", (540 + Math.random() * 1600).toFixed(2));
+          addParticle(ray);
+        }
+      }
+
+      function addCakeBubbles(count) {
+        for (let i = 0; i < count; i++) {
+          const bubble = document.createElement("span");
+          const side = i % 2 === 0 ? -1 : 1;
+          const baseX = side * (80 + Math.random() * 210) * scale;
+          const baseY = (70 + Math.random() * 420) * scale;
+
+          bubble.className = "cake-bubble";
+          bubble.style.setProperty("--color", i % 3 === 0 ? "#ffffff" : i % 3 === 1 ? "#ffd60a" : "#ffc0da");
+          bubble.style.setProperty("--size", ((4 + Math.random() * 8) * introQuality.glowScale * scale).toFixed(2));
+          bubble.style.setProperty("--x", baseX.toFixed(2));
+          bubble.style.setProperty("--y", baseY.toFixed(2));
+          bubble.style.setProperty("--drift-x", (side * (12 + Math.random() * 36) * scale).toFixed(2));
+          bubble.style.setProperty("--drift-y", (28 + Math.random() * 54) * scale);
+          bubble.style.setProperty("--sway-x", (side * (26 + Math.random() * 64) * scale).toFixed(2));
+          bubble.style.setProperty("--sway-y", (64 + Math.random() * 110) * scale);
+          bubble.style.setProperty("--end-x", (side * (44 + Math.random() * 90) * scale).toFixed(2));
+          bubble.style.setProperty("--end-y", (120 + Math.random() * 190) * scale);
+          bubble.style.setProperty("--delay", (240 + Math.random() * 2100).toFixed(2));
+          addParticle(bubble);
         }
       }
 
@@ -4803,6 +6989,8 @@
       addCakeShimmers(introQuality.shimmerCount);
       addCakeOrbitDots(introQuality.cakeOrbitCount);
       addCakePuffs(introQuality.cakePuffCount);
+      addCakeGoldRays(quality === "desktop" ? 22 : quality === "tablet" ? 12 : 6);
+      addCakeBubbles(quality === "desktop" ? 34 : quality === "tablet" ? 18 : 8);
       addTextAnchors(introQuality.textAnchorCount);
       addTextSweeps(introQuality.textSweepCount);
       addHeartRings(introQuality.heartRingCount);
@@ -4893,11 +7081,11 @@
         ? "minimal"
         : "desktop";
       const counts = {
-        minimal: { dots: 6, hearts: 0, diamonds: 0, moons: 1, lanterns: 0, comets: 0, titleSparks: 4, titleOrbits: 0, titleGlints: 0 },
-        low: { dots: 14, hearts: 2, diamonds: 3, moons: 1, lanterns: 1, comets: 1, titleSparks: 10, titleOrbits: 2, titleGlints: 1 },
-        phone: { dots: 22, hearts: 3, diamonds: 5, moons: 1, lanterns: 1, comets: 1, titleSparks: 16, titleOrbits: 3, titleGlints: 1 },
-        tablet: { dots: 42, hearts: 7, diamonds: 9, moons: 2, lanterns: 3, comets: 3, titleSparks: 28, titleOrbits: 6, titleGlints: 2 },
-        desktop: { dots: 72, hearts: 12, diamonds: 14, moons: 3, lanterns: 5, comets: 5, titleSparks: 46, titleOrbits: 10, titleGlints: 3 },
+        minimal: { dots: 6, hearts: 0, diamonds: 0, moons: 1, lanterns: 0, comets: 0, ribbons: 0, wideRibbons: 0, starbursts: 0, titleSparks: 4, titleOrbits: 0, titleGlints: 0, notes: 0, bubbles: 2 },
+        low: { dots: 14, hearts: 2, diamonds: 3, moons: 1, lanterns: 1, comets: 1, ribbons: 2, wideRibbons: 1, starbursts: 3, titleSparks: 10, titleOrbits: 2, titleGlints: 1, notes: 4, bubbles: 5 },
+        phone: { dots: 22, hearts: 3, diamonds: 5, moons: 1, lanterns: 1, comets: 1, ribbons: 2, wideRibbons: 2, starbursts: 4, titleSparks: 16, titleOrbits: 3, titleGlints: 1, notes: 5, bubbles: 7 },
+        tablet: { dots: 42, hearts: 7, diamonds: 9, moons: 2, lanterns: 3, comets: 3, ribbons: 4, wideRibbons: 4, starbursts: 8, titleSparks: 28, titleOrbits: 6, titleGlints: 2, notes: 9, bubbles: 12 },
+        desktop: { dots: 72, hearts: 12, diamonds: 14, moons: 3, lanterns: 5, comets: 5, ribbons: 7, wideRibbons: 7, starbursts: 14, titleSparks: 46, titleOrbits: 10, titleGlints: 3, notes: 14, bubbles: 18 },
       }[quality];
       const colors = ["#ffffff", "#ffd60a", "#ffc0da", "#ff5c8a", "#36e6ff", "#fff3b0"];
       const fragment = document.createDocumentFragment();
@@ -5013,6 +7201,75 @@
         fragment.appendChild(lantern);
       }
 
+      for (let i = 0; i < counts.ribbons; i++) {
+        const ribbon = document.createElement("span");
+        const fromLeft = i % 2 === 0;
+
+        ribbon.className = "opening-ribbon";
+        ribbon.style.setProperty("--color", colors[(i + 2) % colors.length]);
+        ribbon.style.setProperty("--w", rand(phoneMode ? 160 : 240, phoneMode ? 300 : 480).toFixed(2));
+        ribbon.style.setProperty("--h", rand(2, 5).toFixed(2));
+        ribbon.style.setProperty("--x", rand(width * 0.12, width * 0.88).toFixed(2));
+        ribbon.style.setProperty("--y", rand(height * 0.18, height * 0.78).toFixed(2));
+        ribbon.style.setProperty("--angle", (fromLeft ? rand(-18, 6) : rand(174, 198)).toFixed(2));
+        ribbon.style.setProperty("--drift-x", (fromLeft ? rand(30, 90) : rand(-90, -30)).toFixed(2));
+        ribbon.style.setProperty("--drift-y", rand(-26, 28).toFixed(2));
+        ribbon.style.setProperty("--sway-x", (fromLeft ? rand(90, 170) : rand(-170, -90)).toFixed(2));
+        ribbon.style.setProperty("--sway-y", rand(-48, 42).toFixed(2));
+        ribbon.style.setProperty("--end-x", (fromLeft ? rand(180, 280) : rand(-280, -180)).toFixed(2));
+        ribbon.style.setProperty("--end-y", rand(-70, 76).toFixed(2));
+        ribbon.style.setProperty("--delay", rand(0, 11000).toFixed(2));
+        ribbon.style.setProperty("--dur", rand(12000, 21000).toFixed(2));
+        fragment.appendChild(ribbon);
+      }
+
+      for (let i = 0; i < counts.wideRibbons; i++) {
+        const ribbon = document.createElement("span");
+        const fromLeft = i % 2 === 0;
+        const yLane = height * (0.18 + ((i * 0.17) % 0.64));
+        const startX = fromLeft ? rand(-width * 0.34, width * 0.16) : rand(width * 0.84, width * 1.34);
+        const travel = width * rand(0.42, 0.72);
+
+        ribbon.className = "opening-wide-ribbon";
+        ribbon.style.setProperty("--color", colors[(i + 1) % colors.length]);
+        ribbon.style.setProperty("--w", rand(phoneMode ? 220 : 360, phoneMode ? 380 : 680).toFixed(2));
+        ribbon.style.setProperty("--h", rand(phoneMode ? 5 : 6, phoneMode ? 9 : 13).toFixed(2));
+        ribbon.style.setProperty("--x", startX.toFixed(2));
+        ribbon.style.setProperty("--y", (yLane + rand(-34, 34)).toFixed(2));
+        ribbon.style.setProperty("--drift-x", (fromLeft ? travel * 0.26 : -travel * 0.26).toFixed(2));
+        ribbon.style.setProperty("--drift-y", rand(-22, 22).toFixed(2));
+        ribbon.style.setProperty("--sway-x", (fromLeft ? travel * 0.58 : -travel * 0.58).toFixed(2));
+        ribbon.style.setProperty("--sway-y", rand(-48, 48).toFixed(2));
+        ribbon.style.setProperty("--end-x", (fromLeft ? travel : -travel).toFixed(2));
+        ribbon.style.setProperty("--end-y", rand(-70, 70).toFixed(2));
+        ribbon.style.setProperty("--angle", (fromLeft ? rand(-8, 6) : rand(174, 188)).toFixed(2));
+        ribbon.style.setProperty("--bend-a", rand(-4, 5).toFixed(2));
+        ribbon.style.setProperty("--bend-b", rand(-8, 8).toFixed(2));
+        ribbon.style.setProperty("--bend-c", rand(-6, 9).toFixed(2));
+        ribbon.style.setProperty("--alpha", rand(0.24, 0.52).toFixed(2));
+        ribbon.style.setProperty("--delay", rand(0, 14000).toFixed(2));
+        ribbon.style.setProperty("--dur", rand(15000, 26000).toFixed(2));
+        fragment.appendChild(ribbon);
+      }
+
+      for (let i = 0; i < counts.starbursts; i++) {
+        const starburst = document.createElement("span");
+
+        starburst.className = "opening-starburst";
+        starburst.style.setProperty("--color", colors[(i + 4) % colors.length]);
+        starburst.style.setProperty("--size", rand(phoneMode ? 7 : 9, phoneMode ? 16 : 24).toFixed(2));
+        starburst.style.setProperty("--x", rand(width * 0.08, width * 0.92).toFixed(2));
+        starburst.style.setProperty("--y", rand(height * 0.08, height * 0.88).toFixed(2));
+        starburst.style.setProperty("--rot", rand(-40, 40).toFixed(2));
+        starburst.style.setProperty("--drift-x", rand(-24, 24).toFixed(2));
+        starburst.style.setProperty("--drift-y", rand(-24, 24).toFixed(2));
+        starburst.style.setProperty("--end-x", rand(-54, 54).toFixed(2));
+        starburst.style.setProperty("--end-y", rand(-58, 48).toFixed(2));
+        starburst.style.setProperty("--delay", rand(0, 10000).toFixed(2));
+        starburst.style.setProperty("--dur", rand(7600, 13800).toFixed(2));
+        fragment.appendChild(starburst);
+      }
+
       for (let i = 0; i < counts.dots; i++) {
         const dot = document.createElement("span");
         dot.className = "opening-dot";
@@ -5067,6 +7324,45 @@
         comet.style.setProperty("--delay", rand(0, 9000));
         comet.style.setProperty("--dur", rand(phoneMode ? 9200 : 11000, phoneMode ? 15000 : 19000));
         fragment.appendChild(comet);
+      }
+
+      const noteSymbols = ["♪", "♫", "♬", "♩"];
+      for (let i = 0; i < counts.notes; i++) {
+        const note = document.createElement("span");
+        const side = i % 2 === 0 ? -1 : 1;
+
+        note.className = "opening-music-note";
+        note.textContent = noteSymbols[i % noteSymbols.length];
+        note.style.setProperty("--color", colors[(i + 3) % colors.length]);
+        note.style.setProperty("--size", rand(phoneMode ? 18 : 22, phoneMode ? 30 : 42).toFixed(2));
+        note.style.setProperty("--x", rand(width * 0.08, width * 0.92).toFixed(2));
+        note.style.setProperty("--y", rand(height * 0.16, height * 0.82).toFixed(2));
+        note.style.setProperty("--mid-x", (side * rand(18, 58)).toFixed(2));
+        note.style.setProperty("--mid-y", rand(-58, -18).toFixed(2));
+        note.style.setProperty("--end-x", (side * rand(42, 110)).toFixed(2));
+        note.style.setProperty("--end-y", rand(-124, -44).toFixed(2));
+        note.style.setProperty("--rot", rand(-16, 16).toFixed(2));
+        note.style.setProperty("--delay", rand(0, 9800).toFixed(2));
+        note.style.setProperty("--dur", rand(9000, 16800).toFixed(2));
+        fragment.appendChild(note);
+      }
+
+      for (let i = 0; i < counts.bubbles; i++) {
+        const bubble = document.createElement("span");
+
+        bubble.className = "opening-light-bubble";
+        bubble.style.setProperty("--size", rand(phoneMode ? 34 : 48, phoneMode ? 82 : 130).toFixed(2));
+        bubble.style.setProperty("--x", rand(width * 0.04, width * 0.96).toFixed(2));
+        bubble.style.setProperty("--y", rand(height * 0.22, height * 0.95).toFixed(2));
+        bubble.style.setProperty("--drift-x", rand(-34, 34).toFixed(2));
+        bubble.style.setProperty("--drift-y", rand(-70, -24).toFixed(2));
+        bubble.style.setProperty("--sway-x", rand(-76, 76).toFixed(2));
+        bubble.style.setProperty("--sway-y", rand(-132, -48).toFixed(2));
+        bubble.style.setProperty("--end-x", rand(-90, 90).toFixed(2));
+        bubble.style.setProperty("--end-y", rand(-190, -80).toFixed(2));
+        bubble.style.setProperty("--delay", rand(0, 12000).toFixed(2));
+        bubble.style.setProperty("--dur", rand(12000, 22000).toFixed(2));
+        fragment.appendChild(bubble);
       }
 
       stage.appendChild(fragment);
@@ -5139,7 +7435,7 @@
     }
 
     function cleanupLetterPageEffects() {
-      document.querySelectorAll(".letter-float-spark, .letter-glow-orb, .letter-page-glint")
+      document.querySelectorAll(".letter-float-spark, .letter-glow-orb, .letter-page-glint, .letter-ribbon, .letter-seal-spark, .letter-gold-leaf, .letter-heart-petal, .memory-heart, .memory-frame-spark, .memory-photo-trail, .memory-camera-flash, .memory-close-spark")
         .forEach((effect) => effect.remove());
     }
 
@@ -5158,6 +7454,10 @@
       const sparkCount = phoneMode ? 18 : 42;
       const orbCount = phoneMode ? 2 : 5;
       const glintCount = phoneMode ? 0 : 4;
+      const heartCount = phoneMode ? 6 : 16;
+      const ribbonCount = phoneMode ? 2 : 6;
+      const sealSparkCount = phoneMode ? 8 : 20;
+      const leafCount = phoneMode ? 8 : 22;
       const fragment = document.createDocumentFragment();
       const rand = (min, max) => min + Math.random() * (max - min);
       const titleRect = title?.getBoundingClientRect();
@@ -5244,9 +7544,320 @@
           glint.style.setProperty("--dur", rand(6200, 9400).toFixed(2));
           fragment.appendChild(glint);
         }
+
+        for (let i = 0; i < ribbonCount; i++) {
+          const ribbon = document.createElement("span");
+          const direction = i % 2 === 0 ? 1 : -1;
+
+          ribbon.className = "letter-ribbon";
+          ribbon.style.setProperty("--w", rand(phoneMode ? 120 : 180, phoneMode ? 220 : 360).toFixed(2));
+          ribbon.style.setProperty("--x", (noteRect.left + noteRect.width * rand(0.12, 0.88)).toFixed(2));
+          ribbon.style.setProperty("--y", rand(noteRect.top - 34, noteRect.bottom + 38).toFixed(2));
+          ribbon.style.setProperty("--mid-x", (direction * rand(30, 82)).toFixed(2));
+          ribbon.style.setProperty("--mid-y", rand(-22, 22).toFixed(2));
+          ribbon.style.setProperty("--end-x", (direction * rand(90, 170)).toFixed(2));
+          ribbon.style.setProperty("--end-y", rand(-36, 36).toFixed(2));
+          ribbon.style.setProperty("--angle", (direction > 0 ? rand(-6, 10) : rand(170, 188)).toFixed(2));
+          ribbon.style.setProperty("--delay", rand(0, 7600).toFixed(2));
+          ribbon.style.setProperty("--dur", rand(9400, 15600).toFixed(2));
+          fragment.appendChild(ribbon);
+        }
+
+        for (let i = 0; i < sealSparkCount; i++) {
+          const seal = document.createElement("span");
+          const cornerMode = i < Math.ceil(sealSparkCount * 0.45);
+          const originX = cornerMode
+            ? noteRect.left + rand(-18, 34)
+            : rand(noteRect.left + 16, noteRect.right - 16);
+          const originY = cornerMode
+            ? noteRect.top + rand(-24, 30)
+            : (i % 2 === 0 ? rand(noteRect.top - 24, noteRect.top + 18) : rand(noteRect.bottom - 18, noteRect.bottom + 28));
+          const side = originX < noteRect.left + noteRect.width * 0.5 ? -1 : 1;
+
+          seal.className = "letter-seal-spark";
+          seal.style.setProperty("--color", colors[(i + 1) % colors.length]);
+          seal.style.setProperty("--size", rand(phoneMode ? 6 : 7, phoneMode ? 12 : 18).toFixed(2));
+          seal.style.setProperty("--x", originX.toFixed(2));
+          seal.style.setProperty("--y", originY.toFixed(2));
+          seal.style.setProperty("--mid-x", (side * rand(10, 34)).toFixed(2));
+          seal.style.setProperty("--mid-y", rand(-26, 18).toFixed(2));
+          seal.style.setProperty("--end-x", (side * rand(24, 68)).toFixed(2));
+          seal.style.setProperty("--end-y", rand(-48, 34).toFixed(2));
+          seal.style.setProperty("--rot", rand(-45, 45).toFixed(2));
+          seal.style.setProperty("--delay", rand(0, 7200).toFixed(2));
+          seal.style.setProperty("--dur", rand(6200, 11800).toFixed(2));
+          fragment.appendChild(seal);
+        }
+
+        for (let i = 0; i < leafCount; i++) {
+          const leaf = document.createElement("span");
+          const edge = i % 4;
+          const fromLeft = edge === 0;
+          const fromRight = edge === 1;
+          const x = fromLeft
+            ? rand(noteRect.left - 62, noteRect.left + 16)
+            : fromRight
+              ? rand(noteRect.right - 16, noteRect.right + 62)
+              : rand(noteRect.left + 20, noteRect.right - 20);
+          const y = edge < 2
+            ? rand(noteRect.top + noteRect.height * 0.12, noteRect.bottom - noteRect.height * 0.08)
+            : edge === 2
+              ? rand(noteRect.top - 58, noteRect.top + 24)
+              : rand(noteRect.bottom - 24, noteRect.bottom + 58);
+          const side = fromLeft ? -1 : fromRight ? 1 : (Math.random() > 0.5 ? 1 : -1);
+
+          leaf.className = "letter-gold-leaf";
+          leaf.style.setProperty("--w", rand(phoneMode ? 8 : 10, phoneMode ? 16 : 24).toFixed(2));
+          leaf.style.setProperty("--h", rand(phoneMode ? 4 : 5, phoneMode ? 9 : 13).toFixed(2));
+          leaf.style.setProperty("--x", x.toFixed(2));
+          leaf.style.setProperty("--y", y.toFixed(2));
+          leaf.style.setProperty("--mid-x", (side * rand(22, 72)).toFixed(2));
+          leaf.style.setProperty("--mid-y", rand(-42, 24).toFixed(2));
+          leaf.style.setProperty("--end-x", (side * rand(54, 132)).toFixed(2));
+          leaf.style.setProperty("--end-y", rand(-74, 42).toFixed(2));
+          leaf.style.setProperty("--rot", rand(-70, 70).toFixed(2));
+          leaf.style.setProperty("--delay", rand(0, 9800).toFixed(2));
+          leaf.style.setProperty("--dur", rand(phoneMode ? 7600 : 9000, phoneMode ? 12800 : 16800).toFixed(2));
+          fragment.appendChild(leaf);
+        }
+
+        for (let i = 0; i < heartCount; i++) {
+          const heart = document.createElement("span");
+          const edge = i % 4;
+          const fromLeft = edge === 0;
+          const fromRight = edge === 1;
+          const x = fromLeft
+            ? rand(noteRect.left - 34, noteRect.left + 16)
+            : fromRight
+              ? rand(noteRect.right - 16, noteRect.right + 34)
+              : rand(noteRect.left + noteRect.width * 0.12, noteRect.right - noteRect.width * 0.12);
+          const y = edge < 2
+            ? rand(noteRect.top + noteRect.height * 0.15, noteRect.bottom - noteRect.height * 0.12)
+            : edge === 2
+              ? rand(noteRect.top - 24, noteRect.top + 18)
+              : rand(noteRect.bottom - 18, noteRect.bottom + 28);
+          const side = fromLeft ? -1 : fromRight ? 1 : (Math.random() > 0.5 ? 1 : -1);
+
+          heart.className = "letter-heart-petal";
+          heart.style.setProperty("--color", i % 3 === 0 ? "#ff5c8a" : i % 3 === 1 ? "#ffc0da" : "#ffd60a");
+          heart.style.setProperty("--size", rand(phoneMode ? 7 : 8, phoneMode ? 12 : 16).toFixed(2));
+          heart.style.setProperty("--x", x.toFixed(2));
+          heart.style.setProperty("--y", y.toFixed(2));
+          heart.style.setProperty("--mid-x", (side * rand(16, 42)).toFixed(2));
+          heart.style.setProperty("--mid-y", rand(-38, -10).toFixed(2));
+          heart.style.setProperty("--end-x", (side * rand(28, 76)).toFixed(2));
+          heart.style.setProperty("--end-y", rand(-78, -28).toFixed(2));
+          heart.style.setProperty("--rot", rand(-28, 28).toFixed(2));
+          heart.style.setProperty("--delay", rand(0, 6800).toFixed(2));
+          heart.style.setProperty("--dur", rand(phoneMode ? 6200 : 7600, phoneMode ? 10200 : 13200).toFixed(2));
+          fragment.appendChild(heart);
+        }
       }
 
       document.body.appendChild(fragment);
+    }
+
+    function createMemoryFrameEffects() {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion) return;
+
+      clearTimeout(window.__memoryEffectCleanupTimer);
+
+      const note = document.querySelector(".note");
+      const leftPhotos = document.querySelector(".letter-layout > .photo-section:first-child");
+      const rightPhotos = document.querySelector(".letter-layout > .photo-section:last-child");
+      const button = document.querySelector(".memory-more-btn");
+      const noteRect = note?.getBoundingClientRect();
+      const leftRect = leftPhotos?.getBoundingClientRect();
+      const rightRect = rightPhotos?.getBoundingClientRect();
+      const buttonRect = button?.getBoundingClientRect();
+
+      if (!noteRect || !leftRect || !rightRect) return;
+
+      document.querySelectorAll(".memory-heart, .memory-frame-spark, .memory-photo-trail, .memory-camera-flash")
+        .forEach((effect) => effect.remove());
+
+      const fragment = document.createDocumentFragment();
+      const rand = (min, max) => min + Math.random() * (max - min);
+      const colors = ["#ffffff", "#ffd60a", "#fff3b0", "#ff5c8a", "#36e6ff", "#ffc0da"];
+      const countScale = window.innerWidth < 680 ? 0.72 : 1;
+      const sparkCount = Math.round(54 * countScale);
+      const heartCount = Math.round(18 * countScale);
+      const trailCount = Math.round(12 * countScale);
+      const visiblePhotos = [...document.querySelectorAll("#letterPage.memories-open .photo")]
+        .filter((photo) => {
+          const rect = photo.getBoundingClientRect();
+          return rect.width > 0 && rect.height > 0;
+        });
+      const buttonX = buttonRect ? buttonRect.left + buttonRect.width / 2 : noteRect.left + noteRect.width / 2;
+      const buttonY = buttonRect ? buttonRect.top + buttonRect.height / 2 : noteRect.bottom;
+
+      visiblePhotos.forEach((photo, index) => {
+        const rect = photo.getBoundingClientRect();
+        const flash = document.createElement("span");
+
+        flash.className = "memory-camera-flash";
+        flash.style.setProperty("--x", (rect.left + rect.width / 2).toFixed(2));
+        flash.style.setProperty("--y", (rect.top + rect.height / 2).toFixed(2));
+        flash.style.setProperty("--w", Math.min(rect.width * 1.18, rect.width + 26).toFixed(2));
+        flash.style.setProperty("--h", Math.min(rect.height * 1.14, rect.height + 30).toFixed(2));
+        flash.style.setProperty("--rot", rand(-3, 3).toFixed(2));
+        flash.style.setProperty("--delay", (160 + index * 210).toFixed(2));
+        fragment.appendChild(flash);
+      });
+
+      for (let i = 0; i < sparkCount; i++) {
+        const spark = document.createElement("span");
+        const side = i % 2 === 0 ? -1 : 1;
+        const edgeX = side < 0
+          ? rand(leftRect.right - leftRect.width * 0.28, noteRect.left + 24)
+          : rand(noteRect.right - 24, rightRect.left + rightRect.width * 0.28);
+        const edgeY = rand(noteRect.top + 18, noteRect.bottom - 18);
+
+        spark.className = "memory-frame-spark";
+        spark.style.setProperty("--color", colors[i % colors.length]);
+        spark.style.setProperty("--size", rand(2.5, 7.2).toFixed(2));
+        spark.style.setProperty("--x", edgeX.toFixed(2));
+        spark.style.setProperty("--y", edgeY.toFixed(2));
+        spark.style.setProperty("--mid-x", (side * rand(18, 56)).toFixed(2));
+        spark.style.setProperty("--mid-y", rand(-42, 32).toFixed(2));
+        spark.style.setProperty("--end-x", (side * rand(40, 92)).toFixed(2));
+        spark.style.setProperty("--end-y", rand(-84, 46).toFixed(2));
+        spark.style.setProperty("--delay", rand(0, 520).toFixed(2));
+        spark.style.setProperty("--dur", rand(2100, 3800).toFixed(2));
+        fragment.appendChild(spark);
+      }
+
+      for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement("span");
+        const angle = -Math.PI / 2 + rand(-1.15, 1.15);
+        const distance = rand(90, window.innerWidth < 680 ? 210 : 320);
+
+        heart.className = "memory-heart";
+        heart.style.setProperty("--color", i % 2 ? "#ff5c8a" : "#ffd60a");
+        heart.style.setProperty("--size", rand(12, window.innerWidth < 680 ? 22 : 30).toFixed(2));
+        heart.style.setProperty("--x", buttonX.toFixed(2));
+        heart.style.setProperty("--y", buttonY.toFixed(2));
+        heart.style.setProperty("--mid-x", (Math.cos(angle) * distance * 0.42).toFixed(2));
+        heart.style.setProperty("--mid-y", (Math.sin(angle) * distance * 0.42).toFixed(2));
+        heart.style.setProperty("--end-x", (Math.cos(angle) * distance).toFixed(2));
+        heart.style.setProperty("--end-y", (Math.sin(angle) * distance - rand(20, 70)).toFixed(2));
+        heart.style.setProperty("--rot", rand(-22, 22).toFixed(2));
+        heart.style.setProperty("--delay", rand(40, 760).toFixed(2));
+        heart.style.setProperty("--dur", rand(2400, 4200).toFixed(2));
+        fragment.appendChild(heart);
+      }
+
+      for (let i = 0; i < trailCount; i++) {
+        const trail = document.createElement("span");
+        const fromLeft = i % 2 === 0;
+        const startRect = fromLeft ? leftRect : rightRect;
+        const direction = fromLeft ? 1 : -1;
+
+        trail.className = "memory-photo-trail";
+        trail.style.setProperty("--w", rand(100, window.innerWidth < 680 ? 190 : 310).toFixed(2));
+        trail.style.setProperty("--x", rand(startRect.left + 16, startRect.right - 16).toFixed(2));
+        trail.style.setProperty("--y", rand(startRect.top + 18, startRect.bottom - 18).toFixed(2));
+        trail.style.setProperty("--mid-x", (direction * rand(18, 64)).toFixed(2));
+        trail.style.setProperty("--mid-y", rand(-22, 22).toFixed(2));
+        trail.style.setProperty("--end-x", (direction * rand(84, 170)).toFixed(2));
+        trail.style.setProperty("--end-y", rand(-42, 42).toFixed(2));
+        trail.style.setProperty("--angle", (fromLeft ? rand(-8, 8) : rand(172, 188)).toFixed(2));
+        trail.style.setProperty("--delay", rand(0, 780).toFixed(2));
+        trail.style.setProperty("--dur", rand(1800, 3200).toFixed(2));
+        fragment.appendChild(trail);
+      }
+
+      document.body.appendChild(fragment);
+      window.__memoryEffectCleanupTimer = setTimeout(() => {
+        document.querySelectorAll(".memory-heart, .memory-frame-spark, .memory-photo-trail, .memory-camera-flash")
+          .forEach((effect) => effect.remove());
+      }, 5200);
+    }
+
+    function closeMemoryFrame() {
+      const letterPage = document.getElementById("letterPage");
+      const note = document.querySelector(".note");
+      const button = document.querySelector(".memory-more-btn");
+      const noteRect = note?.getBoundingClientRect();
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!letterPage) return;
+
+      clearTimeout(window.__memoryEffectCleanupTimer);
+
+      if (button) {
+        button.disabled = true;
+        button.innerHTML = "<span>📸 Xem thêm kỷ niệm</span>";
+      }
+
+      if (!reducedMotion && noteRect) {
+        document.querySelectorAll(".memory-heart, .memory-frame-spark, .memory-photo-trail, .memory-camera-flash, .memory-close-spark")
+          .forEach((effect) => effect.remove());
+
+        const fragment = document.createDocumentFragment();
+        const rand = (min, max) => min + Math.random() * (max - min);
+        const colors = ["#ffffff", "#ffd60a", "#fff3b0", "#ff5c8a", "#36e6ff"];
+        const centerX = noteRect.left + noteRect.width / 2;
+        const centerY = noteRect.top + noteRect.height * 0.58;
+        const closeCount = window.innerWidth < 680 ? 22 : 38;
+
+        for (let i = 0; i < closeCount; i++) {
+          const spark = document.createElement("span");
+          const angle = (Math.PI * 2 * i) / closeCount + rand(-0.2, 0.2);
+          const radiusX = noteRect.width * rand(0.48, 0.72);
+          const radiusY = noteRect.height * rand(0.24, 0.5);
+
+          spark.className = "memory-close-spark";
+          spark.style.setProperty("--color", colors[i % colors.length]);
+          spark.style.setProperty("--size", rand(2.6, 6.8).toFixed(2));
+          spark.style.setProperty("--x", centerX.toFixed(2));
+          spark.style.setProperty("--y", centerY.toFixed(2));
+          spark.style.setProperty("--start-x", (Math.cos(angle) * radiusX).toFixed(2));
+          spark.style.setProperty("--start-y", (Math.sin(angle) * radiusY).toFixed(2));
+          spark.style.setProperty("--delay", rand(0, 140).toFixed(2));
+          fragment.appendChild(spark);
+        }
+
+        document.body.appendChild(fragment);
+        setTimeout(() => {
+          document.querySelectorAll(".memory-close-spark").forEach((effect) => effect.remove());
+        }, 1250);
+      }
+
+      letterPage.classList.remove("memories-open");
+      letterPage.classList.remove("memory-flash-run");
+
+      setTimeout(() => {
+        if (button) {
+          button.disabled = false;
+        }
+      }, 520);
+    }
+
+    function showMemoryFrame() {
+      const letterPage = document.getElementById("letterPage");
+      const button = document.querySelector(".memory-more-btn");
+
+      if (!letterPage || letterPage.classList.contains("memories-open")) {
+        closeMemoryFrame();
+        return;
+      }
+
+      letterPage.classList.add("memories-open");
+      letterPage.classList.remove("memory-flash-run");
+
+      if (button) {
+        button.disabled = false;
+        button.innerHTML = "<span>↩ Thu khung kỷ niệm</span>";
+      }
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          letterPage.classList.add("memory-flash-run");
+          createMemoryFrameEffects();
+        });
+      });
     }
 
     function showLetter() {
@@ -5254,6 +7865,7 @@
       const letterPage = document.getElementById("letterPage");
       const target = document.getElementById("letterText");
       const openButton = document.querySelector(".open-letter-btn");
+      const memoryButton = document.querySelector(".memory-more-btn");
 
       if (mainPage.dataset.opening === "true") return;
       mainPage.dataset.opening = "true";
@@ -5265,18 +7877,27 @@
         createOpenLetterBurst(openButton);
       }
 
+      if (memoryButton) {
+        memoryButton.disabled = false;
+        memoryButton.innerHTML = "<span>📸 Xem thêm kỷ niệm</span>";
+      }
+
+      letterPage.classList.remove("note-read-ready");
+      letterPage.classList.remove("memories-open");
+      letterPage.classList.remove("memory-flash-run");
+
       mainPage.classList.add("opening-out");
 
-      const letter = `Nhân ngày đặc biệt này, chúc Minh Khanh luôn thật vui vẻ, rạng rỡ và được yêu thương thật nhiều.
-Mong mọi điều dịu dàng, may mắn và hạnh phúc nhất sẽ luôn ở bên bạn.
-Chúc bạn có một sinh nhật thật đẹp, thật đáng nhớ và tràn đầy tiếng cười.
+      const letter = `Chúc chị của em một sinh nhật thật vui vẻ, rạng rỡ và được yêu thương thật nhiều. Mong chị luôn thuận lợi trong cuộc sống, gặp được nhiều điều may mắn và rạng rỡ trong tương lai. Hãy luôn hài lòng với những thứ mà bản thân mình đã chọn và đưa ra những quyết định đúng đắn nhé.
+Lời chúc cuối cùng, chúc chị có tuổi mới thật rạng rỡ và tràn đầy tiếng cười nhé hé hé hé. Chúc chị tất cả.
 
-✨ Gửi từ,
-- KHANH TOAN ❤️`;
+Gửi từ
+Ktommmmmmmmmmmmmmmmm`;
 
       let index = 0;
       const speed = 40;
       const tokens = letter.match(/\n|[^\s\n]+|[ \t]+/g) || [];
+      let signatureElement = null;
 
       function typeText() {
         if (index < tokens.length) {
@@ -5288,10 +7909,20 @@ Chúc bạn có một sinh nhật thật đẹp, thật đáng nhớ và tràn �
             const spaceElement = document.createElement("span");
             spaceElement.className = "letter-space";
             spaceElement.textContent = token;
-            target.appendChild(spaceElement);
+            (signatureElement || target).appendChild(spaceElement);
           } else {
             const wordElement = document.createElement("span");
             wordElement.className = "letter-word";
+
+            if ((token === "-" || token.startsWith("Ktom")) && !signatureElement) {
+              signatureElement = document.createElement("span");
+              signatureElement.className = "signature-line";
+              target.appendChild(signatureElement);
+            }
+
+            if (signatureElement) {
+              wordElement.classList.add("signature-word");
+            }
 
             if (token.includes("❤️") || token.includes("❤")) {
               wordElement.classList.add("red-heart");
@@ -5313,7 +7944,7 @@ Chúc bạn có một sinh nhật thật đẹp, thật đáng nhớ và tràn �
               wordElement.appendChild(charElement);
             }
 
-            target.appendChild(wordElement);
+            (signatureElement || target).appendChild(wordElement);
           }
 
           index++;
@@ -5322,29 +7953,59 @@ Chúc bạn có một sinh nhật thật đẹp, thật đáng nhớ và tràn �
         }
 
         target.classList.remove("typing");
+        if (signatureElement && !target.querySelector(".hand-signature-img")) {
+          const signatureWrap = document.createElement("span");
+          const signatureImage = document.createElement("img");
+          const signatureNameBreak = document.createElement("br");
+          signatureWrap.className = "hand-signature-wrap";
+          signatureImage.src = "sign.png?v=clean-signature-2";
+          signatureImage.alt = "";
+          signatureImage.className = "hand-signature-img";
+          signatureImage.loading = "eager";
+          signatureImage.decoding = "async";
+          signatureWrap.appendChild(signatureImage);
+          target.insertBefore(signatureWrap, signatureElement);
+          target.insertBefore(signatureNameBreak, signatureElement);
+        }
+        target.classList.add("signature-ready");
+        letterPage.classList.add("note-read-ready");
       }
+
+      const introStartDelay = 980;
+      const cakeIntroDuration = 27000;
+      const cakeViewHold = 0;
 
       setTimeout(() => {
         mainPage.style.display = "none";
         document.getElementById("openingStage")?.replaceChildren();
         letterPage.style.display = "flex";
         letterPage.classList.add("intro-playing");
+        letterPage.classList.remove("cake-hold");
         letterPage.classList.remove("final-reveal");
+        letterPage.classList.remove("note-read-ready");
+        letterPage.classList.remove("memories-open");
+        letterPage.classList.remove("memory-flash-run");
         target.textContent = "";
+        target.classList.remove("signature-ready");
         target.classList.add("typing");
         requestAnimationFrame(() => {
           requestAnimationFrame(createCakeIntroParticles);
         });
-      }, 980);
+      }, introStartDelay);
+
+      setTimeout(() => {
+        letterPage.classList.add("cake-hold");
+      }, introStartDelay + cakeIntroDuration);
 
       setTimeout(() => {
         letterPage.classList.remove("intro-playing");
+        letterPage.classList.remove("cake-hold");
         letterPage.classList.add("final-reveal");
         createConfetti();
         createLetterPageEffects();
         setTimeout(cleanupCakeIntroParticles, 1400);
         setTimeout(typeText, 850);
-      }, 22980);
+      }, introStartDelay + cakeIntroDuration + cakeViewHold);
     }
 
     function waitForBackgroundReady() {
@@ -5409,7 +8070,6 @@ Chúc bạn có một sinh nhật thật đẹp, thật đáng nhớ và tràn �
   </script>
 </body>
 </html>
-
 
 
 
