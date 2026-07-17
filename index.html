@@ -134,6 +134,14 @@
       opacity: 0.2;
     }
 
+    #mainPage.opening-out .opening-stage {
+      opacity: 0;
+    }
+
+    #mainPage.opening-out .opening-stage * {
+      animation-play-state: paused !important;
+    }
+
     .opening-stage,
     .open-click-stage {
       position: fixed;
@@ -5888,20 +5896,30 @@
         animation: none;
       }
 
-      .opening-wide-ribbon,
-      .opening-light-bubble,
-      .opening-lantern,
-      .opening-title-orbit,
-      .opening-title-glint {
-        display: none;
-      }
-
       .opening-dot,
       .opening-diamond,
       .opening-comet,
       .opening-title-spark,
       .opening-music-note {
         box-shadow: 0 0 5px currentColor;
+      }
+
+      .opening-wide-ribbon {
+        filter: none;
+        opacity: 0.42;
+        box-shadow: 0 0 4px currentColor;
+      }
+
+      .opening-light-bubble {
+        filter: none;
+        box-shadow: inset 0 0 4px rgba(255,255,255,.18);
+      }
+
+      .opening-lantern,
+      .opening-title-orbit,
+      .opening-title-glint {
+        filter: none;
+        box-shadow: 0 0 4px currentColor;
       }
     }
 
@@ -7124,8 +7142,8 @@
               : "desktop";
       const counts = {
         minimal: { dots: 6, hearts: 0, diamonds: 0, moons: 1, lanterns: 0, comets: 0, ribbons: 0, wideRibbons: 0, starbursts: 0, titleSparks: 4, titleOrbits: 0, titleGlints: 0, notes: 0, bubbles: 2 },
-        low: { dots: 6, hearts: 1, diamonds: 1, moons: 0, lanterns: 0, comets: 0, ribbons: 0, wideRibbons: 0, starbursts: 1, titleSparks: 4, titleOrbits: 0, titleGlints: 0, notes: 1, bubbles: 0 },
-        phone: { dots: 9, hearts: 1, diamonds: 2, moons: 0, lanterns: 0, comets: 1, ribbons: 1, wideRibbons: 0, starbursts: 1, titleSparks: 6, titleOrbits: 1, titleGlints: 0, notes: 2, bubbles: 0 },
+        low: { dots: 5, hearts: 1, diamonds: 1, moons: 1, lanterns: 1, comets: 1, ribbons: 1, wideRibbons: 1, starbursts: 1, titleSparks: 3, titleOrbits: 1, titleGlints: 1, notes: 1, bubbles: 1 },
+        phone: { dots: 8, hearts: 1, diamonds: 2, moons: 1, lanterns: 1, comets: 1, ribbons: 1, wideRibbons: 1, starbursts: 1, titleSparks: 6, titleOrbits: 1, titleGlints: 1, notes: 2, bubbles: 2 },
         tablet: { dots: 18, hearts: 3, diamonds: 4, moons: 1, lanterns: 1, comets: 1, ribbons: 2, wideRibbons: 1, starbursts: 3, titleSparks: 12, titleOrbits: 2, titleGlints: 1, notes: 4, bubbles: 3 },
         desktop: { dots: 42, hearts: 7, diamonds: 8, moons: 2, lanterns: 3, comets: 3, ribbons: 4, wideRibbons: 3, starbursts: 7, titleSparks: 24, titleOrbits: 5, titleGlints: 2, notes: 8, bubbles: 8 },
       }[quality];
@@ -7914,7 +7932,6 @@
 
       clearConfetti();
       cleanupCakeIntroParticles();
-      document.getElementById("openingStage")?.replaceChildren();
       if (openButton) {
         openButton.disabled = true;
         createOpenLetterBurst(openButton);
