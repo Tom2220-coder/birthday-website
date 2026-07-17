@@ -128,6 +128,12 @@
       opacity: 0;
     }
 
+    #mainPage.opening-out::before,
+    #mainPage.opening-out::after {
+      animation: none !important;
+      opacity: 0.2;
+    }
+
     .opening-stage,
     .open-click-stage {
       position: fixed;
@@ -5869,6 +5875,36 @@
       }
     }
 
+    @media (max-width: 820px) {
+      #mainPage::before {
+        filter: blur(10px);
+        opacity: 0.48;
+        animation-duration: 30000ms;
+      }
+
+      #mainPage::after {
+        filter: blur(6px);
+        opacity: 0.4;
+        animation: none;
+      }
+
+      .opening-wide-ribbon,
+      .opening-light-bubble,
+      .opening-lantern,
+      .opening-title-orbit,
+      .opening-title-glint {
+        display: none;
+      }
+
+      .opening-dot,
+      .opening-diamond,
+      .opening-comet,
+      .opening-title-spark,
+      .opening-music-note {
+        box-shadow: 0 0 5px currentColor;
+      }
+    }
+
     @media (max-width: 520px) {
       .main-content {
         padding: 18px;
@@ -6006,7 +6042,7 @@
   <script>
     const colors = ["#ff0", "#f0f", "#0ff", "#0f0", "#f00", "#00f"];
     const reducedMotionMode = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const confettiCount = reducedMotionMode ? 0 : 40;
+    const confettiCount = reducedMotionMode ? 0 : (window.innerWidth <= 820 ? 6 : 24);
     let confettiCreated = false;
 
     function createConfetti() {
@@ -7074,18 +7110,24 @@
       const saveData = navigator.connection?.saveData;
       const width = window.innerWidth;
       const height = window.innerHeight;
-      const phoneMode = false;
-      const tabletMode = false;
-      const lowPower = false;
+      const phoneMode = width <= 680;
+      const tabletMode = width > 680 && width <= 1024;
+      const lowPower = Boolean(saveData) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
       const quality = reducedMotion
         ? "minimal"
-        : "desktop";
+        : lowPower
+          ? "low"
+          : phoneMode
+            ? "phone"
+            : tabletMode
+              ? "tablet"
+              : "desktop";
       const counts = {
         minimal: { dots: 6, hearts: 0, diamonds: 0, moons: 1, lanterns: 0, comets: 0, ribbons: 0, wideRibbons: 0, starbursts: 0, titleSparks: 4, titleOrbits: 0, titleGlints: 0, notes: 0, bubbles: 2 },
-        low: { dots: 14, hearts: 2, diamonds: 3, moons: 1, lanterns: 1, comets: 1, ribbons: 2, wideRibbons: 1, starbursts: 3, titleSparks: 10, titleOrbits: 2, titleGlints: 1, notes: 4, bubbles: 5 },
-        phone: { dots: 22, hearts: 3, diamonds: 5, moons: 1, lanterns: 1, comets: 1, ribbons: 2, wideRibbons: 2, starbursts: 4, titleSparks: 16, titleOrbits: 3, titleGlints: 1, notes: 5, bubbles: 7 },
-        tablet: { dots: 42, hearts: 7, diamonds: 9, moons: 2, lanterns: 3, comets: 3, ribbons: 4, wideRibbons: 4, starbursts: 8, titleSparks: 28, titleOrbits: 6, titleGlints: 2, notes: 9, bubbles: 12 },
-        desktop: { dots: 72, hearts: 12, diamonds: 14, moons: 3, lanterns: 5, comets: 5, ribbons: 7, wideRibbons: 7, starbursts: 14, titleSparks: 46, titleOrbits: 10, titleGlints: 3, notes: 14, bubbles: 18 },
+        low: { dots: 6, hearts: 1, diamonds: 1, moons: 0, lanterns: 0, comets: 0, ribbons: 0, wideRibbons: 0, starbursts: 1, titleSparks: 4, titleOrbits: 0, titleGlints: 0, notes: 1, bubbles: 0 },
+        phone: { dots: 9, hearts: 1, diamonds: 2, moons: 0, lanterns: 0, comets: 1, ribbons: 1, wideRibbons: 0, starbursts: 1, titleSparks: 6, titleOrbits: 1, titleGlints: 0, notes: 2, bubbles: 0 },
+        tablet: { dots: 18, hearts: 3, diamonds: 4, moons: 1, lanterns: 1, comets: 1, ribbons: 2, wideRibbons: 1, starbursts: 3, titleSparks: 12, titleOrbits: 2, titleGlints: 1, notes: 4, bubbles: 3 },
+        desktop: { dots: 42, hearts: 7, diamonds: 8, moons: 2, lanterns: 3, comets: 3, ribbons: 4, wideRibbons: 3, starbursts: 7, titleSparks: 24, titleOrbits: 5, titleGlints: 2, notes: 8, bubbles: 8 },
       }[quality];
       const colors = ["#ffffff", "#ffd60a", "#ffc0da", "#ff5c8a", "#36e6ff", "#fff3b0"];
       const fragment = document.createDocumentFragment();
@@ -7375,10 +7417,10 @@
       const centerY = rect.top + rect.height / 2;
       const stage = document.createElement("div");
       const fragment = document.createDocumentFragment();
-      const phoneMode = false;
+      const phoneMode = window.innerWidth <= 820;
       const colors = ["#ffffff", "#ffd60a", "#ffc0da", "#ff5c8a", "#36e6ff", "#fff3b0"];
-      const burstCount = reducedMotion ? 6 : phoneMode ? 18 : 42;
-      const flareCount = reducedMotion ? 1 : phoneMode ? 3 : 6;
+      const burstCount = reducedMotion ? 4 : phoneMode ? 8 : 24;
+      const flareCount = reducedMotion ? 1 : phoneMode ? 1 : 4;
       const rippleCount = reducedMotion ? 1 : phoneMode ? 1 : 2;
 
       stage.className = "open-click-stage";
@@ -7872,6 +7914,7 @@
 
       clearConfetti();
       cleanupCakeIntroParticles();
+      document.getElementById("openingStage")?.replaceChildren();
       if (openButton) {
         openButton.disabled = true;
         createOpenLetterBurst(openButton);
