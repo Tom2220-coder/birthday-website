@@ -4681,6 +4681,25 @@
       }
     }
 
+    @keyframes mobileMemoryFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes mobileMemoryFlash {
+      0%, 100% {
+        filter: brightness(1) saturate(1);
+      }
+
+      38% {
+        filter: brightness(2.05) saturate(0.9);
+        box-shadow:
+          inset 0 0 16px rgba(255, 255, 255, 0.88),
+          0 0 22px rgba(255, 255, 255, 0.9),
+          0 0 36px rgba(255, 214, 10, 0.68);
+      }
+    }
+
     @keyframes memoryCameraFlash {
       0% {
         opacity: 0;
@@ -5798,16 +5817,49 @@
 
       #letterPage.memories-open .letter-layout {
         gap: clamp(6px, 2vw, 14px);
-        transform: translateY(-4px);
+        transform: none;
       }
 
       #letterPage.memories-open .letter-layout > .photo-section:first-child {
-        transform: translateX(clamp(4px, 2.4vw, 12px)) translateY(-2px) scale(1.01);
+        transform: none;
       }
 
       #letterPage.memories-open .letter-layout > .photo-section:last-child {
-        transform: translateX(clamp(-12px, -2.4vw, -4px)) translateY(-2px) scale(1.01);
+        transform: none;
       }
+
+      #letterPage.memories-open .note-wrap {
+        transform: none;
+      }
+
+      #letterPage.memories-open .photo-section {
+        filter: none;
+        transition: opacity 220ms linear, visibility 220ms linear;
+      }
+
+      #letterPage.memories-open .photo-wrapper {
+        transform: none;
+        animation: mobileMemoryFadeIn 260ms linear var(--mobile-memory-delay, 0ms) both;
+      }
+
+      /* Six explicit delays avoid nth-of-type being offset by the rope element. */
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(2) { --mobile-memory-delay: 60ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(3) { --mobile-memory-delay: 180ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(4) { --mobile-memory-delay: 300ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(2) { --mobile-memory-delay: 420ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(3) { --mobile-memory-delay: 540ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(4) { --mobile-memory-delay: 660ms; }
+
+      #letterPage.memories-open.memory-flash-run .photo {
+        animation: mobileMemoryFlash 520ms ease-out var(--flash-delay, 0s) 1 both;
+      }
+
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(2) .photo { --flash-delay: 0ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(3) .photo { --flash-delay: 90ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(4) .photo { --flash-delay: 180ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(2) .photo { --flash-delay: 270ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(3) .photo { --flash-delay: 360ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(4) .photo { --flash-delay: 450ms; }
 
       .corner-sticker {
         width: clamp(48px, 13vw, 64px);
@@ -7658,6 +7710,9 @@
     }
 
     function createMemoryFrameEffects() {
+      /* Mobile uses the lightweight CSS flash instead of dozens of fixed nodes. */
+      if (window.innerWidth <= 820) return;
+
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reducedMotion) return;
 
@@ -7791,7 +7846,7 @@
         button.innerHTML = "<span>📸 Xem thêm kỷ niệm</span>";
       }
 
-      if (!reducedMotion && noteRect) {
+      if (!reducedMotion && noteRect && window.innerWidth > 820) {
         document.querySelectorAll(".memory-heart, .memory-frame-spark, .memory-photo-trail, .memory-camera-flash, .memory-close-spark")
           .forEach((effect) => effect.remove());
 
@@ -7854,8 +7909,22 @@
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          letterPage.classList.add("memory-flash-run");
-          createMemoryFrameEffects();
+          const mobileMemoryMode = window.innerWidth <= 820;
+          const flashDelay = mobileMemoryMode ? 820 : 0;
+
+          if (button) button.disabled = true;
+
+          setTimeout(() => {
+            if (!letterPage.classList.contains("memories-open")) return;
+            letterPage.classList.add("memory-flash-run");
+            createMemoryFrameEffects();
+          }, flashDelay);
+
+          setTimeout(() => {
+            if (button && letterPage.classList.contains("memories-open")) {
+              button.disabled = false;
+            }
+          }, mobileMemoryMode ? 1800 : 120);
         });
       });
     }
@@ -8070,6 +8139,3 @@ Ktommmmmmmmmmmmmmmmm`;
   </script>
 </body>
 </html>
-
-
-
