@@ -2078,21 +2078,17 @@
     #letterPage.final-reveal .photo-section::before {
       animation:
         ropeDrop 1.7s cubic-bezier(.18, .78, .22, 1) forwards,
-        ropeLightRun 2400ms linear 1.65s infinite,
         ropeSoftSway 3800ms ease-in-out 1.8s infinite alternate;
     }
 
     #letterPage.final-reveal .long-top-line {
       animation:
         ropeDrop 1.35s cubic-bezier(.18, .78, .22, 1) .25s forwards,
-        ropeLightRun 2500ms linear 1.55s infinite,
         ropeSoftSway 4200ms ease-in-out 1.7s infinite alternate;
     }
 
     #letterPage.final-reveal .rope-line {
-      animation:
-        ropeLightRun 2200ms linear calc(var(--drop-delay, 0s) + 1.32s) infinite,
-        ropeMiniSway 3600ms ease-in-out calc(var(--drop-delay, 0s) + 1.32s) infinite alternate;
+      animation: ropeMiniSway 3600ms ease-in-out calc(var(--drop-delay, 0s) + 1.32s) infinite alternate;
     }
 
     #letterPage.final-reveal .photo-wrapper {
@@ -4398,22 +4394,6 @@
       }
     }
 
-    @keyframes ropeLightRun {
-      0% {
-        background-position: 0 0, 0 -120px, 0 0;
-        filter: brightness(1);
-      }
-
-      50% {
-        filter: brightness(1.22);
-      }
-
-      100% {
-        background-position: 0 0, 0 120px, 0 36px;
-        filter: brightness(1);
-      }
-    }
-
     @keyframes ropeSoftSway {
       0% {
         transform: translateX(var(--rope-x, 0)) scaleY(1) rotate(-0.7deg);
@@ -5759,12 +5739,12 @@
         animation: mobileMemoryFlash 520ms ease-out var(--flash-delay, 0s) 1 both;
       }
 
-      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(2) .photo { --flash-delay: 300ms; }
-      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(3) .photo { --flash-delay: 540ms; }
-      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(4) .photo { --flash-delay: 780ms; }
-      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(2) .photo { --flash-delay: 1020ms; }
-      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(3) .photo { --flash-delay: 1260ms; }
-      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(4) .photo { --flash-delay: 1500ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(2) .photo { --flash-delay: 0ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(3) .photo { --flash-delay: 180ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(4) .photo { --flash-delay: 360ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(2) .photo { --flash-delay: 540ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(3) .photo { --flash-delay: 720ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(4) .photo { --flash-delay: 900ms; }
 
       /* Fastest stable mobile path: one section fade, no per-photo animation. */
       .photo-section {
@@ -5791,6 +5771,8 @@
       #letterPage.memories-open .note,
       #letterPage.memories-open .note-wrap,
       #letterPage.memories-open .letter-layout {
+        opacity: 1;
+        visibility: visible;
         transform: none;
         transition: none;
         animation: none;
@@ -6019,7 +6001,7 @@
   <script>
     const colors = ["#ff0", "#f0f", "#0ff", "#0f0", "#f00", "#00f"];
     const reducedMotionMode = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const confettiCount = reducedMotionMode ? 0 : (window.innerWidth <= 820 ? 14 : 32);
+    const confettiCount = reducedMotionMode ? 0 : (window.innerWidth <= 820 ? 8 : 24);
     let confettiCreated = false;
 
     function createConfetti() {
@@ -7802,6 +7784,7 @@
 
       clearTimeout(window.__memoryEffectCleanupTimer);
       clearTimeout(window.__memorySettleTimer);
+      clearTimeout(window.__memoryFlashTimer);
       letterPage.classList.remove("memory-settled");
 
       if (button) {
@@ -7884,8 +7867,12 @@
       }
 
       if (window.innerWidth <= 820) {
-        clearConfetti();
-        letterPage.classList.add("memory-flash-run");
+        clearTimeout(window.__memoryFlashTimer);
+        window.__memoryFlashTimer = setTimeout(() => {
+          if (letterPage.classList.contains("memories-open")) {
+            letterPage.classList.add("memory-flash-run");
+          }
+        }, 5700);
         clearTimeout(window.__memorySettleTimer);
         window.__memorySettleTimer = setTimeout(() => {
           if (letterPage.classList.contains("memories-open")) {
@@ -7945,6 +7932,8 @@
       letterPage.classList.remove("memories-open");
       letterPage.classList.remove("memory-flash-run");
       letterPage.classList.remove("memory-settled");
+      clearTimeout(window.__memoryFlashTimer);
+      clearTimeout(window.__memorySettleTimer);
 
       mainPage.classList.add("opening-out");
 
