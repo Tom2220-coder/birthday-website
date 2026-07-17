@@ -1799,10 +1799,24 @@
 
     .signature-line {
       position: relative;
-      display: inline-block;
-      padding: 0 0.22em 0.08em 0;
-      border-radius: 10px;
+      display: block;
+      max-width: 100%;
+      margin-top: 0.2em;
+      padding: 0.04em 0.24em 0.14em;
+      border-radius: 12px;
       isolation: isolate;
+      color: #d88a00;
+      font-family: "Lobster", "Segoe Script", cursive;
+      font-size: clamp(2.4rem, 12vw, 5.6rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: 0.025em;
+      text-align: center;
+      white-space: nowrap;
+      text-shadow:
+        0 1px 0 rgba(126, 66, 0, 0.34),
+        0 0 9px rgba(255, 214, 10, 0.55),
+        0 0 18px rgba(255, 183, 3, 0.3);
     }
 
     .signature-line::before,
@@ -1842,11 +1856,12 @@
     }
 
     #letterText.signature-ready .signature-line {
-      color: #8a4f00;
+      color: #d88a00;
       text-shadow:
-        0 0 8px rgba(255, 214, 10, 0.38),
-        0 0 14px rgba(255, 255, 255, 0.18);
-      animation: signatureTextGlow 4200ms ease-in-out 560ms infinite alternate;
+        0 1px 0 rgba(126, 66, 0, 0.34),
+        0 0 10px rgba(255, 214, 10, 0.62),
+        0 0 20px rgba(255, 183, 3, 0.34);
+      animation: signatureTextGlow 4800ms ease-in-out 560ms infinite alternate;
     }
 
     #letterText.signature-ready .signature-line::before {
@@ -5899,12 +5914,17 @@
       }
 
       #letterPage.memories-open .photo-section {
-        transition: opacity 260ms linear, visibility 260ms linear;
+        transition: opacity 1000ms ease, visibility 1000ms ease;
       }
 
       #letterPage.memories-open .letter-layout,
       #letterPage.memories-open .note-wrap {
         transform: none;
+      }
+
+      #letterPage.memories-open.memory-settled .photo-wrapper {
+        transform-origin: top center;
+        animation: hangingPhotoSway 4200ms ease-in-out infinite alternate !important;
       }
     }
 
@@ -7872,6 +7892,9 @@
 
       letterPage.classList.remove("memories-open");
       letterPage.classList.remove("memory-flash-run");
+      letterPage.classList.remove("memory-settled");
+      clearTimeout(window.__mobileMemorySettleTimer);
+      clearTimeout(window.__mobileMemoryEffectsTimer);
 
       setTimeout(() => {
         if (button) {
@@ -7908,6 +7931,7 @@
 
       letterPage.classList.add("memories-open");
       letterPage.classList.remove("memory-flash-run");
+      letterPage.classList.remove("memory-settled");
 
       if (button) {
         button.disabled = false;
@@ -7915,11 +7939,17 @@
       }
 
       if (window.innerWidth <= 820) {
-        setTimeout(() => {
+        clearTimeout(window.__mobileMemorySettleTimer);
+        window.__mobileMemorySettleTimer = setTimeout(() => {
           if (!letterPage.classList.contains("memories-open")) return;
-          letterPage.classList.add("memory-flash-run");
-          createMemoryFrameEffects();
-        }, 320);
+          letterPage.classList.add("memory-settled");
+          clearTimeout(window.__mobileMemoryEffectsTimer);
+          window.__mobileMemoryEffectsTimer = setTimeout(() => {
+            if (!letterPage.classList.contains("memories-open")) return;
+            letterPage.classList.add("memory-flash-run");
+            createMemoryFrameEffects();
+          }, 250);
+        }, 1100);
         return;
       }
 
@@ -7964,7 +7994,7 @@
 Lời chúc cuối cùng, chúc chị có tuổi mới thật rạng rỡ và tràn đầy tiếng cười nhé hé hé hé. Chúc chị tất cả.
 
 Gửi từ
-Ktommmmmmmmmmmmmmmmm`;
+Ktommm`;
 
       let index = 0;
       const speed = 40;
@@ -8025,20 +8055,6 @@ Ktommmmmmmmmmmmmmmmm`;
         }
 
         target.classList.remove("typing");
-        if (signatureElement && !target.querySelector(".hand-signature-img")) {
-          const signatureWrap = document.createElement("span");
-          const signatureImage = document.createElement("img");
-          const signatureNameBreak = document.createElement("br");
-          signatureWrap.className = "hand-signature-wrap";
-          signatureImage.src = "sign.png?v=clean-signature-2";
-          signatureImage.alt = "";
-          signatureImage.className = "hand-signature-img";
-          signatureImage.loading = "eager";
-          signatureImage.decoding = "async";
-          signatureWrap.appendChild(signatureImage);
-          target.insertBefore(signatureWrap, signatureElement);
-          target.insertBefore(signatureNameBreak, signatureElement);
-        }
         target.classList.add("signature-ready");
         letterPage.classList.add("note-read-ready");
       }
