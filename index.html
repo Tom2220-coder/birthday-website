@@ -4704,6 +4704,22 @@
       }
     }
 
+    @keyframes memoryMobileReveal {
+      0% { opacity: 0; transform: translateY(-14px) rotate(var(--tilt, -2deg)); }
+      100% { opacity: 1; transform: translateY(0) rotate(var(--tilt, -2deg)); }
+    }
+
+    @keyframes memoryMobileFlash {
+      0%, 100% { filter: brightness(1) saturate(1); }
+      32% {
+        filter: brightness(2.35) saturate(0.82);
+        box-shadow:
+          inset 0 0 20px rgba(255, 255, 255, 0.92),
+          0 0 24px rgba(255, 255, 255, 0.95),
+          0 0 42px rgba(255, 214, 10, 0.78);
+      }
+    }
+
     @keyframes memoryCameraFlash {
       0% {
         opacity: 0;
@@ -5836,21 +5852,41 @@
 
       #letterPage.memories-open .letter-layout {
         gap: clamp(6px, 2vw, 14px);
-        transform: translateY(-4px);
+        transform: none;
       }
 
       #letterPage.memories-open .letter-layout > .photo-section:first-child {
-        transform: translateX(clamp(4px, 2.4vw, 12px)) translateY(-2px) scale(1.01);
+        transform: none;
       }
 
       #letterPage.memories-open .letter-layout > .photo-section:last-child {
-        transform: translateX(clamp(-12px, -2.4vw, -4px)) translateY(-2px) scale(1.01);
+        transform: none;
+      }
+
+      .photo-section {
+        transform: none;
+        filter: none;
+        transition: opacity 260ms ease, visibility 260ms ease;
+      }
+
+      #letterPage.memories-open .note-wrap {
+        transform: none;
+        filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.18));
       }
 
       #letterPage.memories-open .photo-wrapper {
-        animation:
-          photoDropIn 560ms cubic-bezier(.18, .78, .22, 1.04) var(--memory-delay, 0ms) both,
-          hangingPhotoSway 4200ms ease-in-out calc(var(--memory-delay, 0ms) + 600ms) infinite alternate;
+        animation: memoryMobileReveal 420ms ease-out var(--memory-delay, 0ms) both;
+      }
+
+      #letterPage.memories-open.memory-flash-run .photo {
+        animation: memoryMobileFlash 620ms ease-out var(--flash-delay, 0s) 1 both;
+      }
+
+      .memory-camera-flash {
+        mix-blend-mode: normal;
+        box-shadow:
+          0 0 28px rgba(255, 255, 255, 0.96),
+          0 0 48px rgba(255, 214, 10, 0.72);
       }
 
       .corner-sticker {
@@ -7907,8 +7943,19 @@
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          letterPage.classList.add("memory-flash-run");
-          setTimeout(createMemoryFrameEffects, window.innerWidth <= 680 ? 520 : 260);
+          const flashDelay = window.innerWidth <= 820 ? 500 : 260;
+          if (button) button.disabled = true;
+
+          setTimeout(() => {
+            letterPage.classList.add("memory-flash-run");
+            createMemoryFrameEffects();
+          }, flashDelay);
+
+          setTimeout(() => {
+            if (button && letterPage.classList.contains("memories-open")) {
+              button.disabled = false;
+            }
+          }, flashDelay + 720);
         });
       });
     }
