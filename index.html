@@ -5748,23 +5748,23 @@
       }
 
       /* Six explicit delays avoid nth-of-type being offset by the rope element. */
-      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(2) { --mobile-memory-delay: 60ms; }
-      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(3) { --mobile-memory-delay: 180ms; }
-      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(4) { --mobile-memory-delay: 300ms; }
-      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(2) { --mobile-memory-delay: 420ms; }
-      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(3) { --mobile-memory-delay: 540ms; }
-      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(4) { --mobile-memory-delay: 660ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(2) { --mobile-memory-delay: 80ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(3) { --mobile-memory-delay: 320ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(4) { --mobile-memory-delay: 560ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(2) { --mobile-memory-delay: 800ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(3) { --mobile-memory-delay: 1040ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(4) { --mobile-memory-delay: 1280ms; }
 
       #letterPage.memories-open.memory-flash-run .photo {
         animation: mobileMemoryFlash 520ms ease-out var(--flash-delay, 0s) 1 both;
       }
 
-      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(2) .photo { --flash-delay: 0ms; }
-      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(3) .photo { --flash-delay: 90ms; }
-      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(4) .photo { --flash-delay: 180ms; }
-      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(2) .photo { --flash-delay: 270ms; }
-      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(3) .photo { --flash-delay: 360ms; }
-      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(4) .photo { --flash-delay: 450ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(2) .photo { --flash-delay: 300ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(3) .photo { --flash-delay: 540ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(4) .photo { --flash-delay: 780ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(2) .photo { --flash-delay: 1020ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(3) .photo { --flash-delay: 1260ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(4) .photo { --flash-delay: 1500ms; }
 
       /* Fastest stable mobile path: one section fade, no per-photo animation. */
       .photo-section {
@@ -5785,14 +5785,29 @@
       }
 
       #letterPage.memories-open .photo-wrapper {
-        opacity: 1;
         transform: none;
-        animation: none;
+        animation: mobileMemoryFadeIn 360ms linear var(--mobile-memory-delay, 0ms) both;
       }
 
       #letterPage.memories-open.memory-flash-run .photo {
-        animation: none;
-        filter: none;
+        animation: mobileMemoryFlash 420ms ease-out var(--flash-delay, 0ms) 1 both;
+      }
+
+      .note-wrap {
+        width: 94%;
+        justify-self: center;
+      }
+
+      .note {
+        width: 100%;
+        min-height: min(470px, 64svh);
+        max-height: 66svh;
+        padding-inline: 14px;
+        font-size: clamp(0.7rem, 2.75vw, 0.86rem);
+      }
+
+      .photo {
+        width: clamp(44px, 14vw, 60px);
       }
 
       .corner-sticker {
@@ -7824,6 +7839,18 @@
       }, 520);
     }
 
+    let memoryImagesPrepared = false;
+
+    function prepareMemoryImages() {
+      if (memoryImagesPrepared) return;
+      memoryImagesPrepared = true;
+
+      document.querySelectorAll("#letterPage .photo").forEach((photo) => {
+        photo.loading = "eager";
+        if (photo.decode) photo.decode().catch(() => {});
+      });
+    }
+
     function showMemoryFrame() {
       const letterPage = document.getElementById("letterPage");
       const button = document.querySelector(".memory-more-btn");
@@ -7842,7 +7869,7 @@
       }
 
       if (window.innerWidth <= 820) {
-        letterPage.classList.remove("memory-flash-run");
+        letterPage.classList.add("memory-flash-run");
         if (button) button.disabled = false;
         return;
       }
@@ -7878,6 +7905,7 @@
 
       if (mainPage.dataset.opening === "true") return;
       mainPage.dataset.opening = "true";
+      prepareMemoryImages();
 
       clearConfetti();
       cleanupCakeIntroParticles();
