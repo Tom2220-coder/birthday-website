@@ -1814,9 +1814,20 @@
     .signature-line {
       position: relative;
       display: inline-block;
-      padding: 0 0.22em 0.08em 0;
-      border-radius: 10px;
+      margin-top: 0.22em;
+      padding: 0.04em 0.28em 0.14em 0.04em;
+      border-radius: 12px;
       isolation: isolate;
+      color: #d88a00;
+      font-family: "Lobster", "Segoe Script", cursive;
+      font-size: clamp(1.35rem, 4.8vw, 2.15rem);
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: 0.025em;
+      text-shadow:
+        0 1px 0 rgba(126, 66, 0, 0.34),
+        0 0 7px rgba(255, 214, 10, 0.48),
+        0 0 15px rgba(255, 183, 3, 0.26);
     }
 
     .signature-line::before,
@@ -1856,11 +1867,12 @@
     }
 
     #letterText.signature-ready .signature-line {
-      color: #8a4f00;
+      color: #d88a00;
       text-shadow:
-        0 0 8px rgba(255, 214, 10, 0.38),
-        0 0 14px rgba(255, 255, 255, 0.18);
-      animation: signatureTextGlow 4200ms ease-in-out 560ms infinite alternate;
+        0 1px 0 rgba(126, 66, 0, 0.34),
+        0 0 9px rgba(255, 214, 10, 0.58),
+        0 0 18px rgba(255, 183, 3, 0.32);
+      animation: signatureTextGlow 4800ms ease-in-out 560ms infinite alternate;
     }
 
     #letterText.signature-ready .signature-line::before {
@@ -7143,7 +7155,7 @@
       const counts = {
         minimal: { dots: 6, hearts: 0, diamonds: 0, moons: 1, lanterns: 0, comets: 0, ribbons: 0, wideRibbons: 0, starbursts: 0, titleSparks: 4, titleOrbits: 0, titleGlints: 0, notes: 0, bubbles: 2 },
         low: { dots: 5, hearts: 1, diamonds: 1, moons: 1, lanterns: 1, comets: 1, ribbons: 1, wideRibbons: 1, starbursts: 1, titleSparks: 3, titleOrbits: 1, titleGlints: 1, notes: 1, bubbles: 1 },
-        phone: { dots: 8, hearts: 1, diamonds: 2, moons: 1, lanterns: 1, comets: 1, ribbons: 1, wideRibbons: 1, starbursts: 1, titleSparks: 6, titleOrbits: 1, titleGlints: 1, notes: 2, bubbles: 2 },
+        phone: { dots: 12, hearts: 2, diamonds: 3, moons: 1, lanterns: 1, comets: 1, ribbons: 2, wideRibbons: 1, starbursts: 2, titleSparks: 9, titleOrbits: 2, titleGlints: 1, notes: 3, bubbles: 3 },
         tablet: { dots: 18, hearts: 3, diamonds: 4, moons: 1, lanterns: 1, comets: 1, ribbons: 2, wideRibbons: 1, starbursts: 3, titleSparks: 12, titleOrbits: 2, titleGlints: 1, notes: 4, bubbles: 3 },
         desktop: { dots: 42, hearts: 7, diamonds: 8, moons: 2, lanterns: 3, comets: 3, ribbons: 4, wideRibbons: 3, starbursts: 7, titleSparks: 24, titleOrbits: 5, titleGlints: 2, notes: 8, bubbles: 8 },
       }[quality];
@@ -8013,20 +8025,6 @@ Ktommmmmmmmmmmmmmmmm`;
         }
 
         target.classList.remove("typing");
-        if (signatureElement && !target.querySelector(".hand-signature-img")) {
-          const signatureWrap = document.createElement("span");
-          const signatureImage = document.createElement("img");
-          const signatureNameBreak = document.createElement("br");
-          signatureWrap.className = "hand-signature-wrap";
-          signatureImage.src = "sign.png?v=clean-signature-2";
-          signatureImage.alt = "";
-          signatureImage.className = "hand-signature-img";
-          signatureImage.loading = "eager";
-          signatureImage.decoding = "async";
-          signatureWrap.appendChild(signatureImage);
-          target.insertBefore(signatureWrap, signatureElement);
-          target.insertBefore(signatureNameBreak, signatureElement);
-        }
         target.classList.add("signature-ready");
         letterPage.classList.add("note-read-ready");
       }
