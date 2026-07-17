@@ -5869,6 +5869,98 @@
       }
     }
 
+    @keyframes mobileMemoryFadeOptimized {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes mobileFlashOptimized {
+      0%, 100% { opacity: 0; }
+      38% { opacity: 0.8; }
+    }
+
+    @media (max-width: 820px) {
+      /* Keep the note in a fixed grid cell; photos overlay the side margins. */
+      .letter-layout { position: relative; }
+      .letter-layout > .note-wrap { grid-column: 2; grid-row: 1; }
+
+      .letter-layout > .photo-section {
+        position: absolute;
+        top: 0;
+        width: clamp(44px, 14vw, 60px);
+        z-index: 9;
+        pointer-events: none;
+        filter: none;
+        transition: opacity 160ms linear, visibility 160ms linear;
+      }
+
+      .letter-layout > .photo-section:first-child { left: 0; transform: none; }
+      .letter-layout > .photo-section:last-child { right: 0; transform: none; }
+
+      #letterPage.memories-open .letter-layout,
+      #letterPage.memories-open .note-wrap,
+      #letterPage.memories-open .note {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        transition: none;
+        animation: none;
+      }
+
+      #letterPage.final-reveal .photo-wrapper {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+
+      #letterPage.memories-open .photo-wrapper {
+        transform: none;
+        will-change: opacity;
+        animation: mobileMemoryFadeOptimized 340ms linear var(--memory-delay-mobile, 0ms) both;
+      }
+
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(2) { --memory-delay-mobile: 60ms; --flash-delay-mobile: 0ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(3) { --memory-delay-mobile: 280ms; --flash-delay-mobile: 160ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(4) { --memory-delay-mobile: 500ms; --flash-delay-mobile: 320ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(2) { --memory-delay-mobile: 720ms; --flash-delay-mobile: 480ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(3) { --memory-delay-mobile: 940ms; --flash-delay-mobile: 640ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(4) { --memory-delay-mobile: 1160ms; --flash-delay-mobile: 800ms; }
+
+      #letterPage.final-reveal .rope-line,
+      #letterPage.final-reveal .long-top-line,
+      #letterPage.final-reveal .photo-section::before {
+        animation: none;
+      }
+
+      .photo-flash-lite {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        border-radius: 7px;
+        background: radial-gradient(circle, #fff 0 18%, rgba(255,255,255,.7) 42%, transparent 78%);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(-50%);
+        will-change: opacity;
+        z-index: 5;
+      }
+
+      #letterPage.memories-open.memory-flash-run .photo { animation: none; }
+      #letterPage.memories-open.memory-flash-run .photo-flash-lite {
+        animation: mobileFlashOptimized 340ms ease-out var(--flash-delay-mobile, 0ms) both;
+      }
+
+      #letterPage.memories-open::after,
+      #letterPage.memories-open .best-wishes-text::before,
+      #letterPage.memories-open .best-wishes-text::after,
+      #letterPage.memories-open .note-floating-deco,
+      #letterPage.memories-open .note-wish-seal {
+        animation-play-state: paused !important;
+      }
+    }
+
     @media (max-width: 520px) {
       .main-content {
         padding: 18px;
@@ -6006,7 +6098,7 @@
   <script>
     const colors = ["#ff0", "#f0f", "#0ff", "#0f0", "#f00", "#00f"];
     const reducedMotionMode = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const confettiCount = reducedMotionMode ? 0 : 40;
+    const confettiCount = reducedMotionMode ? 0 : (window.innerWidth <= 820 ? 8 : 28);
     let confettiCreated = false;
 
     function createConfetti() {
@@ -7658,6 +7750,8 @@
     }
 
     function createMemoryFrameEffects() {
+      if (window.innerWidth <= 820) return;
+
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reducedMotion) return;
 
@@ -7785,13 +7879,14 @@
       if (!letterPage) return;
 
       clearTimeout(window.__memoryEffectCleanupTimer);
+      clearTimeout(window.__mobileMemoryFlashTimer);
 
       if (button) {
         button.disabled = true;
         button.innerHTML = "<span>📸 Xem thêm kỷ niệm</span>";
       }
 
-      if (!reducedMotion && noteRect) {
+      if (!reducedMotion && noteRect && window.innerWidth > 820) {
         document.querySelectorAll(".memory-heart, .memory-frame-spark, .memory-photo-trail, .memory-camera-flash, .memory-close-spark")
           .forEach((effect) => effect.remove());
 
@@ -7835,7 +7930,31 @@
       }, 520);
     }
 
-    function showMemoryFrame() {
+    let memoryAssetsPromise = null;
+
+    function prepareMemoryAssets() {
+      if (memoryAssetsPromise) return memoryAssetsPromise;
+      const jobs = [];
+
+      document.querySelectorAll("#letterPage .photo").forEach((photo) => {
+        photo.loading = "eager";
+        photo.decoding = "async";
+        if (photo.decode) jobs.push(photo.decode().catch(() => {}));
+
+        const wrapper = photo.closest(".photo-wrapper");
+        if (wrapper && !wrapper.querySelector(".photo-flash-lite")) {
+          const flash = document.createElement("span");
+          flash.className = "photo-flash-lite";
+          flash.setAttribute("aria-hidden", "true");
+          photo.insertAdjacentElement("afterend", flash);
+        }
+      });
+
+      memoryAssetsPromise = Promise.all(jobs);
+      return memoryAssetsPromise;
+    }
+
+    async function showMemoryFrame() {
       const letterPage = document.getElementById("letterPage");
       const button = document.querySelector(".memory-more-btn");
 
@@ -7844,12 +7963,30 @@
         return;
       }
 
+      if (button) button.disabled = true;
+      await prepareMemoryAssets();
+
+      if (window.innerWidth <= 820) {
+        clearConfetti();
+        cleanupLetterPageEffects();
+      }
+
       letterPage.classList.add("memories-open");
       letterPage.classList.remove("memory-flash-run");
 
       if (button) {
         button.disabled = false;
         button.innerHTML = "<span>↩ Thu khung kỷ niệm</span>";
+      }
+
+      if (window.innerWidth <= 820) {
+        clearTimeout(window.__mobileMemoryFlashTimer);
+        window.__mobileMemoryFlashTimer = setTimeout(() => {
+          if (letterPage.classList.contains("memories-open")) {
+            letterPage.classList.add("memory-flash-run");
+          }
+        }, 1800);
+        return;
       }
 
       requestAnimationFrame(() => {
@@ -7869,6 +8006,7 @@
 
       if (mainPage.dataset.opening === "true") return;
       mainPage.dataset.opening = "true";
+      prepareMemoryAssets();
 
       clearConfetti();
       cleanupCakeIntroParticles();
