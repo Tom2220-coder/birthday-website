@@ -5769,6 +5769,31 @@
         animation: none;
       }
 
+      .letter-layout {
+        position: relative;
+      }
+
+      .letter-layout > .note-wrap {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      .letter-layout > .photo-section {
+        position: absolute;
+        top: 0;
+        width: clamp(44px, 14vw, 60px);
+        z-index: 9;
+        pointer-events: none;
+      }
+
+      .letter-layout > .photo-section:first-child {
+        left: 0;
+      }
+
+      .letter-layout > .photo-section:last-child {
+        right: 0;
+      }
+
       #letterPage.memories-open .photo-wrapper {
         transform: none;
         will-change: opacity;
@@ -7895,7 +7920,7 @@
           if (letterPage.classList.contains("memories-open")) {
             letterPage.classList.add("memory-flash-run");
           }
-        }, 5700);
+        }, 2000);
         clearTimeout(window.__memorySettleTimer);
         window.__memorySettleTimer = setTimeout(() => {
           if (letterPage.classList.contains("memories-open")) {
