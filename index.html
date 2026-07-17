@@ -5769,6 +5769,16 @@
         animation: none;
       }
 
+      #letterPage.memories-open::after,
+      #letterPage.memories-open .best-wishes-text::before,
+      #letterPage.memories-open .best-wishes-text::after,
+      #letterPage.memories-open .note-wrap::before,
+      #letterPage.memories-open .note-wrap::after,
+      #letterPage.memories-open .note-wish-seal,
+      #letterPage.memories-open .note-floating-deco {
+        animation-play-state: paused !important;
+      }
+
       .letter-layout {
         position: relative;
       }
@@ -7876,15 +7886,17 @@
       }, 520);
     }
 
-    let memoryImagesPrepared = false;
+    let memoryImagesPromise = null;
 
     function prepareMemoryImages() {
-      if (memoryImagesPrepared) return;
-      memoryImagesPrepared = true;
+      if (memoryImagesPromise) return memoryImagesPromise;
+
+      const decodeJobs = [];
 
       document.querySelectorAll("#letterPage .photo").forEach((photo) => {
         photo.loading = "eager";
-        if (photo.decode) photo.decode().catch(() => {});
+        photo.decoding = "async";
+        if (photo.decode) decodeJobs.push(photo.decode().catch(() => {}));
 
         const wrapper = photo.closest(".photo-wrapper");
         if (wrapper && !wrapper.querySelector(".photo-flash")) {
@@ -7894,15 +7906,26 @@
           photo.insertAdjacentElement("afterend", flash);
         }
       });
+
+      memoryImagesPromise = Promise.all(decodeJobs);
+      return memoryImagesPromise;
     }
 
-    function showMemoryFrame() {
+    async function showMemoryFrame() {
       const letterPage = document.getElementById("letterPage");
       const button = document.querySelector(".memory-more-btn");
 
       if (!letterPage || letterPage.classList.contains("memories-open")) {
         closeMemoryFrame();
         return;
+      }
+
+      if (button) button.disabled = true;
+      await prepareMemoryImages();
+
+      if (window.innerWidth <= 820) {
+        clearConfetti();
+        cleanupLetterPageEffects();
       }
 
       letterPage.classList.add("memories-open");
