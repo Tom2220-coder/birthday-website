@@ -5915,6 +5915,47 @@
         animation: none;
       }
 
+      /* Lightweight third-page mode: keep content, remove continuous decoration. */
+      #letterPage.final-reveal::after,
+      #letterPage.final-reveal .note-wrap::before,
+      #letterPage.final-reveal .note-wrap::after,
+      #letterPage.final-reveal .note-wish-seal,
+      #letterPage.final-reveal .note-floating-deco,
+      #letterPage.final-reveal .best-wishes-text::before,
+      #letterPage.final-reveal .best-wishes-text::after,
+      #letterPage.final-reveal .photo-section::before,
+      .memory-more-btn::before,
+      .memory-more-btn::after {
+        display: none;
+        animation: none !important;
+      }
+
+      #letterPage.final-reveal .long-top-line,
+      #letterPage.final-reveal .rope-line {
+        animation: none !important;
+        opacity: 1;
+        transform: none;
+      }
+
+      #letterPage.final-reveal:not(.memories-open) .photo-wrapper {
+        animation: none !important;
+        opacity: 1;
+        transform: none;
+      }
+
+      #letterText.signature-ready .signature-line,
+      #letterText.signature-ready .hand-signature-wrap,
+      #letterText.signature-ready .hand-signature-img {
+        animation: none !important;
+        transform: none;
+        filter: none;
+      }
+
+      #letterText.signature-ready .hand-signature-img {
+        opacity: 1;
+        clip-path: none;
+      }
+
       .corner-sticker {
         width: clamp(48px, 13vw, 64px);
         height: clamp(48px, 13vw, 64px);
@@ -6112,7 +6153,8 @@
   <script>
     const colors = ["#ff0", "#f0f", "#0ff", "#0f0", "#f00", "#00f"];
     const reducedMotionMode = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const confettiCount = reducedMotionMode ? 0 : (window.innerWidth <= 820 ? 12 : 28);
+    const mobilePerformanceMode = window.matchMedia("(max-width: 820px)").matches;
+    const confettiCount = reducedMotionMode || mobilePerformanceMode ? 0 : 28;
     let confettiCreated = false;
 
     function createConfetti() {
@@ -6166,6 +6208,10 @@
 
     function createCakeIntroParticles() {
       const intro = document.getElementById("cakeIntro");
+      if (mobilePerformanceMode) {
+        cleanupCakeIntroParticles();
+        return;
+      }
       const layerColors = ["#ffd60a", "#ffb703", "#ff9f1c", "#ffe66d", "#fff3b0", "#f77f00"];
       const creamColors = ["#ffffff", "#fff8dc", "#fff3b0", "#ffe66d"];
       const flameColors = ["#fff700", "#ffd60a", "#ff9f1c", "#ffffff"];
@@ -7554,6 +7600,8 @@
     function createLetterPageEffects() {
       cleanupLetterPageEffects();
 
+      if (mobilePerformanceMode) return;
+
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reducedMotion) return;
 
@@ -7770,6 +7818,9 @@
     }
 
     function createMemoryFrameEffects() {
+      /* The CSS flash is enough on phones; avoid creating dozens of fixed nodes. */
+      if (mobilePerformanceMode) return;
+
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reducedMotion) return;
 
@@ -8106,8 +8157,8 @@ Ktommmmmmmmmmmmmmmmm`;
         letterPage.classList.add("note-read-ready");
       }
 
-      const introStartDelay = 980;
-      const cakeIntroDuration = 27000;
+      const introStartDelay = mobilePerformanceMode ? 420 : 980;
+      const cakeIntroDuration = mobilePerformanceMode ? 800 : 27000;
       const cakeViewHold = 0;
 
       setTimeout(() => {
