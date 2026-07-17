@@ -2207,29 +2207,6 @@
       z-index: 9;
     }
 
-    /* Replay the photo entrance only when the memory frame is actually opened. */
-    #letterPage.memories-open .photo-section:first-child {
-      transition-delay: 0ms;
-    }
-
-    #letterPage.memories-open .photo-section:last-child {
-      transition-delay: 150ms;
-    }
-
-    #letterPage.memories-open .photo-wrapper {
-      animation:
-        photoDropIn 720ms cubic-bezier(.18, .78, .22, 1.04) var(--memory-delay, 0ms) both,
-        hangingPhotoSway 3600ms ease-in-out calc(var(--memory-delay, 0ms) + 760ms) infinite alternate;
-    }
-
-    #letterPage.memories-open .photo-wrapper:nth-of-type(1) { --memory-delay: 80ms; }
-    #letterPage.memories-open .photo-wrapper:nth-of-type(2) { --memory-delay: 210ms; }
-    #letterPage.memories-open .photo-wrapper:nth-of-type(3) { --memory-delay: 340ms; }
-
-    #letterPage.memories-closing .photo-section {
-      transition-delay: 0ms;
-    }
-
     #letterPage.memories-open .note-wrap {
       transform: translateY(-4px) scale(1.015);
       filter:
@@ -4704,22 +4681,6 @@
       }
     }
 
-    @keyframes memoryMobileReveal {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-
-    @keyframes memoryMobileFlash {
-      0%, 100% { filter: brightness(1) saturate(1); }
-      32% {
-        filter: brightness(2.35) saturate(0.82);
-        box-shadow:
-          inset 0 0 20px rgba(255, 255, 255, 0.92),
-          0 0 24px rgba(255, 255, 255, 0.95),
-          0 0 42px rgba(255, 214, 10, 0.78);
-      }
-    }
-
     @keyframes memoryCameraFlash {
       0% {
         opacity: 0;
@@ -5753,21 +5714,6 @@
     }
 
     @media (max-width: 820px) {
-      #mainPage::before {
-        filter: blur(12px);
-        animation-duration: 26000ms;
-      }
-
-      #mainPage::after {
-        filter: blur(8px);
-        animation: none;
-        opacity: 0.5;
-      }
-
-      .photo {
-        backdrop-filter: none;
-      }
-
       #letterPage {
         align-items: flex-start;
         overflow-y: auto;
@@ -5852,108 +5798,15 @@
 
       #letterPage.memories-open .letter-layout {
         gap: clamp(6px, 2vw, 14px);
-        transform: none;
+        transform: translateY(-4px);
       }
 
       #letterPage.memories-open .letter-layout > .photo-section:first-child {
-        transform: none;
+        transform: translateX(clamp(4px, 2.4vw, 12px)) translateY(-2px) scale(1.01);
       }
 
       #letterPage.memories-open .letter-layout > .photo-section:last-child {
-        transform: none;
-      }
-
-      .photo-section {
-        transform: none;
-        filter: none;
-        transition: opacity 260ms ease, visibility 260ms ease;
-      }
-
-      #letterPage.memories-open .note-wrap {
-        transform: none;
-        filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.18));
-      }
-
-      #letterPage.memories-open .photo-wrapper {
-        transform: none;
-        animation: memoryMobileReveal 300ms linear var(--memory-delay, 0ms) both;
-      }
-
-      /* One deterministic sequence: all left photos, then all right photos. */
-      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(2) { --memory-delay: 80ms; }
-      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(3) { --memory-delay: 230ms; }
-      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(4) { --memory-delay: 380ms; }
-      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(2) { --memory-delay: 530ms; }
-      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(3) { --memory-delay: 680ms; }
-      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(4) { --memory-delay: 830ms; }
-
-      #letterPage.memories-open.memory-flash-run .photo {
-        animation: memoryMobileFlash 620ms ease-out var(--flash-delay, 0s) 1 both;
-      }
-
-      .memory-camera-flash {
-        mix-blend-mode: normal;
-        box-shadow:
-          0 0 28px rgba(255, 255, 255, 0.96),
-          0 0 48px rgba(255, 214, 10, 0.72);
-      }
-
-      #letterText {
-        transform: none;
-      }
-
-      .letter-char {
-        opacity: 1;
-        transform: none;
-        animation: none;
-        will-change: auto;
-      }
-
-      .letter-char.spark::before,
-      .letter-char.spark::after {
-        display: none;
-        animation: none;
-      }
-
-      /* Lightweight third-page mode: keep content, remove continuous decoration. */
-      #letterPage.final-reveal::after,
-      #letterPage.final-reveal .note-wrap::before,
-      #letterPage.final-reveal .note-wrap::after,
-      #letterPage.final-reveal .note-wish-seal,
-      #letterPage.final-reveal .note-floating-deco,
-      #letterPage.final-reveal .best-wishes-text::before,
-      #letterPage.final-reveal .best-wishes-text::after,
-      #letterPage.final-reveal .photo-section::before,
-      .memory-more-btn::before,
-      .memory-more-btn::after {
-        display: none;
-        animation: none !important;
-      }
-
-      #letterPage.final-reveal .long-top-line,
-      #letterPage.final-reveal .rope-line {
-        animation: none !important;
-        opacity: 1;
-        transform: none;
-      }
-
-      #letterPage.final-reveal:not(.memories-open) .photo-wrapper {
-        animation: none !important;
-        opacity: 1;
-        transform: none;
-      }
-
-      #letterText.signature-ready .signature-line,
-      #letterText.signature-ready .hand-signature-wrap,
-      #letterText.signature-ready .hand-signature-img {
-        animation: none !important;
-        transform: none;
-        filter: none;
-      }
-
-      #letterText.signature-ready .hand-signature-img {
-        opacity: 1;
-        clip-path: none;
+        transform: translateX(clamp(-12px, -2.4vw, -4px)) translateY(-2px) scale(1.01);
       }
 
       .corner-sticker {
@@ -6153,8 +6006,7 @@
   <script>
     const colors = ["#ff0", "#f0f", "#0ff", "#0f0", "#f00", "#00f"];
     const reducedMotionMode = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const mobilePerformanceMode = window.matchMedia("(max-width: 820px)").matches;
-    const confettiCount = reducedMotionMode || mobilePerformanceMode ? 0 : 28;
+    const confettiCount = reducedMotionMode ? 0 : 40;
     let confettiCreated = false;
 
     function createConfetti() {
@@ -6208,10 +6060,6 @@
 
     function createCakeIntroParticles() {
       const intro = document.getElementById("cakeIntro");
-      if (mobilePerformanceMode) {
-        cleanupCakeIntroParticles();
-        return;
-      }
       const layerColors = ["#ffd60a", "#ffb703", "#ff9f1c", "#ffe66d", "#fff3b0", "#f77f00"];
       const creamColors = ["#ffffff", "#fff8dc", "#fff3b0", "#ffe66d"];
       const flameColors = ["#fff700", "#ffd60a", "#ff9f1c", "#ffffff"];
@@ -7226,24 +7074,18 @@
       const saveData = navigator.connection?.saveData;
       const width = window.innerWidth;
       const height = window.innerHeight;
-      const phoneMode = width <= 680;
-      const tabletMode = width > 680 && width <= 1024;
-      const lowPower = Boolean(saveData) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+      const phoneMode = false;
+      const tabletMode = false;
+      const lowPower = false;
       const quality = reducedMotion
         ? "minimal"
-        : lowPower
-          ? "low"
-          : phoneMode
-            ? "phone"
-            : tabletMode
-              ? "tablet"
-              : "desktop";
+        : "desktop";
       const counts = {
         minimal: { dots: 6, hearts: 0, diamonds: 0, moons: 1, lanterns: 0, comets: 0, ribbons: 0, wideRibbons: 0, starbursts: 0, titleSparks: 4, titleOrbits: 0, titleGlints: 0, notes: 0, bubbles: 2 },
         low: { dots: 14, hearts: 2, diamonds: 3, moons: 1, lanterns: 1, comets: 1, ribbons: 2, wideRibbons: 1, starbursts: 3, titleSparks: 10, titleOrbits: 2, titleGlints: 1, notes: 4, bubbles: 5 },
-        phone: { dots: 10, hearts: 2, diamonds: 2, moons: 1, lanterns: 0, comets: 1, ribbons: 1, wideRibbons: 0, starbursts: 2, titleSparks: 7, titleOrbits: 1, titleGlints: 1, notes: 2, bubbles: 3 },
-        tablet: { dots: 22, hearts: 4, diamonds: 5, moons: 1, lanterns: 1, comets: 2, ribbons: 2, wideRibbons: 1, starbursts: 4, titleSparks: 14, titleOrbits: 3, titleGlints: 1, notes: 5, bubbles: 6 },
-        desktop: { dots: 46, hearts: 8, diamonds: 9, moons: 2, lanterns: 3, comets: 3, ribbons: 4, wideRibbons: 3, starbursts: 8, titleSparks: 28, titleOrbits: 6, titleGlints: 2, notes: 8, bubbles: 11 },
+        phone: { dots: 22, hearts: 3, diamonds: 5, moons: 1, lanterns: 1, comets: 1, ribbons: 2, wideRibbons: 2, starbursts: 4, titleSparks: 16, titleOrbits: 3, titleGlints: 1, notes: 5, bubbles: 7 },
+        tablet: { dots: 42, hearts: 7, diamonds: 9, moons: 2, lanterns: 3, comets: 3, ribbons: 4, wideRibbons: 4, starbursts: 8, titleSparks: 28, titleOrbits: 6, titleGlints: 2, notes: 9, bubbles: 12 },
+        desktop: { dots: 72, hearts: 12, diamonds: 14, moons: 3, lanterns: 5, comets: 5, ribbons: 7, wideRibbons: 7, starbursts: 14, titleSparks: 46, titleOrbits: 10, titleGlints: 3, notes: 14, bubbles: 18 },
       }[quality];
       const colors = ["#ffffff", "#ffd60a", "#ffc0da", "#ff5c8a", "#36e6ff", "#fff3b0"];
       const fragment = document.createDocumentFragment();
@@ -7600,8 +7442,6 @@
     function createLetterPageEffects() {
       cleanupLetterPageEffects();
 
-      if (mobilePerformanceMode) return;
-
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reducedMotion) return;
 
@@ -7818,9 +7658,6 @@
     }
 
     function createMemoryFrameEffects() {
-      /* The CSS flash is enough on phones; avoid creating dozens of fixed nodes. */
-      if (mobilePerformanceMode) return;
-
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reducedMotion) return;
 
@@ -7843,7 +7680,7 @@
       const fragment = document.createDocumentFragment();
       const rand = (min, max) => min + Math.random() * (max - min);
       const colors = ["#ffffff", "#ffd60a", "#fff3b0", "#ff5c8a", "#36e6ff", "#ffc0da"];
-      const countScale = window.innerWidth < 680 ? 0.22 : window.innerWidth <= 1024 ? 0.55 : 0.8;
+      const countScale = window.innerWidth < 680 ? 0.72 : 1;
       const sparkCount = Math.round(54 * countScale);
       const heartCount = Math.round(18 * countScale);
       const trailCount = Math.round(12 * countScale);
@@ -7963,7 +7800,7 @@
         const colors = ["#ffffff", "#ffd60a", "#fff3b0", "#ff5c8a", "#36e6ff"];
         const centerX = noteRect.left + noteRect.width / 2;
         const centerY = noteRect.top + noteRect.height * 0.58;
-        const closeCount = window.innerWidth < 680 ? 8 : 22;
+        const closeCount = window.innerWidth < 680 ? 22 : 38;
 
         for (let i = 0; i < closeCount; i++) {
           const spark = document.createElement("span");
@@ -7988,16 +7825,14 @@
         }, 1250);
       }
 
-      letterPage.classList.add("memories-closing");
       letterPage.classList.remove("memories-open");
       letterPage.classList.remove("memory-flash-run");
 
       setTimeout(() => {
-        letterPage.classList.remove("memories-closing");
         if (button) {
           button.disabled = false;
         }
-      }, 720);
+      }, 520);
     }
 
     function showMemoryFrame() {
@@ -8009,7 +7844,6 @@
         return;
       }
 
-      letterPage.classList.remove("memories-closing");
       letterPage.classList.add("memories-open");
       letterPage.classList.remove("memory-flash-run");
 
@@ -8020,19 +7854,8 @@
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          const flashDelay = window.innerWidth <= 820 ? 500 : 260;
-          if (button) button.disabled = true;
-
-          setTimeout(() => {
-            letterPage.classList.add("memory-flash-run");
-            createMemoryFrameEffects();
-          }, flashDelay);
-
-          setTimeout(() => {
-            if (button && letterPage.classList.contains("memories-open")) {
-              button.disabled = false;
-            }
-          }, flashDelay + 720);
+          letterPage.classList.add("memory-flash-run");
+          createMemoryFrameEffects();
         });
       });
     }
@@ -8107,15 +7930,6 @@ Ktommmmmmmmmmmmmmmmm`;
 
             const letters = Array.from(token);
 
-            if (window.innerWidth <= 820) {
-              /* Keep one node per word on mobile to prevent typing reflow jitter. */
-              wordElement.textContent = token;
-              (signatureElement || target).appendChild(wordElement);
-              index++;
-              setTimeout(typeText, speed);
-              return;
-            }
-
             for (let i = 0; i < letters.length; i++) {
               const charElement = document.createElement("span");
 
@@ -8157,8 +7971,8 @@ Ktommmmmmmmmmmmmmmmm`;
         letterPage.classList.add("note-read-ready");
       }
 
-      const introStartDelay = mobilePerformanceMode ? 420 : 980;
-      const cakeIntroDuration = mobilePerformanceMode ? 800 : 27000;
+      const introStartDelay = 980;
+      const cakeIntroDuration = 27000;
       const cakeViewHold = 0;
 
       setTimeout(() => {
@@ -8256,3 +8070,6 @@ Ktommmmmmmmmmmmmmmmm`;
   </script>
 </body>
 </html>
+
+
+
