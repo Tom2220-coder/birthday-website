@@ -5784,6 +5784,18 @@
         transform: none;
       }
 
+      #letterPage.memories-open.memory-settled .rope-line {
+        animation: ropeMiniSway 4200ms ease-in-out infinite alternate;
+      }
+
+      #letterPage.memories-open .note,
+      #letterPage.memories-open .note-wrap,
+      #letterPage.memories-open .letter-layout {
+        transform: none;
+        transition: none;
+        animation: none;
+      }
+
       #letterPage.memories-open .photo-wrapper {
         transform: none;
         animation: mobileMemoryFadeIn 360ms linear var(--mobile-memory-delay, 0ms) both;
@@ -6007,7 +6019,7 @@
   <script>
     const colors = ["#ff0", "#f0f", "#0ff", "#0f0", "#f00", "#00f"];
     const reducedMotionMode = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const confettiCount = reducedMotionMode ? 0 : 40;
+    const confettiCount = reducedMotionMode ? 0 : (window.innerWidth <= 820 ? 14 : 32);
     let confettiCreated = false;
 
     function createConfetti() {
@@ -7789,6 +7801,8 @@
       if (!letterPage) return;
 
       clearTimeout(window.__memoryEffectCleanupTimer);
+      clearTimeout(window.__memorySettleTimer);
+      letterPage.classList.remove("memory-settled");
 
       if (button) {
         button.disabled = true;
@@ -7862,6 +7876,7 @@
 
       letterPage.classList.add("memories-open");
       letterPage.classList.remove("memory-flash-run");
+      letterPage.classList.remove("memory-settled");
 
       if (button) {
         button.disabled = false;
@@ -7869,7 +7884,14 @@
       }
 
       if (window.innerWidth <= 820) {
+        clearConfetti();
         letterPage.classList.add("memory-flash-run");
+        clearTimeout(window.__memorySettleTimer);
+        window.__memorySettleTimer = setTimeout(() => {
+          if (letterPage.classList.contains("memories-open")) {
+            letterPage.classList.add("memory-settled");
+          }
+        }, 4700);
         if (button) button.disabled = false;
         return;
       }
@@ -7922,6 +7944,7 @@
       letterPage.classList.remove("note-read-ready");
       letterPage.classList.remove("memories-open");
       letterPage.classList.remove("memory-flash-run");
+      letterPage.classList.remove("memory-settled");
 
       mainPage.classList.add("opening-out");
 
