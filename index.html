@@ -4705,8 +4705,8 @@
     }
 
     @keyframes memoryMobileReveal {
-      0% { opacity: 0; transform: translateY(-14px) rotate(var(--tilt, -2deg)); }
-      100% { opacity: 1; transform: translateY(0) rotate(var(--tilt, -2deg)); }
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
 
     @keyframes memoryMobileFlash {
@@ -5875,8 +5875,17 @@
       }
 
       #letterPage.memories-open .photo-wrapper {
-        animation: memoryMobileReveal 420ms ease-out var(--memory-delay, 0ms) both;
+        transform: none;
+        animation: memoryMobileReveal 300ms linear var(--memory-delay, 0ms) both;
       }
+
+      /* One deterministic sequence: all left photos, then all right photos. */
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(2) { --memory-delay: 80ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(3) { --memory-delay: 230ms; }
+      #letterPage.memories-open .photo-section:first-child .photo-wrapper:nth-of-type(4) { --memory-delay: 380ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(2) { --memory-delay: 530ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(3) { --memory-delay: 680ms; }
+      #letterPage.memories-open .photo-section:last-child .photo-wrapper:nth-of-type(4) { --memory-delay: 830ms; }
 
       #letterPage.memories-open.memory-flash-run .photo {
         animation: memoryMobileFlash 620ms ease-out var(--flash-delay, 0s) 1 both;
@@ -5887,6 +5896,23 @@
         box-shadow:
           0 0 28px rgba(255, 255, 255, 0.96),
           0 0 48px rgba(255, 214, 10, 0.72);
+      }
+
+      #letterText {
+        transform: none;
+      }
+
+      .letter-char {
+        opacity: 1;
+        transform: none;
+        animation: none;
+        will-change: auto;
+      }
+
+      .letter-char.spark::before,
+      .letter-char.spark::after {
+        display: none;
+        animation: none;
       }
 
       .corner-sticker {
@@ -8029,6 +8055,15 @@ Ktommmmmmmmmmmmmmmmm`;
             }
 
             const letters = Array.from(token);
+
+            if (window.innerWidth <= 820) {
+              /* Keep one node per word on mobile to prevent typing reflow jitter. */
+              wordElement.textContent = token;
+              (signatureElement || target).appendChild(wordElement);
+              index++;
+              setTimeout(typeText, speed);
+              return;
+            }
 
             for (let i = 0; i < letters.length; i++) {
               const charElement = document.createElement("span");
